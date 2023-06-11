@@ -1,0 +1,44 @@
+<?php declare(strict_types=1); //Forçar strict
+
+// var_dump( file_exists('../Model/crud.php'));
+// die();
+require_once 'Classes/controlCrud.php';
+require_once __DIR__.'/../Model/crud.php';
+
+
+final class Cadastro extends Insert {
+    private $dados;
+    private $model;
+    private $path;
+
+    function __construct(array $inputs, string $typeOfUser="AUTH-USER_LV-1~R@@T") {
+        //Define o objeto do CRUD
+        $this->model = new Crud($typeOfUser); //Abre o CRUD com o nível de acesso do usuário $typeOfUser
+
+        //Define o caminho do arquivo que requisitou
+        $this->path = $inputs['path'];
+        unset($inputs['path']);
+
+        //Array com os dados filtrados
+        $this->dados = $this->filterInput($inputs,$typeOfUser); //Filtra os inputs
+        
+        //Se houve sucesso no Model
+        $sucesso = $this->enviarParaModel($this->dados,$this->model);
+
+        if ($sucesso) {
+
+            //Diferenciar se está logado ou não
+            header('Location: /Novo_APAE/public/'.$this->path.'?cadastroFail=0');
+            exit();
+            
+        } else {
+
+            //Redireciona para o cadastro com parâmetro cadastroFail
+            //header('Location: /Novo_APAE/public/'.$this->path.'?cadastroFail=1');
+            exit();
+
+        }
+    }
+
+}
+
