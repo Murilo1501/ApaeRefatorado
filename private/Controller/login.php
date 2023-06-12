@@ -20,13 +20,14 @@ final class Login extends LoginVerify {
             //Carregar os dados necessários
             session_start();
             $_SESSION["email"] = $inputs["Email"];
+            $_SESSION["type"] = $modelReturn;
             
             //Diferenciar cada usuário e redirecionar para a página certa
             header('Location: /Novo_APAE/public/afterLogin/'.$modelReturn.'/');
             exit();
         } else {
-            //Redireciona para o cadastro com parâmetro loginFail
-            header('Location: /Novo_APAE/public/beforeLogin/login.php?loginFail=1');
+            //Redireciona para o cadastro com parâmetro f (falha)
+            header('Location: /Novo_APAE/public/beforeLogin/login.php?f=1');
             exit();
         }
     }

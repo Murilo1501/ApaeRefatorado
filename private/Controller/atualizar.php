@@ -11,24 +11,27 @@ final class Atualizar extends Update {
     function __construct(array $inputs) {
         //Crud
         $this->model = new Crud("admin");
-        
+
         $this->path = $inputs['path'];
         unset($inputs['path']);
-        
+
+        // unset($inputs['complemento']); //Temporariamente removido
 
         //Filtra os dados
         $this->dados = $this->filterInput($inputs,"admin");
 
-       
+        if(isset($this->dados['Senha']) && $this->dados['Senha']=="") {
+            unset($this->dados['Senha']);
+        }
 
         $sucesso = $this->enviarParaModel($this->dados,$this->model);
 
         if ($sucesso) {
-            header('Location:../afterLogin/'.$this->path.'?updateFail=0');
+            header('Location: /Novo_APAE/public/afterLogin/'.$this->path.'?email='.$this->dados['Email'].'&f=0');
             exit();
         } else {
             //Redireciona para a mesma página com a mensagem de falha
-           // header('Location:../afterLogin/'.$this->path.'?updateFail=1');
+            header('Location: /Novo_APAE/public/afterLogin/'.$this->path.'?email='.$this->dados['Email'].'&f=1');
             exit();
         }
     }

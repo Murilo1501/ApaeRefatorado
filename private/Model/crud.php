@@ -25,10 +25,10 @@ final class Crud extends DataEncrytype
         $this->userDB = $typeUser[0];
         $this->passDB = $typeUser[1];
         $this->pdo = new PDO("mysql:host=localhost;dbname=apae2",$this->userDB,$this->passDB);
-        $decriptSenha = $this->DecryptKey();
+        //$decriptSenha = $this->DecryptKey();
         $this->queries = [
-            'usuarios'=> "INSERT INTO usuarios (nome,email,cep,cpf,data_nasc,senha,cidade,numero,nivel_acesso) VALUES (?,?,?,?,?,?,?,?,?)",
-            'parceiros'=> "INSERT INTO usuarios (nome,email,cep,cpf,data_nasc,senha,cidade,numero,ramoAtiv,nivel_acesso) VALUES (?,?,?,?,?,?,?,?,?,?)",
+            'usuarios'=> "INSERT INTO usuarios (nome,email,cep,cpf,data_nasc,senha,endereco,numero,nivel_acesso,data_cadastro,ativo) VALUES (?,?,?,?,?,?,?,?,?,,1)",
+            'parceiros'=> "INSERT INTO usuarios (nome,ramoAtiv,email,senha,nivel_acesso,data_cadastro,ativo) VALUES (?,?,?,?,?,?,1)",
             'eventos_notices' => "INSERT INTO noticias  (titulo,texto,tipo,inicio,termino) VALUES (?,?,?,?,?)",
             'product' => "INSERT INTO produtos (nome,descricao,preco) VALUES (?,?,?)"
         ];
@@ -58,41 +58,34 @@ final class Crud extends DataEncrytype
             $proxy = [];
           
             switch($type_insert){ // Switch que faz as condições para saber qual o tipo de requisão foi feita
+                case "admin":
                 case "comum":
-                  $stm = $this->pdo->prepare($queryChose_user);
-                  foreach($dados as $v){   // laço de repetição que faz o cadastro sozinho com o array dos dados
-                    $proxy[] = $v;
-                  }     
-                
-                 if($stm->execute($proxy)){
-                    return true;
-                 }
-                 return false;
+                   
+                    $stm = $this->pdo->prepare($queryChose_user);
+                    foreach($dados as $v){   // laço de repetição que faz o cadastro sozinho com o array dos dados
+                        $proxy[] = $v;
+                    }
+
+                    $proxy[] = date("Y-m-d");
+                    var_dump($dados);
+                    if($stm->execute($proxy)){
+                        return true;
+                    }
+                    return false;
         
                 break;
 
-                case "admin":
-                    $stm = $this->pdo->prepare($queryChose_user);
-                  foreach($dados as $v){
-                    $proxy[] = $v;
-                  }
-
-                  if($stm->execute($proxy)){
-                    return true;
-                 }
-                  return false;
-                break;
-
-                case "parceiro":
+                case "empresas":
                     $stm = $this->pdo->prepare($queryChose_parceiros);
                     var_dump($dados);
                     foreach($dados as $v){
                         $proxy[] = $v;
                     }
-                  if($stm->execute($proxy)){
-                    return true;
-                  }
-                  return false;
+                    $proxy[] = date("Y-m-d");
+                    if($stm->execute($proxy)){
+                        return true;
+                    }
+                    return false;
 
                 break;
                 
@@ -113,6 +106,7 @@ final class Crud extends DataEncrytype
                 case "product":
                     
                     unset($dados['nivel']);
+
                     $stm = $this->pdo->prepare($queryChose_product);
                     foreach($dados as $v){
                         $proxy[] = $v;
@@ -135,17 +129,18 @@ final class Crud extends DataEncrytype
           
     }
 
-    public function read(string $user,string $page="1"): bool | array | int {
+    public function read(string $user,string $page): bool | array | int {
         try {
            
+           
+            $initialId = strval((intval($page)-1)*10);
+            $finalId = strval(intval($page)*200);
             //Ler os dados do DB
             switch($user){
                 case "all":
-                    $query = "SELECT * FROM usuarios  WHERE :initialId < id AND id <= :finalId ";
-                    $initialId = strval(intval($page)-1);
-                    $finalId = strval(intval($page)*200);
+                   
         
-                    
+                    $query = "SELECT * FROM usuarios  WHERE :initialId < id AND id <= :finalId ORDER BY id ASC  ";
                     $stm = $this->pdo->prepare($query);
                     $stm->setFetchMode(PDO::FETCH_ASSOC);
                     $stm->bindParam(":initialId",$initialId);
@@ -174,10 +169,12 @@ final class Crud extends DataEncrytype
 
                 case "product":
 
-                    $query = "SELECT * FROM produtos ORDER BY id DESC LIMIT 3  ";
+                    $query = "SELECT * FROM produtos WHERE :initialId < id AND id <= :finalId ORDER BY id DESC   ";
                     
                     $stm = $this->pdo->prepare($query);
                     $stm->setFetchMode(PDO::FETCH_ASSOC);
+                    $stm->bindParam(":initialId",$initialId);
+                    $stm->bindParam(":finalId",$finalId);
                     $stm->execute();
                     
                     $data = $stm->fetchAll();
@@ -211,21 +208,33 @@ final class Crud extends DataEncrytype
 
     public function update(array $dados): bool {
         try {
-            $id = $dados['id'];
-            var_dump($dados);
             //Atualizar os dados do DB
-            $stm =$this->pdo->prepare( "UPDATE usuarios SET  numero = :numero,  cep = :cep, cidade = :cidade,  complemento = :complemento, senha = :senha, isAtivo = :isAtivo WHERE id = :id");
-            $stm->bindParam(':numero',$dados['telefone']);
-            $stm->bindParam(':cep',$dados['CEP']);
-            $stm->bindParam(':cidade',$dados['endereco']);
-            $stm->bindParam(':senha',$dados['senha']);
-            $stm->bindParam(':complemento',$dados['complemento']);
-            $stm->bindParam(':isAtivo',$dados['inlineRadioOptions']);
-            $stm->bindParam(':id',$id);
-            $stm->execute();
-            return true;
+            unset($dados['nivel']); //Nivel de acesso não utilizado
+
+            $isAtivo = $dados['ativo'] ?? 1;
+
+            $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha, ativo=:ativo WHERE id=:id";
+            $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, ativo=:ativo WHERE id=:id";
+            $stm = $this->pdo->prepare($queryComSenha);
+            $stm2 = $this->pdo->prepare($querySemSenha);
+
+            $stm->bindParam("numero",$dados['telefone']);
+            $stm->bindParam("cep",$dados['cep']);
+            $stm->bindParam("endereco",$dados['endereco']);
+            $stm->bindParam("complemento",$dados['complemento']);
+            $stm->bindParam("senha",$dados['Senha']);
+            $stm->bindParam("ativo",$isAtivo);
+            $stm->bindParam("id",$dados['id']);
+
+            $stm2->bindParam("numero",$dados['telefone']);
+            $stm2->bindParam("cep",$dados['cep']);
+            $stm2->bindParam("endereco",$dados['endereco']);
+            $stm2->bindParam("complemento",$dados['complemento']);
+            $stm2->bindParam("ativo",$isAtivo);
+            $stm2->bindParam("id",$dados['id']);
+
+            return isset($dados['Senha'])?$stm->execute():$stm2->execute();
         } catch (PDOException $exception) {
-            echo $exception;
             return false;
         }
     }
@@ -235,9 +244,8 @@ final class Crud extends DataEncrytype
     public function verifyLogin(array $dadosLogin): bool|string {
         try {
             //Fazer login
-
-
-            $result_queryLog = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = ?  /*AES_ENCRYPT(?, 'keyUsedByTheCommonUser')*/ AND senha = ? /*AES_ENCRYPT(?,'keyUsedByTheCommonUser')*/");
+        
+            $result_queryLog = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = ?  /*AES_ENCRYPT(?, 'keyUsedByTheCommonUser')*/ AND senha = ? AND ativo = 1 /*AES_ENCRYPT(?,'keyUsedByTheCommonUser')*/");
             $result_queryLog->setFetchMode(PDO::FETCH_ASSOC);
             $result_queryLog->bindParam(1,$dadosLogin['Email']);
             $result_queryLog->bindParam(2,$dadosLogin['Senha']);

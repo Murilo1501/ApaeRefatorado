@@ -6,7 +6,7 @@ class Insert extends Treating {
         if (count($dado)>0) {
             //Enviar para model
             $sucesso = $model->insert($dado);
-            
+            var_dump($sucesso);
             return $sucesso;
         } else {
             return false; 
@@ -15,12 +15,11 @@ class Insert extends Treating {
 }
 
 class Update extends Treating {
-    protected function enviarParaModel(array $dados,  Crud $model): bool {
-        if (count($dados)>0) {
+    protected function enviarParaModel(array $dado,  Crud $model): bool {
+        if (count($dado)>0) {
             //Enviar para model
-          
-            $sucesso = $model->update($dados);
-   
+            $sucesso = $model->update($dado);
+            
             return $sucesso;
         } else {
             return false; 
@@ -29,9 +28,9 @@ class Update extends Treating {
 }
 
 class Read extends Treating {
-    protected function enviarParaModel(Crud $model, $type): bool|array|string {
+    protected function enviarParaModel(string $user, string $page, Crud $model): bool|array {
         //Enviar para model
-        $sucesso = $model->read($type);
+        $sucesso = $model->read($user, $page);
         
         return $sucesso;
     }

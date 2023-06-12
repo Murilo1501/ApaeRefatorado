@@ -1,3 +1,20 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
+<?php
+
+require_once '../../../private/Controller/readData.php';
+$read = new ReadData($_SESSION['email']);
+$dados = $read->arrayData;
+$dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -78,10 +95,10 @@
             <div class="thumbnail text-center">
                 <img src="../../images/cardAdmin.png" alt="" class="w-75">
                 <div>
-                    <p class="nome fw-bold">Melissa Natale Ferreira Franco Mais Um Franco</p>
-                    <p class="cpf">123.123.123-30</p>
-                    <p class="data_nasc">12/12/1222</p>
-                    <p class="cadastro">12/12/1221</p>
+                    <p class="nome fw-bold"><?=$dados['nome']?></p>
+                    <p class="cpf"><?=$dados['cpf']?></p>
+                    <p class="data_nasc"><?=$dados['data_nasc']?></p>
+                    <p class="cadastro"><?=$dados['data_cadastro']?></p>
                 </div>
             </div>
         </div>

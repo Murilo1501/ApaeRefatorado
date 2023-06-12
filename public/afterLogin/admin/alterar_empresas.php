@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -78,8 +86,7 @@
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="password" placeholder="Senha" maxlength="24"
-                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1"
-                                required>
+                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon1"
                                 onclick="showPass('password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -95,8 +102,7 @@
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha"
-                                maxlength="99" minlength="99" onkeyup="validatePass()" aria-label="button-addon2"
-                                required>
+                                maxlength="99" minlength="99" onkeyup="validatePass()" aria-label="button-addon2">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2"
                                 onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -224,7 +230,7 @@
                         input = input.match(accept) || [];
                         return Array.from(pattern, c =>
                             input[0] === c || slots.has(c) ? input.shift() || c :
-                                .+ c
+                                + c
                         );
                     },
                     format = () => {

@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+
+    require_once '../../../private/Controller/readData.php';
+    $read = new ReadData("product",$_GET['page']?? 1);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -40,36 +51,22 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered text-center table-hover align-middle small scroll_2">
-                    <tr style="background-color: #65baeb; border-color: #2c9ada;">
+                    <?php
+                        echo "<tr style='background-color: #65baeb; border-color: #2c9ada;'>
                         <th>ID</th>
-                        <th>Título</th>
-                        <!-- <th>Descrição</th> -->
+                        <th>Nome</th>
+                        <th>Descrição</th>
                         <th>Preço</th>
-                        <th>Status</th>
-                        <th>Editar</th>
-                    </tr>
-                    <tr class="small">
-                        <td>1</td>
-                        <td>Produto Um</td>
-                        <!-- <td>aaa</td> -->
-                        <td>R$10,00</td>
-                        <td>Ativo</td>
-                        <td><button type="button" class="btn btn-primary btn-sm mt-2 mb-2 me-1 ms-1"><i
-                                    class="bi bi-pencil-square"></i></button><button type="button"
-                                class="btn btn-danger btn-sm mt-2 mb-2 me-1 ms-1"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="small">
-                        <td>2</td>
-                        <td>Produto Dois</td>
-                        <!-- <td>aaa</td> -->
-                        <td>R$10,00</td>
-                        <td>Ativo</td>
-                        <td><button type="button" class="btn btn-primary btn-sm mt-2 mb-2 me-1 ms-1"><i
-                                    class="bi bi-pencil-square"></i></button><button type="button"
-                                class="btn btn-danger btn-sm mt-2 mb-2 me-1 ms-1"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
+                    </tr> ";
+                        foreach($read->arrayData as $produtos){
+                            echo "<tr  class='small'>";
+                            foreach($produtos as $col=>$info){
+                                echo "<td>".$info."</td>";
+                            }
+                            echo"</tr>";
+                        }
+                    ?>
+                   
                 </table>
             </div>
         </div>
@@ -83,11 +80,11 @@
             </a>
           </li>
           <!-- 10 itens (1,2,3,...,10) / a seta vai mudar esses numeros pra 11-20 (11,12,13,...,20) -->
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item"><a class="page-link" href="lista_produtos.php?page=1">1</a></li>
+          <li class="page-item"><a class="page-link" href="lista_produtos.php?page=2">2</a></li>
+          <li class="page-item"><a class="page-link" href="lista_produtos.php?page=3">3</a></li>
+          <li class="page-item"><a class="page-link" href="lista_produtos.php?page=4">4</a></li>
+          <li class="page-item"><a class="page-link" href="lista_produtos.php?page=5">5</a></li>
           <li class="page-item">
             <a class="page-link" href="#">
               <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span>

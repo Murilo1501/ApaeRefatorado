@@ -1,3 +1,19 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
+<?php
+
+require_once '../../../private/Controller/readData.php';
+$read = new ReadData($_SESSION['email']);
+$dados = $read->arrayData;
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -30,14 +46,27 @@
             <div class="container border border-1 bg-body rounded-3 shadow rounded p-4 scroll_meus_dados">
                 <div class="text-start">
                     <h1 class="fs-1">Meus Dados</h1>
+                    <?php
+                        if (isset($_GET["f"]) && $_GET["f"]==1) {
+                            echo "<div class=\"alert alert-danger alert-dismissible fade show\">
+                                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                                <strong>Erro ao atualizar os dados!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.
+                                </div>";
+                        } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
+                            echo "<div class=\"alert alert-success alert-dismissible fade show\">
+                                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                                <strong>Sucesso ao atualizar os dados!</strong> Seus dados novos estão sendo exibidos abaixo.
+                                </div>";
+                        }
+                    ?>
                 </div>
-                <form method="post" action="../../routes/routes.php?"> <!-- Passar o ID do usuário como argumento -->
+                <form method="post" action="../../routes/routes.php?isUpdate=1&user=admin"> <!-- Passar o ID do usuário como argumento -->
 
                     <!-- Nome -->
                     <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
                         <div class="col-md-12 mb-3"><input type="text" class="form-control" id="nome"
-                                placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' disabled required>
+                                placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' value="<?=$dados['nome']?>" disabled required>
                         </div>
                     </div>
 
@@ -46,24 +75,24 @@
                         <label for="cpf" class="form-label">CPF</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control"
                                 placeholder="___.___.___-__" id="cpf" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' disabled required>
+                                autocomplete='off' value="<?=$dados['cpf']?>" disabled required>
                         </div>
                     </div>
 
                     <!-- Telefone -->
                     <div class="mb-3 mt-3">
                         <label for="telefone" class="form-label">Telefone</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control"
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="telefone" pattern="(\([0-9]{2}\))\s([0-9]{5})-([0-9]{4})"
                                 placeholder="(__) _____-____" id="telefone" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' required>
+                                autocomplete='off' value="<?=$dados['numero']?>" required>
                         </div>
                     </div>
 
                     <!-- CEP -->
                     <div class="mb-3 mt-3">
                         <label for="cep" class="form-label">CEP</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep"
-                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' required>
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="cep"
+                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' value="<?=$dados['cep']?>" required>
                         </div>
                     </div>
 
@@ -73,7 +102,7 @@
                             <label for="endereco" class="form-label">Endereço</label>
                             <div class="form-label">
                                 <input type="text" class="form-control" id="endereco" placeholder="Endereço"
-                                    name="endereco" maxlenght="256" disabled required>
+                                    name="endereco" maxlenght="256" value="<?=$dados['endereco']?>" readonly required>
                             </div>
                         </div>
 
@@ -81,7 +110,7 @@
                             <label for="complemento" class="form-label">Complemento</label>
                             <div class="form-label">
                                 <input type="text" class='form-control' id="complemento" name="complemento"
-                                    placeholder="Complemento">
+                                    placeholder="Complemento" value="<?=$dados['complemento']?>" required>
                             </div>
                         </div>
                     </div>
@@ -89,10 +118,10 @@
                     <!-- E-mail -->
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email"
-                                placeholder="E-mail" maxlength="128" minlength="5"
-                                pattern="^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$" autocomplete='off'
-                                disabled required>
+                        <div class="col-md-12 mb-3"> <input type="email" class="form-control" id="email" name="email"
+                                placeholder="E-mail" maxlength="128" minlength="5" style='background-color: #e9ecef;'
+                                 autocomplete='off'
+                                value="<?=$dados['email']?>" readonly required>
                         </div>
                     </div>
 
@@ -100,9 +129,8 @@
                     <div class="mb-3 mt-3">
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password" placeholder="Senha" maxlength="24"
-                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1"
-                                required>
+                            <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha" maxlength="24"
+                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon1"
                                 onclick="showPass('password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -111,16 +139,15 @@
                             Sua senha deve conter ao menos 8 caracteres, sendo 1 letra maiúscula, 1 letra minúscula
                             e 1
                             número. Limite de
-                            24 caracteres
+                            24 caracteres. Se este campo permanecer vazio, a senha não será alterada.
                         </div>
                     </div>
 
                     <div class="mb-3 mt-3">
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha"
-                                maxlength="99" minlength="99" onkeyup="validatePass()" aria-label="button-addon2"
-                                required>
+                            <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha"
+                                maxlength="24" minlength="8" onkeyup="validatePass()" aria-label="button-addon2">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2"
                                 onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -138,10 +165,11 @@
                         </div> -->
 
                     <!-- Campo invisivel / usuário -->
-                    <input type="hidden" name="path" value="afterLogin/admin/meus_dados.php">
+                    <input type="hidden" name="id" value="<?=$dados['id']?>">
+                    <input type="hidden" name="path" value="admin/meus_dados.php">
 
                     <div class="clearfix">
-                        <button type="button" class="btn btn-sm btn-outline-primary float-md-end"
+                        <button type="submit" class="btn btn-sm btn-outline-primary float-md-end"
                             id="editar">Editar<i class="bi bi-pencil-square ms-2"></i></button>
                     </div>
                 </form>

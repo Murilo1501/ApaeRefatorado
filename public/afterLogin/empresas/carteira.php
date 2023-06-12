@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="empresas") {
+        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 

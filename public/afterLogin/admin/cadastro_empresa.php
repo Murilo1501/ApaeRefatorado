@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,12 +39,35 @@
                 <div class="text-start">
                     <h1 class="fs-1">Cadastro de Empresas</h1>
                 </div>
-                <form method="post" action="../../routes/routes.php?isCadastro=1&user=parceiro">
+                <?php
+                    if (isset($_GET["f"]) && $_GET["f"]==1) {
+                        echo "<div class=\"alert alert-danger alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Erro ao cadastrar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.
+                            </div>";
+                    } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
+                        echo "<div class=\"alert alert-success alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Sucesso ao cadastrar!</strong> A nova empresa já está pronto para acessar a conta.
+                            </div>";
+                    }
+                ?>
+                <form method="post" action="../../routes/routes.php?isCadastro=1&user=empresas">
 
-                <div class="mb-3 mt-3">
+                    <!-- Nome -->
+                    <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="nome" name="Nome"
                                 placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' required>
+                        </div>
+                    </div>
+
+                    <!-- Ramo -->
+                    <div class="mb-3 mt-3">
+                        <label for="ramo_atividade" class="form-label">Ramo de atividade</label>
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="ramo_atividade" name="ramoAtiv"
+                                placeholder="Ramo de atividade" maxlenght="64" minlenght="2" autocomplete='off'
+                                required>
                         </div>
                     </div>
 
@@ -50,28 +81,8 @@
                         </div>
                     </div>
 
-                    <!-- CEP -->
-                    <div class="mb-3 mt-3">
-                        <label for="cep" class="form-label">CEP</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="CEP"
-                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' required>
-                        </div>
-                    </div>
-
-                    <!-- CPF -->
-                    <div class="mb-3 mt-3">
-                        <label for="cpf" class="form-label">CPF</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="CPF"
-                                placeholder="___.___.___-__" id="cpf" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' required>
-                        </div>
-                    </div>
-
-                    <!-- Data de nascimento -->
-                    <input type="hidden" name="DataDeNascimento" value="00-00-0000">
-
                     <!-- Senha -->
-                    <div class="mb-3 mt-3">
+                    <div class="mt-3 mb-3">
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="password" placeholder="Senha" maxlength="24" name="Senha"
@@ -82,14 +93,13 @@
                                 onclick="showPass('password',this.id)"><i class="bi bi-eye-slash"></i></button>
                         </div>
                         <div class="form-text">
-                            Sua senha deve conter ao menos 8 caracteres, sendo 1 letra maiúscula, 1 letra minúscula
-                            e 1
+                            Sua senha deve conter ao menos 8 caracteres, sendo 1 letra maiúscula, 1 letra minúscula e 1
                             número. Limite de
                             24 caracteres
                         </div>
                     </div>
 
-                    <div class="mb-3 mt-3">
+                    <div class="mt-3 mb-3">
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha"
@@ -103,61 +113,22 @@
                             <span class="invalid-feedback">As senhas não são iguais</span>
                         </div>
                     </div>
-                    
-                    <!-- Endereço -->
-                    <div class="mb-3 mt-3">
-                        <label for="endereco" class="form-label">Endereço</label>
-                        <div class="form-label">
-                            <input style="background-color: rgb(255, 255, 255);" type="text" class="form-control" name="Endereco"
-                                id="endereco" placeholder="Endereço" name="endereco" maxlenght="256" readonly required>
-                        </div>
-                    </div>
-                    
-                    <!-- Telefone -->
-                    <div class="mb-3 mt-3">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="Numero"
-                                placeholder="(__) _____-____" id="telefone" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' required>
-                        </div>
-                    </div>
 
-                    <div class="mb-3 mt-3">
-                        <label for="ramo_atividade" class="form-label">Ramo de atividade</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="ramo_atividade" name="ramo_atividade"
-                                placeholder="Ramo de atividade" maxlenght="64" minlenght="2" autocomplete='off'
-                                required>
-                        </div>
-                    </div>
-
-
-                    <!-- imagem
-                        <div>
-                          <label for="file" class="form-label">Imagem</label>
-                          <input class="form-control" type="file" id="file" placeholder="file">
-                          <span class="invalid-feedback">Preencha este campo</span>
-                        </div> -->
+                    <!-- 
+                    <div>
+                      <label for="file" class="form-label">Imagem</label>
+                      <input class="form-control" type="file" id="file" placeholder="file">
+                      <span class="invalid-feedback">Preencha este campo</span>
+                    </div> -->
 
                     <!-- Campo invisivel / usuário -->
-                    <input type="hidden" name="path" value="afterLogin/admin/cadastro_admin.php">
+                    <input type="hidden" name="path" value="afterLogin/admin/cadastro_empresa.php">
 
                     <!-- Botão -->
                     <div class="clearfix">
                         <button type="submit" class="btn btn-sm btn-outline-primary float-md-end mt-2"
                             id="cadastrar">Cadastrar<i class="bi bi-plus-square ms-2"></i></button>
                     </div>
-
-
-                    <!-- Ramo -->
-                  
-
-                
-
-                    <!-- E-mail -->
-                 
-
-                    <!-- Senha -->
-                 
                 </form>
             </div>
         </div>
@@ -165,28 +136,6 @@
 
     <!-- Footer -->
     <?php require_once '../../shared/footer.html';?>
-
-
-
-    <!-- Scrollavel -->
-    <script>
-        document.querySelectorAll('input').forEach(inpur => {
-            inpur.addEventListener('focus', function () {
-                if (inpur.className === "sim") {
-                    inpur.classList.add("on");
-                    inpur.parentNode.classList.add("on2");
-                }
-            });
-
-            inpur.addEventListener('focusout', function () {
-                if (inpur.value === inpur.getAttribute("placeholder") || inpur.value === "") {
-                    inpur.classList.remove("on");
-                    inpur.parentNode.classList.remove("on2");
-                }
-            });
-
-        });
-    </script>
 
     <!-- Scrollavel -->
     <script>
@@ -205,8 +154,7 @@
                 document.getElementById("conf-pass-lbl").innerHTML = "As senhas não são iguais";
                 document.getElementById("conf-pass-lbl").style.color = "rgb(255,0,0)";
             } else {
-                document.getElementById("conf-pass-lbl").innerHTML = "Senhas compatíveis";
-                document.getElementById("conf-pass-lbl").style.color = "green";
+                document.getElementById("conf-pass-lbl").innerHTML = "";
                 document.getElementById("cadastrar").disabled = false;
                 confPass.minLength = 8;
             }
@@ -217,80 +165,6 @@
             document.getElementById(btn).getElementsByClassName("bi")[0].classList.toggle("bi-eye-slash");
         }
     </script>
-
-    <!-- Script CEP autocomplete -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            function limpa_formulário_cep() {
-                $("#endereco").val("");
-            }
-            $("#cep").blur(function () {
-
-                var cep = $(this).val().replace(/\D/g, '');
-                if (cep != "") {
-                    var validacep = /^[0-9]{8}$/;
-
-                    if (validacep.test(cep)) {
-                        $("#endereco").val("Consultando...");
-                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
-
-                            if (!("erro" in dados)) {
-                                $("#endereco").val(dados.logradouro + ", " + dados.bairro + ", " + dados.localidade + ", " + dados.uf);
-                            }
-                            else {
-                                $("#endereco").val("Seu CEP não foi encontrado")
-                            }
-                        });
-                    }
-                    else {
-                        $("#endereco").val("Seu CEP é inválido");
-                    }
-                }
-                else {
-                    limpa_formulário_cep();
-                }
-            });
-        });
-
-    </script>
-
-    <!-- Masks -->
-    <script>
-        //Credits: https://stackoverflow.com/a/55010378
-        document.addEventListener('DOMContentLoaded', () => {
-            for (const el of document.querySelectorAll("[placeholder][data-slots]")) {
-                const pattern = el.getAttribute("placeholder"),
-                    slots = new Set(el.dataset.slots || "x"),
-                    prev = (j => Array.from(pattern, (c, i) => slots.has(c) ? j = i + 1 : j))(0),
-                    first = [...pattern].findIndex(c => slots.has(c)),
-                    accept = new RegExp(el.dataset.accept || "\\d", "g"),
-                    clean = input => {
-                        input = input.match(accept) || [];
-                        return Array.from(pattern, c =>
-                            input[0] === c || slots.has(c) ? input.shift() || c : c
-                        );
-                    },
-                    format = () => {
-                        const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
-                            i = clean(el.value.slice(0, i)).findIndex(c => slots.has(c));
-                            return i < 0 ? prev[prev.length - 1] : back ? prev[i - 1] || first : i;
-                        });
-                        el.value = clean(el.value).join``;
-                        el.setSelectionRange(i, j);
-                        back = false;
-                    };
-                let back = false;
-                el.addEventListener("keydown", (e) => back = e.key === "Backspace");
-                el.addEventListener("input", format);
-                el.addEventListener("focus", format);
-                el.addEventListener("blur", () => el.value === pattern && (el.value = ""));
-            }
-        });
-    </script>
-
-    <script src="../../shared/placeholder.js"></script>
 </body>
 
 </html>

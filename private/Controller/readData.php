@@ -1,23 +1,19 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 
 require_once 'Classes/controlCrud.php';
 require_once __DIR__.'/../Model/crud.php';
 
 final class ReadData extends Read{
-    
-    private string $type;
     private $model;
     public $arrayData;
-    
-    
 
-    function __construct(? string $userType, $type)
+    function __construct(string $user, string $page="1", ?string $userType = "AUTH-USER_LV-1~R@@T")
     {
         $this->model = new Crud($userType);
+
+        $sucesso = $this->enviarParaModel($user,$page,$this->model);
         
-        $sucesso = $this->enviarParaModel($this->model, $type);
-       
         if($sucesso){
             $this->arrayData = $sucesso;
         } else {

@@ -6,7 +6,7 @@ require_once '../../private/Controller/readData.php';
 require_once '../../private/Controller/atualizar.php';
 
 //Type of user
-
+$userType = $_REQUEST['user'];
 
 //Login do CRUD
 if (isset($_REQUEST['isLogin']) && $_REQUEST['isLogin']==1) {
@@ -19,7 +19,6 @@ if (isset($_REQUEST['isLogin']) && $_REQUEST['isLogin']==1) {
 
 //Insert do CRUD
 if (isset($_REQUEST['isCadastro']) && $_REQUEST['isCadastro']==1) {
-    $userType = $_REQUEST['user'];
     new Cadastro($_POST,$userType);
     exit();
 }

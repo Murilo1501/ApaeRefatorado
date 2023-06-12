@@ -27,14 +27,21 @@ final class Cadastro extends Insert {
 
         if ($sucesso) {
 
-            //Diferenciar se está logado ou não
-            header('Location: /Novo_APAE/public/'.$this->path.'?cadastroFail=0');
+            $explodedPath = explode("/",$this->path); //Divide em uma array de string, sendo o delimitador a /
+            $mainDirectory = $explodedPath[0]; //beforeLogin ou afterLogin
+
+            //Diferenciar para onde ir
+            if ($mainDirectory == "beforeLogin") {
+                header('Location: /Novo_APAE/public/beforeLogin/login.php');
+                exit();
+            }
+            header('Location: /Novo_APAE/public/'.$this->path.'?f=0');
             exit();
             
         } else {
 
-            //Redireciona para o cadastro com parâmetro cadastroFail
-            //header('Location: /Novo_APAE/public/'.$this->path.'?cadastroFail=1');
+            //Redireciona para o cadastro com parâmetro f (falha)
+            // header('Location: /Novo_APAE/public/'.$this->path.'?f=1');
             exit();
 
         }

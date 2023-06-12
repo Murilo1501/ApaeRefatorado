@@ -1,4 +1,16 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
+<?php
+
+require_once '../../../private/Controller/readData.php';
+$read = new ReadData("user");
+$dados = $read->arrayData;
 
 ?>
 

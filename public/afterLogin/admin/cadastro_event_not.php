@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,6 +39,20 @@
                 <div class="text-start">
                     <h1 class="fs-1">Cadastro de Eventos e Notícias</h1>
                 </div>
+
+                <?php
+                    if (isset($_GET["f"]) && $_GET["f"]==1) {
+                        echo "<div class=\"alert alert-danger alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Erro ao cadastrar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.
+                            </div>";
+                    } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
+                        echo "<div class=\"alert alert-success alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Sucesso ao cadastrar!</strong> O novo evento já está disponível para o usuário Amigo 10 .
+                            </div>";
+                    }
+                ?>
                 <form method="POST" action="../../routes/routes.php?isCadastro=1&user=eventos_notices">
 
                     <!-- Título -->
@@ -52,13 +74,13 @@
                         <label for="" class="form-label">Do que se trata a descrição acima?</label>
                         <div class="form-lable"></div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="type" id="radio1"
-                                value="eventos">
+                            <input class="form-check-input" type="radio" name="evento" id="radio1"
+                               >
                             <label class="form-check-label" for="radio1">Evento</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="type" id="radio2"
-                                value="noticias">
+                            <input class="form-check-input" type="radio" name="noticia" id="radio2"
+                                >
                             <label class="form-check-label" for="radio2">Notícia</label>
                         </div>
                     </div>

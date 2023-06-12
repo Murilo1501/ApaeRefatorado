@@ -1,15 +1,13 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    
+    }
 
-session_start();
-if(!isset($_SESSION['email'])) {
-    header('Location: /Novo_APAE/public/beforeLogin/login.php');
-    exit();
-}
-
-require_once '../../../private/Controller/readData.php';
-require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
-
+    require_once '../../../private/Controller/readData.php';
+    $read = new ReadData("noticia");
 
 ?>
 
@@ -32,37 +30,52 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/EmpresasParceiras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <title>Apae Guarulhos</title>
 
 </head>
 
 <body>
-<?php require_once '../../shared/sidebarComum.php'?>
+    
+<?php require_once '../../shared/sidebarComum.php';?>
 
     <!-- Banner Hero -->
-    <div
-        style="position: relative; background: url(../../images/hero.png) no-repeat center; background-size: cover; height: 500px; overflow: hidden;">
-        <!-- <div class="container">
-            <div class="text-secondary px-4 py-5 mb-4 mt-5 text-center">
+    <div style="position: relative; background: url('https://media.preziusercontent.com/media/8/5/b/b/2/3f0b0cb4484ae05af7772e924b6.jpeg') no-repeat center; background-size: cover; height: 500px;">
+         <div class="container">
+            <div class="text-secondary px-4 py-5 mb-4 text-center">
                 <div class="py-5">
-                    <h1 class="display-5 fw-bold text-white">Associação de Pais e Amigos dos Excepcionais Guarulhos</h1>
+                    <h1 class="display-5 fw-bold text-black">Associação de Pais e Amigos dos Excepcionais Guarulhos</h1>
                     <div class="col-lg-10 mx-auto">
-                        <p class="fs-5 mb-4 text-light">Fundada em
+                        <p class="fs-5 mb-4 text-black-70">Fundada em
                             1° de Julho de 1979 por um grupo de voluntárias, professoras e pais, sem fins
                             lucrativos, com o intuito de promover a atenção integral às pessoas com deficiência
                             intelectual e múltipla.</p>
                         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                            <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Custom
-                                button</button>
+                            <a href="../comum/tela_doacao.php" role="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">DOAR</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div> 
     </div>
 
-    <!-- Missão, Visão & Valores -->
+    <!-- texto -->
+        <div class="container_text ">
+            <div class="texto_inicial">
+                <div class="texto1">
+                    <h1 class="fs-2 mb-0">Porque continuar assinando o Amigo 10?</h1>
+                    <br>
+                    <p class="text-decoration-none text-black-10">Continue apoiando o programa Amigo 10 e faça a diferença na vida das pessoas com deficiência. Sua assinatura oferece recursos, oportunidades e serviços essenciais para promover uma vida mais inclusiva. Juntos, construímos um mundo mais igualitário e transformamos vidas. Seja parte dessa jornada inspiradora e continue a apoiar o Amigo 10.</p>
+                </div>
+            </div>
+            <div class="imagem1">
+                <img src="https://img.freepik.com/vetores-gratis/ilustracao-em-vetor-conceito-abstrato-de-filantropia-iniciativa-privada-generosidade-fundo-de-doacao-presente-monetario-apoio-financeiro-solucao-de-problema-publico-metafora-abstrata-de-filantropia-social_335657-4227.jpg?w=996&t=st=1685295734~exp=1685296334~hmac=32a3915d69c82673b0748c20030d571a0ada8507b18f6f66084cb863e3b83532" alt="">
+            </div>
+        </div>
+
+        <!-- Missão, Visão & Valores -->
     <div style="background-color: rgb(255, 255, 255)">
 
         <div class="container align-items-end py-4">
@@ -108,6 +121,58 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
 
     </div>
 
+    <!-- Empresas parceiras -->
+    <div style="background-color: #ebebeb">
+        <div class="container py-4">
+            <div class="texto_parceiro">
+            <p class="fs-2 mb-0">Empresas Parceiras</p>
+            <p class="text-decoration-none text-black-50">Veja algumas de nossas empresas parceiras</p>
+            </div>
+        </div>
+
+        <div class="containerEmpresas scroll_2">
+
+            <div class="wrapper">
+                <i id="left" class="fa-solid fa-angle-left"></i>
+                <ul class="carousel">
+                    <li class="card">
+                        <div class="img"><img src="../../images/AlumiS&A.jpg" alt="img" draggable="false"></div>
+                        <h2>Alumi S&A Kit Box e Ferragens</h2>
+                        <span>Empresa Mais Amiga, desde 2021.</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="../../images/GTNAutoPeças.jpg" alt="img" draggable="false"></div>
+                        <h2>GTN Auto Peças</h2>
+                        <span>Parceiro nos eventos da APAE Guarulhos.</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="../../images/Damapel.jpg" alt="img" draggable="false"></div>
+                        <h2>Damapel</h2>
+                        <span>Fornecedor de PHs.</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="../../images/Tambor-Line.jpg" alt="img" draggable="false"></div>
+                        <h2>Tambor-Line</h2>
+                        <span>Empresa Mais Amiga, desde 2021.</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="../../images/WMB.jpg" alt="img" draggable="false"></div>
+                        <h2>Grupo WMB</h2>
+                        <span> Sócio Contribuinte APAE Guarulhos, desde 2018.</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="../../images/NRMonitoramentos.jpg"img" draggable="false"></div>
+                        <h2>NR Monitoramentos</h2>
+                        <span>Sócio Contribuinte APAE Guarulhos, desde 2018.</span>
+                    </li>
+                </ul>
+                <i id="right" class="fa-solid fa-angle-right"></i>
+            </div>
+
+        </div>
+
+    </div>
+
     <!-- Últimas Notícias -->
     <div style="background-color: #f9f9f9;">
         <div class="container py-4">
@@ -116,95 +181,91 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
                 <a href="noticias.html" class="text-decoration-none text-black-50">Veja mais eventos e notícias clicando
                     aqui</a>
             </div>
-
-           
             <div class='row g-4 mt-1 mb-1 scroll_3'>
 
-                <?php
-                    foreach($read->arrayData as $dados){
-                        if($dados['tipo'] == "eventos"){
-                            echo " <div class='col-sm-6'>
-                            <div class='card'>
-                                <div class='card-body'>
-                                    <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-newspaper ms-2'></i>
-                                    </h5>
-                                    <span class='mt-0 mb-0 text-muted small'>$dados[inicio]</span>
-                                    <p class='card-text mt-1'>$dados[texto]</p>
-        
-                                    <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
-                                        data-bs-target='#noticia1'>
-                                        Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
-        
-                                    <div class='modal fade' id='noticia1' tabindex='-1' aria-hidden='true'>
-                                        <div class='modal-dialog modal-dialog-scrollable modal-xl'>
-                                            <div class='modal-content'>
-                                                <div class='modal-header'>
-                                                    <h5 class='modal-title fs-3'>$dados[titulo]</h5>
-                                                    <button type='button' class='btn-close' data-bs-dismiss='modal'
-                                                        aria-label='Close'></button>
-                                                </div>
-                                                <div class='modal-body'>
-                                                   $dados[texto] </div>
-                                                <div class='modal-footer'>
-                                                    <p class='text-black-50'>$dados[termino]</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-        
+<?php
+    foreach($read->arrayData as $dados){
+        if($dados['tipo'] == "eventos"){
+            echo " <div class='col-sm-6'>
+            <div class='card'>
+                <div class='card-body'>
+                    <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-newspaper ms-2'></i>
+                    </h5>
+                    <span class='mt-0 mb-0 text-muted small'>$dados[inicio]</span>
+                    <p class='card-text mt-1'>$dados[texto]</p>
+
+                    <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
+                        data-bs-target='#noticia1'>
+                        Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
+
+                    <div class='modal fade' id='noticia1' tabindex='-1' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-scrollable modal-xl'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title fs-3'>$dados[titulo]</h5>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                        aria-label='Close'></button>
+                                </div>
+                                <div class='modal-body'>
+                                   $dados[texto] </div>
+                                <div class='modal-footer'>
+                                    <p class='text-black-50'>$dados[termino]</p>
                                 </div>
                             </div>
-                        </div>";
-                        } else {
-                            echo "   <div class='col-sm-6'>
-                            <div class='card'>
-                                <div class='card-body'>
-                                    <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-newspaper ms-2'></i>
-                                    </h5>
-                                    <span class='mt-0 mb-0 text-muted small'>$dados[inicio]</span>
-                                    <p class='card-text mt-1'>$dados[texto]</p>
-        
-                                    <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
-                                        data-bs-target='#noticia2'>
-                                        Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
-        
-                                    <div class='modal fade' id='noticia2' tabindex='-1' aria-hidden='true'>
-                                        <div class='modal-dialog modal-dialog-scrollable modal-xl'>
-                                            <div class='modal-content'>
-                                                <div class='modal-header'>
-                                                    <h5 class='modal-title fs-3'>$dados[titulo] </h5>
-                                                    <button type='button' class='btn-close' data-bs-dismiss='modal'
-                                                        aria-label='Close'></button>
-                                                </div>
-                                                <div class='modal-body'>
-                                                    $dados[texto] </div>
-                                                <div class='modal-footer'>
-                                                    <p class='text-black-50'>$dados[termino]</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-        
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>";
+        } else {
+            echo "   <div class='col-sm-6'>
+            <div class='card'>
+                <div class='card-body'>
+                    <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-newspaper ms-2'></i>
+                    </h5>
+                    <span class='mt-0 mb-0 text-muted small'>$dados[inicio]</span>
+                    <p class='card-text mt-1'>$dados[texto]</p>
+
+                    <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
+                        data-bs-target='#noticia2'>
+                        Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
+
+                    <div class='modal fade' id='noticia2' tabindex='-1' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-scrollable modal-xl'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title fs-3'>$dados[titulo] </h5>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                        aria-label='Close'></button>
+                                </div>
+                                <div class='modal-body'>
+                                    $dados[texto] </div>
+                                <div class='modal-footer'>
+                                    <p class='text-black-50'>$dados[termino]</p>
                                 </div>
                             </div>
-                        </div>";
-                        }
-                    }
-                ?>
-                
-        
-   
-             
-              
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>";
+        }
+    }
+?>
+
 
             </div>
         </div>
     </div>
 
+
     <!-- Footer -->
     <?php require_once '../../shared/footer.html';?>
+
 
     <!-- Scrollavel -->
     <script>
@@ -215,5 +276,82 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
         sr.reveal('.scroll_3', {duration: 1000});
     </script>
 </body>
+
+<!-- Carrocel -->
+
+<script>
+    const wrapper = document.querySelector(".wrapper");
+const carousel = document.querySelector(".carousel");
+const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+const arrowBtns = document.querySelectorAll(".wrapper i");
+const carouselChildrens = [...carousel.children];
+let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
+// Get the number of cards that can fit in the carousel at once
+let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+// Insert copies of the last few cards to beginning of carousel for infinite scrolling
+carouselChildrens.slice(-cardPerView).reverse().forEach(card => {
+    carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+});
+// Insert copies of the first few cards to end of carousel for infinite scrolling
+carouselChildrens.slice(0, cardPerView).forEach(card => {
+    carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+});
+// Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+carousel.classList.add("no-transition");
+carousel.scrollLeft = carousel.offsetWidth;
+carousel.classList.remove("no-transition");
+// Add event listeners for the arrow buttons to scroll the carousel left and right
+arrowBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        carousel.scrollLeft += btn.id == "left" ? -firstCardWidth : firstCardWidth;
+    });
+});
+const dragStart = (e) => {
+    isDragging = true;
+    carousel.classList.add("dragging");
+    // Records the initial cursor and scroll position of the carousel
+    startX = e.pageX;
+    startScrollLeft = carousel.scrollLeft;
+}
+const dragging = (e) => {
+    if(!isDragging) return; // if isDragging is false return from here
+    // Updates the scroll position of the carousel based on the cursor movement
+    carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+}
+const dragStop = () => {
+    isDragging = false;
+    carousel.classList.remove("dragging");
+}
+const infiniteScroll = () => {
+    // If the carousel is at the beginning, scroll to the end
+    if(carousel.scrollLeft === 0) {
+        carousel.classList.add("no-transition");
+        carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
+        carousel.classList.remove("no-transition");
+    }
+    // If the carousel is at the end, scroll to the beginning
+    else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+        carousel.classList.add("no-transition");
+        carousel.scrollLeft = carousel.offsetWidth;
+        carousel.classList.remove("no-transition");
+    }
+    // Clear existing timeout & start autoplay if mouse is not hovering over carousel
+    clearTimeout(timeoutId);
+    if(!wrapper.matches(":hover")) autoPlay();
+}
+const autoPlay = () => {
+    if(window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+    // Autoplay the carousel after every 2500 ms
+    timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
+}
+autoPlay();
+carousel.addEventListener("mousedown", dragStart);
+carousel.addEventListener("mousemove", dragging);
+document.addEventListener("mouseup", dragStop);
+carousel.addEventListener("scroll", infiniteScroll);
+wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+wrapper.addEventListener("mouseleave", autoPlay);
+</script>
+
 
 </html>

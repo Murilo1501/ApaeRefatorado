@@ -1,29 +1,20 @@
 <?php declare(strict_types=1); //Forçar strict
 
-// require_once 'datasecurity.php';
-
-class Treating /*extends DataSecurity*/{
-
-    //Chaves de cada usuário
-    // const KEY_BY_TYPE_OF_USER = [
-    //     "comum" => "ComumKey",
-    //     "empresa" => "EmpresaKey",
-    //     "admin" => "AdminAPAEKey"
-    // ];
+class Treating {
     
     //Código para filtrar os inputs
     protected function filterInput(array $inputs,string $typeOfUser): array {
         // //Chave do usuário selecionado
-        // $key = self::KEY_BY_TYPE_OF_USER[$typeOfUser];
+
+        if (isset($inputs['g-recaptcha-response'])) {
+            unset($inputs['g-recaptcha-response']);
+        }
         
         foreach($inputs as $fieldName=>$valuePassed) { //Itera pelos inputs e retorna o nome do campo de input e seu valor
             $inputs[$fieldName] = $this->filter($valuePassed,$fieldName); //Filtra o input e subsititui na tabela
         }
         
         if ($this->verifyInputs($inputs)) {
-            // //Criptografar dados
-            // parent::encryptData($inputs,$key,$tag);
-            //Retorna os inputs criptografados
             $inputs['nivel']=$typeOfUser;
             unset($inputs['ConfirmarSenha']);
             return $inputs;
@@ -82,6 +73,13 @@ class Treating /*extends DataSecurity*/{
                     $info = "invalid";
                 }
                 break;
+
+            case 'ENDERECO':
+                if($info == "Consultando..." || $info == "Seu CEP não foi encontrado") {
+                    $info = "invalid";
+                }
+
+                break;
                 
             case "EMAIL":
                 $info = filter_var($info,FILTER_SANITIZE_EMAIL);
@@ -97,24 +95,18 @@ class Treating /*extends DataSecurity*/{
         return $info;
     }
 
-    //Formata a data para o padrão especificado
-    // private function formatDate(string $pattern, string $date): string {
-    //     $frmtDate = date($pattern,strtotime($date));
-    //     return $frmtDate;
-    // }
-
     //Verifica os inputs especiais
     private function verifyInputs(array $inputs): bool {
-        //(isset($inputs['CPF'])) &&
-        // ($inputs['CPF']!="invalid") && 
-        // (isset($inputs['ConfirmarSenha'])) && 
-        // ($inputs['Senha']==$inputs['ConfirmarSenha'])
         foreach($inputs as $field=>$value) {
             if ($value == "invalid") {
                 return false;
             }
         }
         return true;
+    }
+
+    public function formatDate(string $date,string $formatPattern) {
+        return date($formatPattern,strtotime($date)); //Y-m-d ou d-m-Y
     }
 }
 

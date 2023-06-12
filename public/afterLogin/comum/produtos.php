@@ -8,7 +8,7 @@ if(!isset($_SESSION['email'])) {
 
 require_once '../../../private/Controller/readData.php';
 require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("AUTH-USER_LV-1~R@@T","product");
+$read = new ReadData("product");
 
 ?>
 
@@ -47,7 +47,7 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","product");
                 foreach($read->arrayData as $dados){
                     echo "  <div class='col-md-8 col-lg-6 col-xl-4 scroll_1'>
                     <div class='card mb-2'>
-                        <img src='../../images/hero.png' class='card-img-top'>
+                        <img src='https://cdn-icons-png.flaticon.com/512/43/43777.png' class='card-img-top'>
                         <div class='card-body'>
                             <div>
                                 <h5 class='card-title'>$dados[nome]</h5>
@@ -63,13 +63,13 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","product");
                                 <div class='modal-dialog modal-dialog-scrollable'>
                                     <div class='modal-content'>
                                         <div class='modal-header'>
-                                            <h1 class='modal-title fs-5' id='exampleModalScrollableTitle'>NOME DO PRODUTO
+                                            <h1 class='modal-title fs-5' id='exampleModalScrollableTitle'>$dados[nome]
                                             </h1>
                                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                                 aria-label='Close'></button>
                                         </div>
                                         <div class='modal-body'>
-                                            <img src='../../images/template.jpg' class='img-fluid'>
+                                         
                                             <hr>
                                             <h4>Detalhes do produto:</h4>
                                             <p>$dados[descricao]</p>

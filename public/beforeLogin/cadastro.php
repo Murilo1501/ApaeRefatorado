@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -8,16 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cadastro.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <title>Formulario responsivo com html e css</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <title>Cadastro</title>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
 
 
             <div class="first-column">
-                <h2 class="title title-primary">Bem vindo de volta!</h2>
+                <h2 class="title title-primary">Bem-vindo de volta!</h2>
                 <p class="description description-primary">Para manter-se conectado conosco</p>
                 <p class="description description-primary">faça o login com suas informações pessoais</p>
                 <a href="login.php"><button id="signin" class="btn btn-primary">Conectar-se</button></a>
@@ -49,13 +49,24 @@
                     </div>
 
 
-                    <div class="Titulo_2">
+                    <div style="padding-bottom: 15px;" class="Titulo_2">
                         <h2>Criar Conta</h2>
+                        <p> Já é um membro? <a href="login.php"> Faça o login </a> </p>
                     </div>
 
+                    <?php
+                        if (isset($_GET["f"]) && $_GET["f"]==1) {
+                            echo '
+                            <div id="erro" class="erro">
+                                <div>
+                                    <p><strong>Erro ao logar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.</p>
+                                </div>
+                                <div id="ocultar" style="height:10px;"><i class="fa-solid fa-xmark"></i></div>
+                            </div>';
+                        }
+                    ?>
 
                     <div class="form">
-
 
                         <div class="inputBox on">
                             <input type="text" class="sim" id="NomeCompleto" name="Nome" required>
@@ -68,24 +79,27 @@
                         </div>
 
                         <div class="inputBox on">
-                            <input type="text" class="sim" id="CEP" name="CEP" placeholder=" _____-___" data-slots="_" required>
+                            <input type="text" class="sim" id="cep" name="CEP" placeholder=" _____-___" data-slots="_"
+                                required>
                             <span>CEP</span>
                         </div>
 
                         <div class="inputBox on">
-                            <input type="text" class="sim" id="CPF" name="CPF" placeholder="___.___.___-__" data-slots="_" required>
+                            <input type="text" class="sim" id="CPF" name="CPF" placeholder="___.___.___-__"
+                                data-slots="_" required>
                             <span>CPF</span>
                         </div>
 
                         <div class="inputBox on">
-                            <input type="text" class="sim" id="DataDeNascimento" name="DataDeNascimento" placeholder="dd/mm/aaaa" data-slots="dmyha" required>
+                            <input type="text" class="sim" id="DataDeNascimento" name="DataDeNascimento"
+                                placeholder="dd/mm/aaaa" data-slots="dmyha" required>
                             <span>Data de nascimento</span>
                         </div>
 
                     </div>
 
                     <div class="input-group2">
-                        <button class="fourth">Continuar</button>
+                        <button type="button" class="fourth">Continuar</button>
                     </div>
                 </div>
 
@@ -94,11 +108,10 @@
                     <div class="form">
 
                         <div class="icone">
-                            <button class="buy-btn">
+                            <a class="buy-btn">
                                 <i class="fa-solid fa-arrow-left"></i>
-                            </button>
+                            </a>
                         </div>
-
 
                         <div class="inputBox on">
                             <input type="password" class="sim" id="senha" name="Senha" required>
@@ -112,23 +125,30 @@
                             <div id="icon2" onclick="showHide2()"></div>
                         </div>
 
-                        <div class="inputBox on">
-                            <input type="text" class="sim" id="Endereco" name="Endereco" required>
+                        <div class="inputBox on2">
+                            <input type="text" class="sim" id="endereco" name="endereco" placeholder="CEP não inserido"
+                                readonly required>
                             <span>Endereço</span>
                         </div>
 
                         <div class="inputBox on">
-                            <input type="text" class="sim" id="Numero" name="Numero" placeholder="(__) _____-____" data-slots="_" required>
+                            <input type="text" class="sim" id="complemento" name="complemento" required>
+                            <span>Complemento</span>
+                        </div>
+
+                        <div class="inputBox on">
+                            <input type="text" class="sim" id="Numero" name="Numero" placeholder="(__) _____-____"
+                                data-slots="_" required>
                             <span>Numero</span>
                         </div>
+
+                     
 
 
                         <input type="hidden" name="path" value="beforeLogin/cadastro.php">
 
-                       
-
                         <div class="input-group">
-                            <button class="fourth" type="submit" onclick="return valida()">Cadastrar</button>
+                            <button class="fourth" type="submit" onclick="return //valida()">Cadastrar</button>
                         </div>
 
                     </div>
@@ -142,7 +162,7 @@
 
     <script>
         document.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 if (btn.className === 'fourth') {
                     document.querySelector('.form-box2').classList.add('open');
                 } else if (btn.className === 'buy-btn') {
@@ -153,7 +173,7 @@
         });
 
         document.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 if (btn.className === 'fourth') {
                     document.querySelector('.form-box').classList.add('open');
                 } else if (btn.className === 'buy-btn') {
@@ -162,7 +182,19 @@
             });
 
         });
+
+        document.querySelectorAll('a').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (btn.className === 'buy-btn') {
+                    document.querySelector('.form-box').classList.remove('open');
+                    document.querySelector('.form-box2').classList.remove('open');
+                }
+            });
+
+        });
     </script>
+
+    <!-- Senha -->
 
     <script>
         function showHide() {
@@ -195,14 +227,14 @@
     <!-- inputs -->
     <script>
         document.querySelectorAll('input').forEach(inpur => {
-            inpur.addEventListener('focus', function() {
+            inpur.addEventListener('focus', function () {
                 if (inpur.className === "sim") {
                     inpur.classList.add("on");
                     inpur.parentNode.classList.add("on2");
                 }
             });
 
-            inpur.addEventListener('focusout', function() {
+            inpur.addEventListener('focusout', function () {
                 if (inpur.value === inpur.getAttribute("placeholder") || inpur.value === "") {
                     inpur.classList.remove("on");
                     inpur.parentNode.classList.remove("on2");
@@ -266,7 +298,7 @@
             }
         }
 
-        $(function() {
+        $(function () {
 
             // Initialize scaling
             scaleCaptcha();
@@ -279,13 +311,14 @@
     </script>
 
     <!-- Script CEP autocomplete -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             function limpa_formulário_cep() {
                 $("#endereco").val("");
             }
-            $("#cep").blur(function() {
+            $("#cep").blur(function () {
 
                 var cep = $(this).val().replace(/\D/g, '');
                 if (cep != "") {
@@ -293,7 +326,7 @@
 
                     if (validacep.test(cep)) {
                         $("#endereco").val("Consultando...");
-                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
 
                             if (!("erro" in dados)) {
                                 $("#endereco").val(dados.logradouro + ", " + dados.bairro + ", " + dados.localidade + ", " + dados.uf);
@@ -308,6 +341,20 @@
                     limpa_formulário_cep();
                 }
             });
+        });
+    </script>
+
+    <script>
+        var btn1 = document.querySelector("#ocultar");
+        btn1.addEventListener("click", function () {
+            var div = document.querySelector("#erro");
+
+            if (div.style.display === "none") {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+
         });
     </script>
 

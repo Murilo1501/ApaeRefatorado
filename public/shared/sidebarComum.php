@@ -1,10 +1,3 @@
-<!--<?php
-    session_start();
-    if(!isset($_SESSION['email'])) {
-        header('Location: /Novo_APAE/public/beforeLogin/login.php');
-        exit();
-    }
-?>-->
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: #2c9ada;">
     <div class="container-fluid">
@@ -49,7 +42,7 @@
     <div class="offcanvas-body">
         <ul class="nav-links list-unstyled">
             <li>
-                <a href="../comum/index.php">
+                <a href="../comum/">
                     <i class="bx bx-home-alt-2"></i>
                     <span class="title">Menu</span>
                 </a>
@@ -67,13 +60,13 @@
                 </a>
             </li>
             <li>
-                <a href="../comum/">
+                <a href="../comum/tela_doacao.php">
                     <i class='bx bx-donate-heart'></i>
                     <span class="title">Doação</span>
                 </a>
             </li>
             <li>
-                <a href="../comum/index.php">
+                <a href="../comum/empresas_parceiras.php">
                     <i class="bi bi-building"></i>
                     <span class="title">Empresas Parceiras</span>
                 </a>

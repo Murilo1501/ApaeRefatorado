@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,6 +39,21 @@
                 <div class="text-start">
                     <h1 class="fs-1">Cadastro de Administradores</h1>
                 </div>
+
+                <?php
+                    if (isset($_GET["f"]) && $_GET["f"]==1) {
+                        echo "<div class=\"alert alert-danger alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Erro ao cadastrar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.
+                            </div>";
+                    } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
+                        echo "<div class=\"alert alert-success alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Sucesso ao cadastrar!</strong> O novo administrador já está pronto para acessar a conta.
+                            </div>";
+                    }
+                ?>
+
                 <form method="post" action="../../routes/routes.php?isCadastro=1&user=admin">
 
                     <!-- Nome -->
@@ -106,11 +129,21 @@
                     </div>
                     
                     <!-- Endereço -->
-                    <div class="mb-3 mt-3">
-                        <label for="endereco" class="form-label">Endereço</label>
-                        <div class="form-label">
-                            <input style="background-color: rgb(255, 255, 255);" type="text" class="form-control" name="Endereco"
-                                id="endereco" placeholder="Endereço" name="endereco" maxlenght="256" readonly required>
+                    <div class="row g-2">
+                        <div class="col-md-8">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <div class="form-label">
+                                <input type="text" class="form-control" id="endereco" placeholder="Endereço" style='background-color: #e9ecef;'
+                                    name="endereco" maxlenght="256" readonly required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="complemento" class="form-label">Complemento</label>
+                            <div class="form-label">
+                                <input type="text" class='form-control' id="complemento" name="complemento"
+                                    placeholder="Complemento" autocomplete='off' required>
+                            </div>
                         </div>
                     </div>
                     
@@ -122,6 +155,7 @@
                                 autocomplete='off' required>
                         </div>
                     </div>
+
 
                     <!-- imagem
                         <div>

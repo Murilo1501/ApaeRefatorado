@@ -1,14 +1,13 @@
 <?php
     session_start();
-    if(!isset($_SESSION['email'])) {
-        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
 
 
 require_once '../../../private/Controller/readData.php';
-require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("AUTH-USER_LV-1~R@@T","all");
+$read = new ReadData("all",$_GET['page']?? 1);
 
 ?>
 
@@ -135,12 +134,13 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","all");
             color: #b07907;
             font-weight: 500;
             font-size: 3vw;
+            
         }
 
         .ramo {
             position: absolute;
             top: 54%;
-            left: 47%;
+            left: 40%;
             text-align: start;
             color: #c4a554;
             font-weight: 500;
@@ -193,19 +193,34 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","all");
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>E-Mail</th>
-                                <th>Telefone</th>
+                                <th>Ramo de atividade</th>
                                 <th>Status</th>
-                                <th>Tipo usuário</th>
+                                <th>Tipo de usuário</th>
+                                <th>Data de cadastro</th>
                                 <th>Carteira</th>
-                                <th>Editar</th>    
+                                <th>Editar</th>
                             </tr> ";
 
                     foreach ($read->arrayData as $dados) {
                         echo "<tr class='small'>";
+                        $dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
+                        $dados['ramoAtiv'] = $dados['ramoAtiv']!=""?ucfirst($dados['ramoAtiv']):"Não é empresa";
                         foreach ($dados as $col => $info) {
-                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "cidade") ||($col == "data_nasc") || ($col =="ramoAtiv") || ($col == "complemento") ||($col == "data_cadastro"))
+                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") ||($col == "data_nasc") || ($col == "numero"))
                                 continue;
 
+                            if ($col == "ativo" && $info == "1") {
+                                echo "<td>Ativo</td>";
+                                continue;
+                            } elseif ($col == "ativo" && $info == "0") {
+                                echo "<td>Inativo</td>";
+                                continue;
+                            }
+
+                            if ($col == "nivel_acesso") {
+                                echo "<td>".ucfirst($info)."</td>";
+                                continue;
+                            }
 
                             echo "<td>" . $info . "</td>";
                         }
@@ -222,7 +237,7 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","all");
 
                             </td>
                             <td>
-                                <a href='../admin/alterar_usuario.php?id=".$dados['id']."' role='button' class='btn btn-primary btn-sm mt-2 mb-2'><i class='bi bi-pencil-square'></i></a>
+                                <a href='../admin/alterar_usuario.php?email=".$dados['email']."' role='button' class='btn btn-primary btn-sm mt-2 mb-2'><i class='bi bi-pencil-square'></i></a>
                             </td>";
 
 
@@ -239,7 +254,7 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","all");
                                     <div class='modal-body'>
                                         <div class='thumbnail text-center'>";
                                             if($dados['nivel_acesso'] == 'comum')
-                                                echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>";
+                                                echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>" ;
                                             elseif ($dados['nivel_acesso'] == 'admin')
                                                 echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
                                             else 
@@ -385,11 +400,11 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","all");
                 </a>
             </li>
             <!-- 10 itens (1,2,3,...,10) / a seta vai mudar esses numeros pra 11-20 (11,12,13,...,20) -->
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=2"">2</a></li>
+            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=3"">3</a></li>
+            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=4"">4</a></li>
+            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=5"">5</a></li>
             <li class="page-item">
                 <a class="page-link" href="#">
                     <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span>

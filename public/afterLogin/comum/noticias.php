@@ -1,15 +1,13 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
+        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+        exit();
+    }
 
-session_start();
-if(!isset($_SESSION['email'])) {
-    header('Location: /Novo_APAE/public/beforeLogin/login.php');
-    exit();
-}
-
-require_once '../../../private/Controller/readData.php';
+    require_once '../../../private/Controller/readData.php';
 require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
-
+$read = new ReadData("noticia");
 ?>
 
 <!DOCTYPE html>
@@ -40,8 +38,8 @@ $read = new ReadData("AUTH-USER_LV-1~R@@T","noticia");
 <!--<?php require_once '../../shared/sidebarComum.php';?>
 
 
-    <!-- Últimas Notícias -->
-    <div style="background-color: #f9f9f9;">
+ <!-- Últimas Notícias -->
+ <div style="background-color: #f9f9f9;">
         <div class="container py-4">
             <div class="text-start scroll_noticias_eventos_1">
                 <p class="fs-2 mb-0">Notícias & Eventos</p>

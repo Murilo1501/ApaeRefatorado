@@ -1,8 +1,18 @@
-<?php  
-require_once '../../../private/Controller/atualizar.php';
-require_once '../../../private/Controller/Classes/controlCrud.php';
+<?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
 
-$id = $_GET['id'];
+<?php
+
+require_once '../../../private/Controller/readData.php';
+$read = new ReadData($_GET['email']);
+
+$dados = $read->arrayData;
+
 ?>
 
 <!DOCTYPE html>
@@ -47,43 +57,44 @@ $id = $_GET['id'];
                   } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
                     echo '<div class="alert alert-success alert-dismissible fade show">
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>Sucesso ao alterar!</strong> Os dados do usuário foram atualizados com sucesso!
+                            <strong>Sucesso ao alterar!</strong> Os dados do usuário foram atualizados com sucesso.
                           </div>';
                   }
                 ?>
-                <form method="post" action="../../routes/routes.php?isUpdate=1">
+                <form method="post" action="../../routes/routes.php?isUpdate=1&user=admin">
 
                     <!-- Nome -->
                     <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
-                        <div class="col-md-12 mb-3"><input type="text" class="form-control" id="nome" placeholder="Nome"
-                                maxlenght="64" minlenght="2" autocomplete='off' disabled required>
+                        <div class="col-md-12 mb-3"><input type="text" class="form-control" id="nome" placeholder="Nome" name="Nome"
+                                maxlenght="64" minlenght="2" autocomplete='off' value="<?=$dados['nome']?>" disabled required>
                         </div>
                     </div>
 
                     <!-- CPF -->
                     <div class="mb-3 mt-3">
                         <label for="cpf" class="form-label">CPF</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control"
-                                placeholder="___.___.___-__" id="cpf" name="CPF" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' disabled required>
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="cpf"
+                                placeholder="___.___.___-__" id="cpf" data-slots="_" data-accept="[\d]"
+                                autocomplete='off' value="<?=$dados['cpf']?>" disabled required>
                         </div>
                     </div>
 
                     <!-- Telefone -->
                     <div class="mb-3 mt-3">
                         <label for="telefone" class="form-label">Telefone</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control"
-                                placeholder="(__) _____-____" id="telefone" name="telefone" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' required>
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="telefone" pattern="(\([0-9]{2}\))\s([0-9]{5})-([0-9]{4})"
+                                placeholder="(__) _____-____" id="telefone" data-slots="_" data-accept="[\d]"
+                                autocomplete='off' value="<?=$dados['numero']?>" required>
                         </div>
                     </div>
 
                     <!-- CEP -->
                     <div class="mb-3 mt-3">
                         <label for="cep" class="form-label">CEP</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="CEP"
-                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' required>
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="cep"
+                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' value="<?=$dados['cep']?>"
+                                required>
                         </div>
                     </div>
 
@@ -92,8 +103,8 @@ $id = $_GET['id'];
                         <div class="col-md-8">
                             <label for="endereco" class="form-label">Endereço</label>
                             <div class="form-label">
-                                <input type="text" class="form-control" id="endereco" placeholder="Endereço" 
-                                    name="endereco" maxlenght="256" readonly required>
+                                <input type="text" class="form-control" id="endereco" placeholder="Endereço" style='background-color: #e9ecef;'
+                                    name="endereco" maxlenght="256" value="<?=$dados['endereco']?>" readonly required>
                             </div>
                         </div>
 
@@ -101,7 +112,7 @@ $id = $_GET['id'];
                             <label for="complemento" class="form-label">Complemento</label>
                             <div class="form-label">
                                 <input type="text" class='form-control' id="complemento" name="complemento"
-                                    placeholder="Complemento">
+                                    placeholder="Complemento" value="<?=$dados['complemento']?>" required>
                             </div>
                         </div>
                     </div>
@@ -109,10 +120,10 @@ $id = $_GET['id'];
                     <!-- E-mail -->
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email"
-                                placeholder="E-mail" maxlength="128" minlength="5"
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email" name="Email"
+                                placeholder="E-mail" maxlength="128" minlength="5" style='background-color: #e9ecef;'
                                 pattern="^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$" autocomplete='off'
-                                disabled required>
+                                value="<?=$dados['email']?>" readonly required>
                         </div>
                     </div>
 
@@ -120,9 +131,8 @@ $id = $_GET['id'];
                     <div class="mb-3 mt-3">
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password" name="senha" placeholder="Senha" maxlength="24"
-                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1"
-                                required>
+                            <input type="password" class="form-control" id="password" placeholder="Senha" maxlength="24" name="Senha"
+                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon1"
                                 onclick="showPass('password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -131,16 +141,15 @@ $id = $_GET['id'];
                             Sua senha deve conter ao menos 8 caracteres, sendo 1 letra maiúscula, 1 letra minúscula
                             e 1
                             número. Limite de
-                            24 caracteres
+                            24 caracteres. Se este campo permanecer vazio, a senha não será alterada.
                         </div>
                     </div>
 
                     <div class="mb-3 mt-3">
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha"
-                                maxlength="99" minlength="8" onkeyup="validatePass()" aria-label="button-addon2"
-                                required>
+                            <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha"
+                                maxlength="99" minlength="99" onkeyup="validatePass()" aria-label="button-addon2">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2"
                                 onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -152,15 +161,15 @@ $id = $_GET['id'];
 
                     <!-- Status do usuario -->
                     <div class="mb-3 mt-3">
-                        <label for="" class="form-label">Status do usuário</label>
-                        <div class="form-lable"></div>
+                        <p class="form-label">Status do usuário</p>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" name="ativo" id="ativo" value="1">
-                            <label class="form-check-label" for="ativo">Ativo</label>
+                            <input class="form-check-input" type="radio" id="ativo" name="ativo" 
+                            <?=($dados['ativo']==1?"checked":"")?>  value="1">
+                            <label class="form-check-label" for="ativo">Ativo</label> <!-- <?=($dados['ativo']==1?"checked":"")?> -->
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inativo"
-                                value="0">
+                            <input class="form-check-input" type="radio" name="ativo" id="inativo"
+                                value="0" <?=($dados['ativo']==1?"":"checked")?>> <!--  -->
                             <label class="form-check-label" for="inativo">Inativo</label>
                         </div>
                     </div>
@@ -173,8 +182,8 @@ $id = $_GET['id'];
                         </div> -->
 
                     <!-- Campo invisivel / usuário -->
+                    <input type="hidden" name="id" value="<?=$dados['id']?>">
                     <input type="hidden" name="path" value="admin/alterar_usuario.php">
-                    <input type="hidden" name="id" value="<?php echo  $id ?>">
 
                     <!-- Botão -->
                     <div class="clearfix">

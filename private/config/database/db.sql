@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/06/2023 às 03:43
+-- Tempo de geração: 05/06/2023 às 03:46
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -24,6 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `eventos`
+--
+
+CREATE TABLE `eventos` (
+  `id` int(11) NOT NULL,
+  `titulo` text NOT NULL,
+  `descricao` varchar(55) NOT NULL,
+  `inicio` text NOT NULL,
+  `termino` text NOT NULL,
+  `imagem` int(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `eventos`
+--
+
+INSERT INTO `eventos` (`id`, `titulo`, `descricao`, `inicio`, `termino`, `imagem`) VALUES
+(1, 'qualquer coisa', 'evento', '11/07/2023', '11/07/2023', 0),
+(2, 'qualquer coisa', 'evento', '11/07/2023', '11/07/2023', 0),
+(3, 'qualquer coisa', 'evento', '11/07/2023', '11/07/2023', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `noticias`
 --
 
@@ -31,42 +55,25 @@ CREATE TABLE `noticias` (
   `id` int(11) NOT NULL,
   `titulo` varchar(55) NOT NULL,
   `texto` text NOT NULL,
-  `tipo` varchar(55) NOT NULL,
   `inicio` text NOT NULL,
   `termino` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `noticias`
---
-
-INSERT INTO `noticias` (`id`, `titulo`, `texto`, `tipo`, `inicio`, `termino`) VALUES
-(1, 'teste', 'o evento teste 4 se trata sobre um evento muito daora que ira ocorrer na apae guarulhos no endereço tal tal e tall só olha no rodapé da página que la ta escrito', '', '10/06/2023', '11/06/2023'),
-(2, 'teste3', 'o evento teste  se trata sobre um evento muito daora que ira ocorrer na apae guarulhos no endereço tal tal e tall só olha no rodapé da página que la ta escrito', 'eventos', '10/06/2023', '11/06/2023'),
-(3, 'teste4', 'o evento teste 4 se trata sobre um evento muito daora que ira ocorrer na apae guarulhos no endereço tal tal e tall só olha no rodapé da página que la ta escrito', 'noticias', '10/06/2023', '11/06/2023'),
-(4, 'teste4', 'o evento teste 4 se trata sobre um evento muito daora que ira ocorrer na apae guarulhos no endereço tal tal e tall só olha no rodapé da página que la ta escrito', 'eventos', '10/06/2023', '11/06/2023');
-
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `produtos`
+-- Estrutura para tabela `parceiros`
 --
 
-CREATE TABLE `produtos` (
+CREATE TABLE `parceiros` (
   `id` int(11) NOT NULL,
-  `nome` varchar(55) NOT NULL,
-  `descricao` varchar(225) NOT NULL,
-  `preco` varchar(55) NOT NULL
+  `empresa` varchar(55) NOT NULL,
+  `descricao` text NOT NULL,
+  `logo` text NOT NULL,
+  `email` varchar(55) NOT NULL,
+  `senha` varchar(55) NOT NULL,
+  `telefone` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `produtos`
---
-
-INSERT INTO `produtos` (`id`, `nome`, `descricao`, `preco`) VALUES
-(1, 'teste', 'cacaubcuae', '0'),
-(2, 'teste2', 'cuagcyvaybcay', '0'),
-(4, 'qualquercoisa', 'incubzcbae', 'R$100,00');
 
 -- --------------------------------------------------------
 
@@ -83,30 +90,34 @@ CREATE TABLE `usuarios` (
   `data_nasc` text NOT NULL,
   `senha` varchar(55) NOT NULL,
   `cidade` varchar(55) NOT NULL,
-  `complemento` varchar(55) NOT NULL,
   `numero` varchar(55) NOT NULL,
-  `ramoAtiv` varchar(55) NOT NULL,
-  `isAtivo` int(55) NOT NULL,
-  `nivel_acesso` varchar(55) NOT NULL,
-  `data_cadastro` text NOT NULL
+  `nivel_acesso` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `cep`, `cpf`, `data_nasc`, `senha`, `cidade`, `complemento`, `numero`, `ramoAtiv`, `isAtivo`, `nivel_acesso`, `data_cadastro`) VALUES
-(135, 'testeNome', 'nome@gmail.com', '11662-160', '160.537.288-96', '00-00-0000', 'Senhaadmin1234', 'Alameda das Magnólias, Martim de Sá, Caraguatatuba, SP', 'qualquer coisa', '(11) 93308-9955', '', 0, 'admin', ''),
-(136, 'tower', 'tower@gmail.com', '07411-395', '160.537.288-96', '00-00-0000', 'Tower123', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', '', '(11) 93308-9944', 'automotiva', 0, 'parceiro', ''),
-(137, 'teste2', 'teste2@gmail.com', '07411-395', '160.537.288-96', '00-00-0000', 'Muri1501', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', '', '(11) 93308-9944', '0', 0, 'comum', ''),
-(138, 'clayton', 'clayton@gmail.com', '07411-395', '160.537.288-96', '15/01/2007', 'clayton', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', '', '(11) 93308-9944', '0', 0, 'comum', ''),
-(139, 'clayton2', 'clayton2@gmail.com', '07411-395', '160.537.288-96', '15/01/2007', 'clayton2', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', '', '(11) 93308-9944', '', 0, 'comum', ''),
-(140, 'josé', 'jose@gmail.com', '11662-160', '160.537.288-96', '00-00-0000', 'Teste12345', 'Alameda das Magnólias, Martim de Sá, Caraguatatuba, SP', '', '(11) 96568-4666', '', 0, 'admin', ''),
-(141, 'fitafer', 'fitafer@gmail.com', '07411-395', '160.537.288-96', '00-00-0000', 'Fitafer1234', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', '', '(11) 93308-9944', 'automotiva', 0, 'parceiro', '');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `cep`, `cpf`, `data_nasc`, `senha`, `cidade`, `numero`, `nivel_acesso`) VALUES
+(72, '?wÃp???d???F?', '?P=???A#\\\r???E#', '?:7n1?Ž2A?V?', '?`???`G\"????', '?p?????v??<D?', 'u??rb??}?G}', '\\1??zS?i? ??lO', 'L?q?Y\'>?D??`]׃', '?<`?R`hN ?#fݥ'),
+(73, '?wÃp???d???F?', '?P=???A#\\\r???E#', '?:7n1?Ž2A?V?', '?`???`G\"????', '?p?????v??<D?', 'u??rb??}?G}', '\\1??zS?i? ??lO', 'L?q?Y\'>?D??`]׃', '?<`?R`hN ?#fݥ'),
+(74, 'et??/?)???1?V??', 'E؏?I?)A??f?B:?S???????4??F??', '?:7n1?Ž2A?V?', '?`???`G\"????', '?p?????v??<D?', '-?^xfd-?e?\0?an?', '\\1??zS?i? ??lO', 'L?q?Y\'>?D??`]׃', '?<`?R`hN ?#fݥ'),
+(75, 'et??/?)???1?V??', 'LI?@?3+?D??!??Y\\u?Oc??>R??H?r?', '?:7n1?Ž2A?V?', '?`???`G\"????', '?p?????v??<D?', '-?^xfd-?e?\0?an?', '\\1??zS?i? ??lO', 'L?q?Y\'>?D??`]׃', '?<`?R`hN ?#fݥ'),
+(76, '??Cf???\";???Bo?>', '??}Y?1f??W]Щ?Rf\'?w?\nmN&???', '?D?6?~+?ӧ?,??', 'nw?M1?\n+%?;?g?', 'i҉\r?;?O??t?!?X', '??Cf???\";???Bo?>', '?T??$v\"?%?T{????', '??????N_??W?QW', 'T+???O??畔%??x'),
+(77, '???Ȃ.?.???E??%', '$T??\\V??\'???', '%?U\"@á k_\Z?', '????T?\\?ǡh', '?9}74?9??t???p?', 'D??j???n??R?????', ',?? ?\0?a??q??f', '\r/V?퐇???.?jy?', '??8	H??|0O} ???'),
+(78, '???Ȃ.?.???E??%', '$T??\\V??\'???', '%?U\"@á k_\Z?', '????T?\\?ǡh', '?9}74?9??t???p?', '?0?\'\'??????Œ', ',?? ?\0?a??q??f', '\r/V?퐇???.?jy?', '??8	H??|0O} ???'),
+(79, 'murilo', 'teste@teste.com', '07.411-395', '160.537.288-96', '15/01/2007', '12345', 'Arujá', '(11) 9330-89944', 'admin'),
+(80, 'murilo', '160.537.288-96', '15/01/2007', 'Muri1501', 'admin', '(11) 93308-9944', 'teste@teste.com', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', '07411-395');
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `eventos`
+--
+ALTER TABLE `eventos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `noticias`
@@ -115,9 +126,9 @@ ALTER TABLE `noticias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `produtos`
+-- Índices de tabela `parceiros`
 --
-ALTER TABLE `produtos`
+ALTER TABLE `parceiros`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -131,22 +142,28 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de tabela `eventos`
+--
+ALTER TABLE `eventos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de tabela `noticias`
 --
 ALTER TABLE `noticias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `produtos`
+-- AUTO_INCREMENT de tabela `parceiros`
 --
-ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `parceiros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
