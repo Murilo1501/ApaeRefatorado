@@ -13,10 +13,14 @@ class Treating {
         foreach($inputs as $fieldName=>$valuePassed) { //Itera pelos inputs e retorna o nome do campo de input e seu valor
             $inputs[$fieldName] = $this->filter($valuePassed,$fieldName); //Filtra o input e subsititui na tabela
         }
+
+       
         
         if ($this->verifyInputs($inputs)) {
             $inputs['nivel']=$typeOfUser;
             unset($inputs['ConfirmarSenha']);
+
+            
             return $inputs;
         }
         return [];
@@ -72,24 +76,50 @@ class Treating {
                 if(!$this->filtraCpf($info)) { //Caso falhe a verificação
                     $info = "invalid";
                 }
+              //  $this->encrypt($info);
                 break;
 
             case 'ENDERECO':
                 if($info == "Consultando..." || $info == "Seu CEP não foi encontrado") {
                     $info = "invalid";
                 }
+               // $this->encrypt($info);
+              
 
                 break;
                 
             case "EMAIL":
+            case "EMAILLOGIN":
                 $info = filter_var($info,FILTER_SANITIZE_EMAIL);
                 break;
-            
+
+            case "DATADENASCIMENTO":
+                $info = str_replace("/","-",$info);
+                $info = $this->formatDate($info,"Y-m-d");
+            case "DATAADD":
+                $info = str_replace("/","-",$info);
+                $info = $this->formatDate($info,"Y-m-d");
+            break;
+
+            case"SENHA":
+                $info = password_hash($info,PASSWORD_DEFAULT);
+            break;
+
+            case "DATAREMOVE":
+                $info = str_replace("/","-",$info);
+                $info = $this->formatDate($info,"Y-m-d");
             //Resto
             default:
+               
                 $info = trim($info);
                 $info = addslashes($info);
                 $info = htmlspecialchars($info);
+               // $info = $this->encrypt($info);
+                
+
+        
+                
+               
         }
                 
         return $info;
@@ -107,6 +137,11 @@ class Treating {
 
     public function formatDate(string $date,string $formatPattern) {
         return date($formatPattern,strtotime($date)); //Y-m-d ou d-m-Y
+    }
+
+    private function encrypt(string $sla){
+       $encrypt = base64_encode($sla);
+       return $encrypt;
     }
 }
 

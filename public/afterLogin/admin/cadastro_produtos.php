@@ -38,7 +38,8 @@
             <div class="container border border-1 bg-body rounded-3 shadow rounded p-4 scroll_meus_dados">
                 <div class="text-start">
                     <h1 class="fs-1">Cadastro de Produtos</h1>
-                    <?php
+                </div>
+                <?php
                     if (isset($_GET["f"]) && $_GET["f"]==1) {
                         echo "<div class=\"alert alert-danger alert-dismissible fade show\">
                             <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
@@ -47,32 +48,31 @@
                     } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
                         echo "<div class=\"alert alert-success alert-dismissible fade show\">
                             <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
-                            <strong>Sucesso ao cadastrar!</strong> O novo evento já está disponível para o usuário Amigo 10 .
+                            <strong>Sucesso ao cadastrar!</strong> O produto já está sendo exibido para os usuários.
                             </div>";
                     }
                 ?>
-                </div>
                 <form method="post" action="../../routes/routes.php?isCadastro=1&user=product">
 
                     <!-- Título -->
                     <div class="mb-3 mt-3">
                         <label for="titulo-pro" class="form-label">Título</label>
-                        <input type="text" class="col-md-12 mb-3 form-control" id="titulo-pro" placeholder="Título" name="titulo"
-                            rows="3" maxlength="100" required>
+                        <input type="text" class="col-md-12 mb-3 form-control" id="titulo-pro" placeholder="Título"
+                            rows="3" maxlength="100" name="titulo" required>
                     </div>
 
                     <!-- Descrição -->
                     <div class="mb-3 mt-3">
                         <label for="descr-pro" class="form-label">Descrição</label>
-                        <textarea class="col-md-12 mb-3 form-control" id="descr-pro" placeholder="Descrição" rows="3" name="desc"
+                        <textarea class="col-md-12 mb-3 form-control" id="descr-pro" name="descricao" placeholder="Descrição" rows="3"
                             maxlength="256" required></textarea>
                     </div>
 
                     <!-- Preço -->
                     <div class="mb-3 mt-3">
                         <label for="preco" class="form-label">Preço</label>
-                        <input type="text" class="col-md-12 mb-3 form-control" id="preco" placeholder="R$___,__" name="price"
-                            data-accept='[\d]' data-slots='_' rows="3" maxlength="100" required>
+                        <input type="text" class="col-md-12 mb-3 form-control" id="preco" placeholder="R$___,__"
+                            data-accept='[\d]' data-slots='_' rows="3" maxlength="100" name="preco" required>
                     </div>
 
                     <!-- Imagem -->
@@ -83,16 +83,12 @@
                     </div>
                     <br>-->
 
-                    <!-- Campo invisivel / produto -->
+                    <!-- Campo invisivel / usuário -->
                     <input type="hidden" name="path" value="afterLogin/admin/cadastro_produtos.php">
 
-                 
                     <!-- Botões -->
                     <div class="clearfix">
-                        <button type="submit" class="btn btn-sm btn-outline-success float-md-end mt-2"
-                            id="cadastrar">Finalizar cadastro<i class="bi bi-check-square ms-2"></i></button>
-
-                        <button type="submit" class="btn btn-sm btn-outline-primary float-md-end mt-2 me-3"
+                        <button type="submit" class="btn btn-sm btn-outline-primary float-md-end mt-2 "
                             id="cadastrar">Cadastrar item<i class="bi bi-plus-square ms-2"></i></button>
                     </div>
                 </form>

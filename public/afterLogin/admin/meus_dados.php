@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_SESSION['email']);
+$read = new ReadData($_SESSION['email'],"1","");
 $dados = $read->arrayData;
 
 ?>
@@ -118,7 +118,7 @@ $dados = $read->arrayData;
                     <!-- E-mail -->
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="col-md-12 mb-3"> <input type="email" class="form-control" id="email" name="email"
+                        <div class="col-md-12 mb-3"> <input type="email" class="form-control" id="email" name="Email"
                                 placeholder="E-mail" maxlength="128" minlength="5" style='background-color: #e9ecef;'
                                  autocomplete='off'
                                 value="<?=$dados['email']?>" readonly required>

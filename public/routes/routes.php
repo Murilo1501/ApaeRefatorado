@@ -4,7 +4,8 @@ require_once '../../private/Controller/cadastro.php';
 require_once '../../private/Controller/login.php';
 require_once '../../private/Controller/readData.php';
 require_once '../../private/Controller/atualizar.php';
-
+require_once '../../private/Controller/Forgetpass.php';
+require_once '../../private/Controller/AlterarSenha.php';
 //Type of user
 $userType = $_REQUEST['user'];
 
@@ -29,6 +30,18 @@ if (isset($_REQUEST['isUpdate']) && $_REQUEST['isUpdate']==1) {
     new Atualizar($_POST);
     exit();
 }
+
+if(isset($_REQUEST['sendEmail'])&& $_REQUEST['sendEmail']==1){
+    new SendEmail($_POST);
+    exit();
+}
+
+if(isset($_REQUEST['changeSenha'])&& $_REQUEST['changeSenha']==1){
+    new AlterarSenha($_POST);
+    exit();
+}
+
+
 
 
    

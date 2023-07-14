@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_SESSION['email']);
+$read = new ReadData($_SESSION['email'],'','');
 $dados = $read->arrayData;
 
 ?>
@@ -60,12 +60,13 @@ $dados = $read->arrayData;
                         }
                     ?>
                 </div>
-                <form method="post" action="../../routes/routes.php?isUpdate=1&user=comum">
+                <form method="post" action="../../routes/routes.php?isUpdate=1&user=comum"> <!-- Passar o ID do usuário como argumento -->
 
+                    <!-- Nome -->
                     <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
                         <div class="col-md-12 mb-3"><input type="text" class="form-control" id="nome"
-                                placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' readonly required value="<?= $dados['nome'] ?>">
+                                placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' value="<?=$dados['nome']?>" disabled required>
                         </div>
                     </div>
 
@@ -74,16 +75,16 @@ $dados = $read->arrayData;
                         <label for="cpf" class="form-label">CPF</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control"
                                 placeholder="___.___.___-__" id="cpf" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' readonly required value="<?= $dados['cpf'] ?>">
+                                autocomplete='off' value="<?=$dados['cpf']?>" disabled required>
                         </div>
                     </div>
 
                     <!-- Telefone -->
                     <div class="mb-3 mt-3">
                         <label for="telefone" class="form-label">Telefone</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control"  name="telefone"
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="telefone" pattern="(\([0-9]{2}\))\s([0-9]{5})-([0-9]{4})"
                                 placeholder="(__) _____-____" id="telefone" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' readonly required value="<?= $dados['numero'] ?>">
+                                autocomplete='off' value="<?=$dados['numero']?>" required>
                         </div>
                     </div>
 
@@ -91,11 +92,11 @@ $dados = $read->arrayData;
                     <div class="mb-3 mt-3">
                         <label for="cep" class="form-label">CEP</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="cep"
-                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' readonly required value="<?= $dados['cep'] ?>">
+                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' value="<?=$dados['cep']?>" required>
                         </div>
                     </div>
 
-                    <!-- Endereço e Complemento -->
+                    <!-- Endereço & complemento -->
                     <div class="row g-2">
                         <div class="col-md-8">
                             <label for="endereco" class="form-label">Endereço</label>
@@ -114,14 +115,13 @@ $dados = $read->arrayData;
                         </div>
                     </div>
 
-
                     <!-- E-mail -->
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email" name="email"
-                                placeholder="E-mail" maxlength="128" minlength="5"
-                                pattern="^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$" autocomplete='off'
-                                readonly required value="<?= $dados['email'] ?>">
+                        <div class="col-md-12 mb-3"> <input type="email" class="form-control" id="email" name="Email"
+                                placeholder="E-mail" maxlength="128" minlength="5" style='background-color: #e9ecef;'
+                                 autocomplete='off'
+                                value="<?=$dados['email']?>" readonly required>
                         </div>
                     </div>
 
@@ -129,9 +129,8 @@ $dados = $read->arrayData;
                     <div class="mb-3 mt-3">
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password" placeholder="Senha" maxlength="24" name="Senha"
-                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1"
-                                readonly required>
+                            <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha" maxlength="24"
+                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon1"
                                 onclick="showPass('password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -140,7 +139,7 @@ $dados = $read->arrayData;
                             Sua senha deve conter ao menos 8 caracteres, sendo 1 letra maiúscula, 1 letra minúscula
                             e 1
                             número. Limite de
-                            24 caracteres
+                            24 caracteres. Se este campo permanecer vazio, a senha não será alterada.
                         </div>
                     </div>
 
@@ -148,8 +147,7 @@ $dados = $read->arrayData;
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha"
-                                maxlength="99" minlength="99" onkeyup="validatePass()" aria-label="button-addon2"
-                                readonly required>
+                                maxlength="24" minlength="8" onkeyup="validatePass()" aria-label="button-addon2">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2"
                                 onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -170,11 +168,8 @@ $dados = $read->arrayData;
                     <input type="hidden" name="id" value="<?=$dados['id']?>">
                     <input type="hidden" name="path" value="comum/meus_dados.php">
 
-
                     <div class="clearfix">
-                        <button type="submit" class="btn btn-sm btn-outline-success float-md-end" id="salvar">Salvar<i
-                                class="bi bi-check2-square ms-2"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-primary float-md-end me-3"
+                        <button type="submit" class="btn btn-sm btn-outline-primary float-md-end"
                             id="editar">Editar<i class="bi bi-pencil-square ms-2"></i></button>
                     </div>
                 </form>
@@ -184,26 +179,6 @@ $dados = $read->arrayData;
 
     <!-- Footer -->
     <?php require_once '../../shared/footer.html';?>
-
-    <!-- script do input arrumado -->
-    <script>
-        document.querySelectorAll('input').forEach(inpur => {
-            inpur.addEventListener('focus', function () {
-                if (inpur.className === "sim") {
-                    inpur.classList.add("on");
-                    inpur.parentNode.classList.add("on2");
-                }
-            });
-
-            inpur.addEventListener('focusout', function () {
-                if (inpur.value === inpur.getAttribute("placeholder") || inpur.value === "") {
-                    inpur.classList.remove("on");
-                    inpur.parentNode.classList.remove("on2");
-                }
-            });
-
-        });
-    </script>
 
     <!-- Scrollavel -->
     <script>

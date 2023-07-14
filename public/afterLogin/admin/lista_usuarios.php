@@ -4,10 +4,26 @@
         header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
+?>
 
+<?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData("all",$_GET['page']?? 1);
+
+$page = isset($_GET['page']) ? $_GET['page']:1;
+if(isset($_POST['request'])){
+    $filter =  $_POST['request'];
+    $read = new ReadData('all',$page,$filter);
+    
+   
+} else{
+    $read = new ReadData('all',$page,"");
+}
+ 
+
+
+
+
 
 ?>
 
@@ -29,135 +45,15 @@ $read = new ReadData("all",$_GET['page']?? 1);
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
     <link rel="stylesheet" href="../../css/admin.css">
     <link rel="stylesheet" href="../../css/carteiras.css">
 
     <title>Apae Guarulhos</title>
 
-    <style>
-     .thumbnail {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Comum */
-        .nome_comum {
-            position: absolute;
-            top: 19%;
-            left: 8%;
-            text-align: start;
-            width: 85%;
-            color: #24376b;
-            font-weight: 500;
-            font-size: 3vw;
-        }
-
-        .cpf_comum {
-            position: absolute;
-            top: 44%;
-            left: 18%;
-            text-align: start;
-            color: #6d7ca1;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        .data_nasc_comum {
-            position: absolute;
-            top: 53%;
-            left: 31%;
-            text-align: start;
-            color: #6d7ca1;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        .cadastro_comum {
-            position: absolute;
-            top: 64%;
-            left: 42%;
-            text-align: start;
-            color: #6d7ca1;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        /* Admin */
-        .nome_admin {
-            position: absolute;
-            top: 19%;
-            left: 8%;
-            text-align: start;
-            width: 85%;
-            color: #8a1919;
-            font-weight: 500;
-            font-size: 3vw;
-        }
-
-        .cpf_admin {
-            position: absolute;
-            top: 46%;
-            left: 18%;
-            text-align: start;
-            color: #c97777;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        .data_nasc_admin {
-            position: absolute;
-            top: 55%;
-            left: 31%;
-            text-align: start;
-            color: #c97777;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        .cadastro_admin {
-            position: absolute;
-            top: 64%;
-            left: 42%;
-            text-align: start;
-            color: #c97777;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        /* Empresa */
-        .nome_empresa {
-            position: absolute;
-            top: 19%;
-            left: 8%;
-            text-align: start;
-            width: 85%;
-            color: #b07907;
-            font-weight: 500;
-            font-size: 3vw;
-            
-        }
-
-        .ramo {
-            position: absolute;
-            top: 54%;
-            left: 40%;
-            text-align: start;
-            color: #c4a554;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-        .cadastro_empresa {
-            position: absolute;
-            top: 63%;
-            left: 45%;
-            text-align: start;
-            color: #c4a554;
-            font-weight: 500;
-            font-size: 1.7vw;
-        }
-
-    </style>
+    
 </head>
 
 
@@ -176,11 +72,11 @@ $read = new ReadData("all",$_GET['page']?? 1);
                             necessário!</p>
                     </div>
                     <div class="col-md-8">
-                        <select class="form-select form-select-lg mb-3">
-                            <option value="0">Todos</option>
-                            <option value="1">Administradores</option>
-                            <option value="2">Empresas parceiras</option>
-                            <option value="3">Não-corporativos</option>
+                        <select class="form-select form-select-lg mb-3" id="fetchval">
+                            <option value="Todos">Todos</option>
+                            <option value="admin">Administradores</option>
+                            <option value="empresas">Empresas parceiras</option>
+                            <option value="comum">Não-corporativos</option>
                         </select>
                     </div>
                 </div>
@@ -193,6 +89,7 @@ $read = new ReadData("all",$_GET['page']?? 1);
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>E-Mail</th>
+                                <th>Telefone</th>
                                 <th>Ramo de atividade</th>
                                 <th>Status</th>
                                 <th>Tipo de usuário</th>
@@ -205,8 +102,9 @@ $read = new ReadData("all",$_GET['page']?? 1);
                         echo "<tr class='small'>";
                         $dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
                         $dados['ramoAtiv'] = $dados['ramoAtiv']!=""?ucfirst($dados['ramoAtiv']):"Não é empresa";
+                        $dados['numero'] = $dados['numero']!=""?ucfirst($dados['numero']):"Não tem número de telefone cadastrado";
                         foreach ($dados as $col => $info) {
-                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") ||($col == "data_nasc") || ($col == "numero"))
+                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") ||($col == "data_nasc"))
                                 continue;
 
                             if ($col == "ativo" && $info == "1") {
@@ -214,6 +112,11 @@ $read = new ReadData("all",$_GET['page']?? 1);
                                 continue;
                             } elseif ($col == "ativo" && $info == "0") {
                                 echo "<td>Inativo</td>";
+                                continue;
+                            }
+
+                            if ($info == "0") {
+                                echo "<td>Sem dados</td>";
                                 continue;
                             }
 
@@ -241,35 +144,63 @@ $read = new ReadData("all",$_GET['page']?? 1);
                             </td>";
 
 
+                           //Empresas
+                           if ($dados['nivel_acesso']=="empresas") {
+                            echo '<!-- Carteira - Empresa -->
+                                <div class="modal fade" id="card'.$dados['id'].'" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5>
+                                                    Carteira - Empresa
+                                                </h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="thumbnail text-center">
+                                                <img src="../../images/cardEmpresa.png" alt="" class="w-100">
+                                                    <div>
+                                                        <p class="nome_empresa fw-bold">'.$dados['nome'].'</p>
+                                                        <p class="ramo">'.$dados['ramoAtiv'].'</p>
+                                                        <p class="cadastro_empresa">'.$dados['data_cadastro'].'</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                            //Comum ou admin
+                            } else {
                             echo "
 
-                            <div class='modal fade' id='card".$dados['id']."'tabindex='-1' aria-hidden='true'>
-                            <div class='modal-dialog modal-dialog-centered modal-lg'>
-                                <div class='modal-content'>
-                                    <div class='modal-header'>
-                                        <h5>
-                                            Carteira - Amigo10
-                                        </h5>
-                                    </div>
-                                    <div class='modal-body'>
-                                        <div class='thumbnail text-center'>";
-                                            if($dados['nivel_acesso'] == 'comum')
-                                                echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>" ;
-                                            elseif ($dados['nivel_acesso'] == 'admin')
-                                                echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
-                                            else 
-                                                echo   "<img src='../../images/cardEmpresa.png' alt='' class='w-100'>";
-                                           echo "<div>
-                                                <p class='nome_comum fw-bold'>".$dados['nome']."</p>
-                                                <p class='cpf_comum'>".$dados['cpf']."</p>
-                                                <p class='data_nasc_comum'>".$dados['data_nasc']."</p>
+                                <div class='modal fade' id='card".$dados['id']."'tabindex='-1' aria-hidden='true'>
+                                    <div class='modal-dialog modal-dialog-centered modal-lg'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h5>
+                                                    Carteira - Amigo10
+                                                </h5>
+                                            </div>
+                                            <div class='modal-body'>
+                                                <div class='thumbnail text-center'>";
+                                                    if($dados['nivel_acesso'] == 'comum')
+                                                        echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>";
+                                                    elseif ($dados['nivel_acesso'] == 'admin')
+                                                        echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
+                                                    else 
+                                                        echo   "<img src='../../images/cardEmpresa.png' alt='' class='w-100'>";
+                                                echo "<div>
+                                                        <p class='nome_".$dados['nivel_acesso']."' fw-bold'>".$dados['nome']."</p>
+                                                        <p class='cpf_".$dados['nivel_acesso']."'>".$dados['cpf']."</p>
+                                                        <p class='data_nasc_".$dados['nivel_acesso']."'>".$dados['data_nasc']."</p>
+                                                        <p class='cadastro_".$dados['nivel_acesso']."'>".$dados['data_cadastro']."</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                                 ";
+                        } 
                            
                 
                     
@@ -399,13 +330,11 @@ $read = new ReadData("all",$_GET['page']?? 1);
                     <span aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
                 </a>
             </li>
-            <!-- 10 itens (1,2,3,...,10) / a seta vai mudar esses numeros pra 11-20 (11,12,13,...,20) -->
-            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=2"">2</a></li>
-            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=3"">3</a></li>
-            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=4"">4</a></li>
-            <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=5"">5</a></li>
-            <li class="page-item">
+
+            <?php for($i=1;$i<=3;$i++){?>
+                <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=<?php echo $i; ?>"><?php echo $i?></a></li>
+          <?php } ?>
+             <!-- 10 itens (1,2,3,...,10) / a seta vai mudar esses numeros pra 11-20 (11,12,13,...,20) -->
                 <a class="page-link" href="#">
                     <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
                 </a>
@@ -427,6 +356,27 @@ $read = new ReadData("all",$_GET['page']?? 1);
         });
         sr.reveal('.scroll_2', {
             duration: 1000
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#fetchval").on('change',function(){
+                var value = $(this).val();
+                //alert(value);
+
+                $.ajax({
+                    url:"teste.php",
+                    type:"POST",
+                    data:'request='+value,
+                    beforeSend:function(){
+                        $(".table ").html("<span>Filtrando...</span>");
+                    },
+                    success:function(data){
+                        $(".table").html(data);
+                    }
+                });
+            });
         });
     </script>
 </body>

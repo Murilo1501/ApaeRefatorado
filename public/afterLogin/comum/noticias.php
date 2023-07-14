@@ -1,13 +1,15 @@
 <?php
     session_start();
     if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
-        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+        header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
+?>
+<?php
 
-    require_once '../../../private/Controller/readData.php';
+require_once '../../../private/Controller/readData.php';
 require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("noticia");
+$read = new ReadData("noticia",'','');
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ $read = new ReadData("noticia");
 </head>
 
 <body>
-<!--<?php require_once '../../shared/sidebarComum.php';?>
+<?php require_once '../../shared/sidebarComum.php';?>
 
 
  <!-- Últimas Notícias -->
@@ -63,16 +65,16 @@ $read = new ReadData("noticia");
                             echo " <div class='col-sm-6'>
                             <div class='card'>
                                 <div class='card-body'>
-                                    <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-newspaper ms-2'></i>
+                                    <h5 class='card-title fw-bold mb-0'>".$dados['titulo']."<i class='bi bi-calendar-event ms-2'></i>
                                     </h5>
-                                    <span class='mt-0 mb-0 text-muted small'>$dados[inicio]</span>
-                                    <p class='card-text mt-1'>$dados[texto]</p>
+                                    <span class='mt-0 mb-0 text-muted small'>".$dados['inicio']."</span>
+                                    <p class='card-text mt-1'>".$dados['texto']."</p>
         
                                     <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
-                                        data-bs-target='#noticia1'>
+                                        data-bs-target='#noticia".$dados['id']."'>
                                         Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
         
-                                    <div class='modal fade' id='noticia1' tabindex='-1' aria-hidden='true'>
+                                    <div class='modal fade' id='noticia".$dados['id']."' tabindex='-1' aria-hidden='true'>
                                         <div class='modal-dialog modal-dialog-scrollable modal-xl'>
                                             <div class='modal-content'>
                                                 <div class='modal-header'>
@@ -80,10 +82,10 @@ $read = new ReadData("noticia");
                                                     <button type='button' class='btn-close' data-bs-dismiss='modal'
                                                         aria-label='Close'></button>
                                                 </div>
-                                                <div class='modal-body'>
-                                                   $dados[texto] </div>
+                                                <div class='modal-body'>".
+                                                   $dados['texto'] ."</div>
                                                 <div class='modal-footer'>
-                                                    <p class='text-black-50'>$dados[termino]</p>
+                                                    <p class='text-black-50'>".$dados['termino']."</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,27 +99,27 @@ $read = new ReadData("noticia");
                             echo "   <div class='col-sm-6'>
                             <div class='card'>
                                 <div class='card-body'>
-                                    <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-newspaper ms-2'></i>
+                                    <h5 class='card-title fw-bold mb-0'>".$dados['titulo']."<i class='bi bi-newspaper ms-2'></i>
                                     </h5>
-                                    <span class='mt-0 mb-0 text-muted small'>$dados[inicio]</span>
-                                    <p class='card-text mt-1'>$dados[texto]</p>
+                                    <span class='mt-0 mb-0 text-muted small'>".$dados['inicio']."</span>
+                                    <p class='card-text mt-1'>".$dados['texto']."</p>
         
                                     <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
-                                        data-bs-target='#noticia2'>
+                                        data-bs-target='#noticia".$dados['id']."'>
                                         Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
         
-                                    <div class='modal fade' id='noticia2' tabindex='-1' aria-hidden='true'>
+                                    <div class='modal fade' id='noticia".$dados['id']."' tabindex='-1' aria-hidden='true'>
                                         <div class='modal-dialog modal-dialog-scrollable modal-xl'>
                                             <div class='modal-content'>
                                                 <div class='modal-header'>
-                                                    <h5 class='modal-title fs-3'>$dados[titulo] </h5>
+                                                    <h5 class='modal-title fs-3'>".$dados['titulo']." </h5>
                                                     <button type='button' class='btn-close' data-bs-dismiss='modal'
                                                         aria-label='Close'></button>
                                                 </div>
-                                                <div class='modal-body'>
-                                                    $dados[texto] </div>
+                                                <div class='modal-body'>".
+                                                    $dados['texto']." </div>
                                                 <div class='modal-footer'>
-                                                    <p class='text-black-50'>$dados[termino]</p>
+                                                    <p class='text-black-50'>".$dados['termino']."</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,6 +146,27 @@ $read = new ReadData("noticia");
 
         sr.reveal('.scroll_noticias_eventos_1', { duration: 1000 });
         sr.reveal('.scroll_noticias_eventos_2', { duration: 1000 });
+    </script>
+
+<script>
+        $(document).ready(function(){
+            $("#fetchval").on('change',function(){
+                var value = $(this).val();
+                //alert(value);
+
+                $.ajax({
+                    url:"teste.php",
+                    type:"POST",
+                    data:'request='+value,
+                    beforeSend:function(){
+                        $(".table ").html("<span>Filtrando...</span>");
+                    },
+                    success:function(data){
+                        $(".table").html(data);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

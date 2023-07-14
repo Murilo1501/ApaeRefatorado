@@ -28,10 +28,9 @@ class Update extends Treating {
 }
 
 class Read extends Treating {
-    protected function enviarParaModel(string $user, string $page, Crud $model): bool|array {
+    protected function enviarParaModel(string $user, string $page,$filter,Crud $model): bool|array {
         //Enviar para model
-        $sucesso = $model->read($user, $page);
-        
+        $sucesso = $model->read($user, $page,$filter);
         return $sucesso;
     }
 }
@@ -46,6 +45,26 @@ class LoginVerify extends Treating {
         } else {
             return false; 
         }
+    }
+}
+
+class EmailSent extends Treating{
+    protected function  enviarParaModel($email,Crud $model){
+
+        $modelReturn = $model->verifyEmail($email);
+
+        return $modelReturn;
+
+    }
+}
+
+class ChangeSenha extends Treating{
+    protected function  enviarParaModel($dataAlter, Crud $model){
+
+        $modelReturn = $model->Mail($dataAlter);
+
+        return $modelReturn;
+
     }
 }
 

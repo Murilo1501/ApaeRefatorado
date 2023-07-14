@@ -6,7 +6,7 @@
     }
 
     require_once '../../../private/Controller/readData.php';
-    $read = new ReadData("product",$_GET['page']?? 1);
+    $read = new ReadData("product",$_GET['page']?? 1,"");
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@
                         <th>Preço</th>
                     </tr> ";
                         foreach($read->arrayData as $produtos){
-                            echo "<tr  class='small'>";
+                            echo "<tr>";
                             foreach($produtos as $col=>$info){
                                 echo "<td>".$info."</td>";
                             }

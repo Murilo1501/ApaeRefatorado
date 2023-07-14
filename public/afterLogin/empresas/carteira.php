@@ -1,9 +1,18 @@
 <?php
     session_start();
     if(!isset($_SESSION['email']) || $_SESSION['type']!="empresas") {
-        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+        header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
+?>
+
+<?php
+
+require_once '../../../private/Controller/readData.php';
+$read = new ReadData($_SESSION['email'],'');
+$dados = $read->arrayData;
+$dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
+
 ?>
 
 <!DOCTYPE html>
@@ -69,16 +78,16 @@
 </head>
 
 <body>
-<?php require_once '../../shared/sidebarComum.php';?>
+<?php require_once '../../shared/sidebarParceiros.php';?>
 
     <div style="background-color: #eee;">
         <div class="container py-5 scroll_meus_dados">
             <div class="thumbnail text-center">
                 <img src="../../images/cardEmpresa.png" alt="" class="w-75">
                 <div>
-                    <p class="nome fw-bold">Melissa Natale Ferreira Franco Mais Um Franco</p>
-                    <p class="ramo">Exemplo de ramo</p>
-                    <p class="cadastro">31/10/2022</p>
+                    <p class="nome fw-bold"><?=$dados['nome']?></p>
+                    <p class="ramo"><?=$dados['ramoAtiv']?></p>
+                    <p class="cadastro"><?=$dados['data_cadastro']?></p>
                 </div>
             </div>
         </div>

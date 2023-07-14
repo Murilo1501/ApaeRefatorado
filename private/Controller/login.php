@@ -5,6 +5,7 @@ require_once __DIR__.'/../Model/crud.php';
 
 final class Login extends LoginVerify {
     private $dados;
+    private $model;
 
     function __construct(array $inputs) {
         //Define o objeto do CRUD
@@ -19,7 +20,7 @@ final class Login extends LoginVerify {
         if ($modelReturn) {
             //Carregar os dados necessários
             session_start();
-            $_SESSION["email"] = $inputs["Email"];
+            $_SESSION["email"] = $inputs["EmailLogin"];
             $_SESSION["type"] = $modelReturn;
             
             //Diferenciar cada usuário e redirecionar para a página certa

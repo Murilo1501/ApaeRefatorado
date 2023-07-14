@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-bt">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
-    <title>Formulario responsivo com html e css</title>
-
+    <title>Login</title>
+  
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
 
@@ -51,17 +51,25 @@
                             </div>
                             <div id=\"ocultar\" style=\"height:10px;\"><i class=\"fa-solid fa-xmark\"></i></div>
                         </div>";
+                  } elseif(isset($_GET["f"]) && $_GET["f"] ==2) {
+
+                    echo "<div id=\"erro\" class=\"success\">
+                            <div>
+                                <p><strong>Senha alterada com sucesso</strong> Realize o login com as novas credenciais</p>
+                            </div>
+                            <div id=\"ocultar\" style=\"height:10px; \"><i class=\"fa-solid fa-xmark\"></i></div>
+                        </div>";
                   }
                 ?>
             <form action="../routes/routes.php?isLogin=1&user=comum" method="post">
                 <div class="inputBox on">
-                    <input type="email" class="sim" id="email" name="Email" required>
+                    <input type="email" class="sim" id="email" name="EmailLogin" required>
                     <span>Email</span>
                 </div>
 
 
                 <div class="inputBox on">
-                    <input type="password" class="sim" id="senha" name="Senha" required>
+                    <input type="password" class="sim" id="senha" name="SenhaLogin" required>
                     <span>Senha</span>
                     <div id="icon" onclick="showHide()"></div>
                 </div>
@@ -70,6 +78,10 @@
                     <button class="fourth2">Logar</button>
                 </div>
             </form>
+
+            <div class="forgetPass">
+                <a href="esqueciSenha.php">Esqueceu  a senha</a>
+            </div>
 
             <div style="text-align: center; padding:5px">
                 <h3>Ou</h3>

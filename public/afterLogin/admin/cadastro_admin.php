@@ -92,7 +92,7 @@
                     </div>
 
                     <!-- Data de nascimento -->
-                    <input type="hidden" name="DataDeNascimento" value="00-00-0000">
+                    <input type="hidden" name="DataDeNascimento" value="2023-12-12">
 
                     <!-- Senha -->
                     <div class="mb-3 mt-3">
@@ -133,7 +133,7 @@
                         <div class="col-md-8">
                             <label for="endereco" class="form-label">Endereço</label>
                             <div class="form-label">
-                                <input type="text" class="form-control" id="endereco" placeholder="Endereço" style='background-color: #e9ecef;'
+                                <input type="text" class="form-control" id="endereco"  placeholder="Endereço" style='background-color: #e9ecef;'
                                     name="endereco" maxlenght="256" readonly required>
                             </div>
                         </div>

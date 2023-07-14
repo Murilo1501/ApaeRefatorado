@@ -39,7 +39,6 @@
                 <div class="text-start">
                     <h1 class="fs-1">Cadastro de Eventos e Notícias</h1>
                 </div>
-
                 <?php
                     if (isset($_GET["f"]) && $_GET["f"]==1) {
                         echo "<div class=\"alert alert-danger alert-dismissible fade show\">
@@ -49,11 +48,11 @@
                     } elseif (isset($_GET["f"]) && $_GET["f"]==0) {
                         echo "<div class=\"alert alert-success alert-dismissible fade show\">
                             <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
-                            <strong>Sucesso ao cadastrar!</strong> O novo evento já está disponível para o usuário Amigo 10 .
+                            <strong>Sucesso ao cadastrar!</strong> A notícia já está sendo exibida para os usuários.
                             </div>";
                     }
                 ?>
-                <form method="POST" action="../../routes/routes.php?isCadastro=1&user=eventos_notices">
+                <form method="POST" action="../../routes/routes.php?isCadastro=1&user=evento_noticia">
 
                     <!-- Título -->
                     <div class="mb-3 mt-3">
@@ -74,13 +73,13 @@
                         <label for="" class="form-label">Do que se trata a descrição acima?</label>
                         <div class="form-lable"></div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="evento" id="radio1"
-                               >
+                            <input class="form-check-input" type="radio" name="type" id="radio1"
+                                value="eventos">
                             <label class="form-check-label" for="radio1">Evento</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="noticia" id="radio2"
-                                >
+                            <input class="form-check-input" type="radio" name="type" id="radio2"
+                                value="noticias">
                             <label class="form-check-label" for="radio2">Notícia</label>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
                         <div class="col-md">
                             <label for="data_re" class="form-label">Data de remoção</label>
                             <input type="text" class="form-control" id="data_re" placeholder="dd/mm/aaaa"
-                                data-slots="dma" autocomplete='off' required name="DataRemote">
+                                data-slots="dma" autocomplete='off' required name="DataRemove">
                         </div>
                     </div>
 
@@ -106,10 +105,11 @@
                         <input class="form-control" type="file" id="file" placeholder="file" multiple>
                         <span class="invalid-feedback">Preencha este campo</span>
                     </div>
-                    <br>
+                    <br>-->
 
                     <!-- Campo invisivel / usuário -->
                     <input type="hidden" name="path" value="afterLogin/admin/cadastro_event_not.php">
+                   
 
                     <!-- Botão -->
                     <div class="clearfix">

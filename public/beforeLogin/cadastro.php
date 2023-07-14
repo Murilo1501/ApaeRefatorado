@@ -59,7 +59,7 @@
                             echo '
                             <div id="erro" class="erro">
                                 <div>
-                                    <p><strong>Erro ao logar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.</p>
+                                    <p><strong>Erro ao cadastrar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.</p>
                                 </div>
                                 <div id="ocultar" style="height:10px;"><i class="fa-solid fa-xmark"></i></div>
                             </div>';
@@ -142,7 +142,52 @@
                             <span>Numero</span>
                         </div>
 
-                     
+                        <div class="inputBox on recaptha">
+                            <!-- class pro REcaptha--> <!-- chave principal--> <!-- chave principal-->
+                            <div class="g-recaptcha" data-sitekey="6Lfxd2ImAAAAACHf0hLHUHwYWe4rWUI2V7D1m9VA"></div>
+
+                            <script type="text/javascript">
+                                function valida() {
+                                    if (grecaptcha.getResponse() == "") {
+                                        alert("Você precisa marcar a validação");
+                                        return false;
+                                    }
+                                }
+                            </script>
+
+                            <!-- Validação do REcaptha -->
+
+                            <?php
+                            if (isset($_POST['enviar'])) {
+                                //print_r($_POST);
+
+                                if (!empty($_POST['g-recaptcha-response'])) {
+                                    //Continuar o envio
+                                    $url = "https://www.google.com/recaptcha/api/siteverify";
+                                    //chave secreta
+                                    $secret = "6Lfxd2ImAAAAAJhmclCtQo_b8zcvs1AW32AmBYgr";
+                                    $response = $_POST['g-recaptcha-response'];
+                                    $variaveis = "secret=" . $secret . "&response=" . $response;
+
+                                    $ch = curl_init($url);
+                                    curl_setopt($ch, CURLOPT_POST, 1);
+                                    curl_setopt($ch, CURLOPT_POSTFIELDS, $variaveis);
+                                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                                    curl_setopt($ch, CURLOPT_HEADER, 0);
+                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                                    $resposta = curl_exec($ch);
+                                    //print_r($resposta);
+                                    $resultado = json_decode($resposta);
+                                    //print_r($resultado);
+                                    //echo $resultado->success;
+                                    if ($resultado->success == 1) {
+                                        echo "Continuar o envio do seu formulario";
+                                    }
+                                }
+                            }
+
+                            ?>
+                        </div>
 
 
                         <input type="hidden" name="path" value="beforeLogin/cadastro.php">

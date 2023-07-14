@@ -122,7 +122,10 @@
 /* texto de contrinuição */
 
 .texto_inicial{
-    font-size: 23px;
+  font-family: 'poppins', serif;
+  padding: 10px;
+  margin-left: 100px;
+
 }
 
 .container_text{
@@ -133,6 +136,10 @@
   padding: 40px;
   width: 100%;
 
+}
+
+.texto1{
+  width: 500px;
 }
 
 .imagem1 img{

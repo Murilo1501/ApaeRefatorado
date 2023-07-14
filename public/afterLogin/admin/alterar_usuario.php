@@ -9,13 +9,13 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_GET['email']);
+$read = new ReadData($_GET['email'],'','');
 
 $dados = $read->arrayData;
 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-br">
 
 <head>
@@ -149,7 +149,7 @@ $dados = $read->arrayData;
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha"
-                                maxlength="99" minlength="99" onkeyup="validatePass()" aria-label="button-addon2">
+                                maxlength="24" minlength="8" onkeyup="validatePass()" aria-label="button-addon2">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2"
                                 onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>

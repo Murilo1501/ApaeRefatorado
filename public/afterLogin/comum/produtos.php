@@ -1,14 +1,15 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
+        header('Location: /Novo_APAE/public/routes/logout.php');
+        exit();
+    }
+?>
 
-session_start();
-if(!isset($_SESSION['email'])) {
-    header('Location: /Novo_APAE/public/beforeLogin/login.php');
-    exit();
-}
+<?php
 
 require_once '../../../private/Controller/readData.php';
-require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("product");
+$read = new ReadData("product",'','');
 
 ?>
 
@@ -42,28 +43,31 @@ $read = new ReadData("product");
 
     <div class="container py-5">
         <p class="fs-2 mb-0">Produtos</p>
-        <div class="row justify-content-center">
+        <div class="row">
             <?php
                 foreach($read->arrayData as $dados){
-                    echo "  <div class='col-md-8 col-lg-6 col-xl-4 scroll_1'>
-                    <div class='card mb-2'>
-                        <img src='https://cdn-icons-png.flaticon.com/512/43/43777.png' class='card-img-top'>
-                        <div class='card-body'>
+                    echo "  
+                    <div class='col-md-8 col-lg-6 col-xl-3 scroll_1'>
+                        <div class='card mb-2 justify-content-center'>
                             <div>
-                                <h5 class='card-title'>$dados[nome]</h5>
+                                <img src='https://cdn-icons-png.flaticon.com/512/43/43777.png' class='img-fluid'>
+                            </div>
+                        <div class='card-body'>
+                            <div class='card-body d-flex flex-wrap align-items-center justify-content-center'>
+                                <h5 class='card-title'>".$dados['nome']."</h5>
                             </div>
                             <div class='d-flex justify-content-between total font-weight-bold mt-4'>
-                                <h3>$dados[preco]</h3>
+                                <h3>".$dados['preco']."</h3>
                             </div>
                             <button type='button' class='btn btn-primary' data-bs-toggle='modal'
-                                data-bs-target='#produto1'>Detalhes do produto<i
+                                data-bs-target='#produto".$dados['id']."'>Detalhes do produto<i
                                     class='bi bi-arrow-right ms-1'></i></button>
-                            <div class='modal fade' id='produto1' tabindex='-1' aria-labelledby='produto1'
+                            <div class='modal fade' id='produto".$dados['id']."' tabindex='-1' aria-labelledby='produto1'
                                 style='display: none;' aria-hidden='true'>
                                 <div class='modal-dialog modal-dialog-scrollable'>
                                     <div class='modal-content'>
                                         <div class='modal-header'>
-                                            <h1 class='modal-title fs-5' id='exampleModalScrollableTitle'>$dados[nome]
+                                            <h1 class='modal-title fs-5' id='exampleModalScrollableTitle".$dados['id']."'>".$dados['nome']."
                                             </h1>
                                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                                 aria-label='Close'></button>
@@ -72,7 +76,7 @@ $read = new ReadData("product");
                                          
                                             <hr>
                                             <h4>Detalhes do produto:</h4>
-                                            <p>$dados[descricao]</p>
+                                            <p>".$dados['descricao']."</p>
                                         </div>
                                     </div>
                                 </div>

@@ -1,14 +1,19 @@
 <?php
     session_start();
     if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
-        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+        header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
+?>
 
-    require_once '../../../private/Controller/readData.php';
-    $read = new ReadData($_SESSION['email']);
-    $dados = $read->arrayData;
-    $dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
+<?php
+
+require_once '../../../private/Controller/readData.php';
+$read = new ReadData($_SESSION['email'],'','');
+$dados = $read->arrayData;
+$dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
+$dados['data_nasc'] = $read->formatDate($dados['data_nasc'],"d/m/Y");
+
 ?>
 
 <!DOCTYPE html>
@@ -92,11 +97,10 @@
             <div class="thumbnail text-center">
                 <img src="../../images/cardUser.png" alt="" class="w-75">
                 <div>
-                    <p class="nome fw-bold"><?= $dados['nome'] ?>
-                    </p>
-                    <p class="cpf"><?= $dados['cpf']?></p>
-                    <p class="data_nasc"><?= $dados['data_nasc'] ?></p>
-                    <p class="cadastro"><?= $dados['data_cadastro'] ?></p>
+                    <p class="nome fw-bold"><?=$dados['nome']?></p>
+                    <p class="cpf"><?=$dados['cpf']?></p>
+                    <p class="data_nasc"><?=$dados['data_nasc']?></p>
+                    <p class="cadastro"><?=$dados['data_cadastro']?></p>
                 </div>
             </div>
         </div>

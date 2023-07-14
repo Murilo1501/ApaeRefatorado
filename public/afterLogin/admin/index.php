@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData("user");
+$read = new ReadData("count","","");
 $dados = $read->arrayData;
 
 ?>
@@ -71,7 +71,7 @@ $dados = $read->arrayData;
                                     ],
                                     datasets: [{
                                         label: '',
-                                        data: [345, 23,],
+                                        data: [<?=$dados['ativos']?>, <?=$dados['inativos']?>,],
                                         backgroundColor: [
                                             'rgb(77, 224, 61)',
                                             'rgb(224, 61, 61)',
@@ -110,7 +110,7 @@ $dados = $read->arrayData;
                                     ],
                                     datasets: [{
                                         label: '',
-                                        data: [12, 15, 123],
+                                        data: [<?=$dados['admin']?>, <?=$dados['empresas']?>, <?=$dados['comum']?>],
                                         backgroundColor: [
                                             'rgb(224, 61, 61)',
                                             'rgb(224, 197, 61)',
@@ -148,7 +148,7 @@ $dados = $read->arrayData;
                                 labels: ['Eventos', 'Notícias', 'Produtos'],
                                 datasets: [{
                                     label: '',
-                                    data: [12, 9, 25],
+                                    data: [<?=$dados['eventos']?>, <?=$dados['noticias']?>, <?=$dados['produtos']?>],
                                     barThickness: 65,
                                     backgroundColor: [
                                         'rgb(61, 170, 224)',
