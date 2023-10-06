@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_SESSION['email'],'','');
+$read = new ReadData($_SESSION['email'],'');
 $dados = $read->arrayData;
 
 ?>

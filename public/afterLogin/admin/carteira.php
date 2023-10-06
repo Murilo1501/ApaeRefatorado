@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_SESSION['email'],'1',"");
+$read = new ReadData($_SESSION['email'],'1');
 $dados = $read->arrayData;
 $dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
 $dados['data_nasc'] = $read->formatDate($dados['data_nasc'],"d/m/Y");

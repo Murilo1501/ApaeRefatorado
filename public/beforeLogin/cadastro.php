@@ -96,6 +96,8 @@
                             <span>Data de nascimento</span>
                         </div>
 
+                      
+
                     </div>
 
                     <div class="input-group2">
@@ -142,18 +144,24 @@
                             <span>Numero</span>
                         </div>
 
+                        <div class="inputBox on">
+                            <input type="text" class="sim" id="DataDeVencimento" name="DataDeVencimento"
+                                placeholder="dd/mm/aaaa" data-slots="dmyha" required>
+                            <span>Data de Vencimento</span>
+                        </div>
+
                         <div class="inputBox on recaptha">
                             <!-- class pro REcaptha--> <!-- chave principal--> <!-- chave principal-->
-                            <div class="g-recaptcha" data-sitekey="6Lfxd2ImAAAAACHf0hLHUHwYWe4rWUI2V7D1m9VA"></div>
+                           <!-- <div class="g-recaptcha" data-sitekey="6Lfxd2ImAAAAACHf0hLHUHwYWe4rWUI2V7D1m9VA"></div> -->
 
                             <script type="text/javascript">
                                 function valida() {
                                     if (grecaptcha.getResponse() == "") {
                                         alert("Você precisa marcar a validação");
-                                        return false;
+                                        return false; 
                                     }
                                 }
-                            </script>
+                            </script> 
 
                             <!-- Validação do REcaptha -->
 
@@ -187,7 +195,9 @@
                             }
 
                             ?>
-                        </div>
+                        </div> 
+
+                        
 
 
                         <input type="hidden" name="path" value="beforeLogin/cadastro.php">

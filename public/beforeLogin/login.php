@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
     <title>Login</title>
-  
+
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
 
@@ -42,25 +42,32 @@
                 <p> Ainda não é um membro? </p>
                 <p><a href="../beforeLogin/cadastro.php">Cadastre-se </a> </p>
             </div>
-                <?php
-                  if (isset($_GET["f"]) && $_GET["f"]==1) {
-                    echo "<div id=\"erro\" class=\"erro\">
+            <?php
+            if (isset($_GET["f"]) && $_GET["f"] == 1) {
+                echo "<div id=\"erro\" class=\"erro\">
                             <div>
                                 <p><strong>Erro ao logar!</strong> Verifique as informações. Caso acredite que estejam corretas,
                                     entre em contato com a equipe de suporte técnico.</p>
                             </div>
                             <div id=\"ocultar\" style=\"height:10px;\"><i class=\"fa-solid fa-xmark\"></i></div>
                         </div>";
-                  } elseif(isset($_GET["f"]) && $_GET["f"] ==2) {
+            } elseif (isset($_GET["f"]) && $_GET["f"] == 2) {
 
-                    echo "<div id=\"erro\" class=\"success\">
+                echo "<div id=\"erro\" class=\"success\">
                             <div>
                                 <p><strong>Senha alterada com sucesso</strong> Realize o login com as novas credenciais</p>
                             </div>
                             <div id=\"ocultar\" style=\"height:10px; \"><i class=\"fa-solid fa-xmark\"></i></div>
                         </div>";
-                  }
-                ?>
+            } else if (isset($_GET["f"]) && $_GET["f"] == 3) {
+                echo "<div id=\"erro\" class=\"success\">
+                    <div>
+                        <p><strong>Cadastro efetuado com sucesso !</strong> Espere pela confirmação do Administrador</p>
+                    </div>
+                    <div id=\"ocultar\" style=\"height:10px; \"><i class=\"fa-solid fa-xmark\"></i></div>
+                </div>";
+            }
+            ?>
             <form action="../routes/routes.php?isLogin=1&user=comum" method="post">
                 <div class="inputBox on">
                     <input type="email" class="sim" id="email" name="EmailLogin" required>
@@ -80,7 +87,7 @@
             </form>
 
             <div class="forgetPass">
-                <a href="esqueciSenha.php">Esqueceu  a senha</a>
+                <a href="esqueciSenha.php">Esqueceu a senha</a>
             </div>
 
             <div style="text-align: center; padding:5px">
@@ -89,13 +96,10 @@
 
             <div class="icons">
 
-                <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID"
-                    data-login_uri="https://your.domain/your_login_endpoint" data-ux_mode="popup"
-                    data-auto_prompt="false">
+                <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID" data-login_uri="https://your.domain/your_login_endpoint" data-ux_mode="popup" data-auto_prompt="false">
                 </div>
 
-                <div class="g_id_signin" data-type="standard" data-shape="circle" data-theme="filled_blue"
-                    data-text="signin_with" data-size="large" data-logo_alignment="left">
+                <div class="g_id_signin" data-type="standard" data-shape="circle" data-theme="filled_blue" data-text="signin_with" data-size="large" data-logo_alignment="left">
                 </div>
 
             </div>
@@ -120,7 +124,7 @@
             picture.setAttribute("src", data.picture)
         }
 
-        window.onload = function () {
+        window.onload = function() {
 
             google.accounts.id.initialize({
                 client_id: "107161323498-kfqtti50so00lb13n6prli67g3dovpii.apps.googleusercontent.com",
@@ -128,8 +132,7 @@
             });
 
             google.accounts.id.renderButton(
-                document.getElementById("buttonDiv"),
-                {
+                document.getElementById("buttonDiv"), {
                     theme: "board",
                     size: "large",
                     type: "standard",
@@ -138,7 +141,7 @@
                     text: "$ {button.text}",
                     logo_alignment: "left",
                     width: "250"
-                }  // customization attributes
+                } // customization attributes
             );
             google.accounts.id.prompt(); // also display the One Tap dialog
         }
@@ -147,7 +150,6 @@
     <!-- senha -->
 
     <script>
-
         function showHide() {
             const password = document.getElementById('senha');
             const icon = document.getElementById('icon');
@@ -155,8 +157,7 @@
             if (password.type === 'password') {
                 password.setAttribute('type', 'text');
                 icon.classList.add('hide')
-            }
-            else {
+            } else {
                 password.setAttribute('type', 'password');
                 icon.classList.remove('hide')
             }
@@ -169,26 +170,24 @@
             if (password.type === 'password') {
                 password.setAttribute('type', 'text');
                 icon.classList.add('hide')
-            }
-            else {
+            } else {
                 password.setAttribute('type', 'password');
                 icon.classList.remove('hide')
             }
         }
-
     </script>
 
     <!-- inputs -->
     <script>
         document.querySelectorAll('input').forEach(inpur => {
-            inpur.addEventListener('focus', function () {
+            inpur.addEventListener('focus', function() {
                 if (inpur.className === "sim") {
                     inpur.classList.add("on");
                     inpur.parentNode.classList.add("on2");
                 }
             });
 
-            inpur.addEventListener('focusout', function () {
+            inpur.addEventListener('focusout', function() {
                 if (inpur.value === inpur.getAttribute("placeholder") || inpur.value === "") {
                     inpur.classList.remove("on");
                     inpur.parentNode.classList.remove("on2");
@@ -196,14 +195,13 @@
             });
 
         });
-
     </script>
 
     <!-- Erro -->
 
     <script>
         var btn1 = document.querySelector("#ocultar");
-        btn1.addEventListener("click", function () {
+        btn1.addEventListener("click", function() {
             var div = document.querySelector("#erro");
 
             if (div.style.display === "none") {

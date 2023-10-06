@@ -11,17 +11,7 @@
 require_once '../../../private/Controller/readData.php';
 
 $page = isset($_GET['page']) ? $_GET['page']:1;
-if(isset($_POST['request'])){
-    $filter =  $_POST['request'];
-    $read = new ReadData('all',$page,$filter);
-    
-   
-} else{
-    $read = new ReadData('all',$page,"");
-}
- 
-
-
+$read = new ReadData('all',$page); 
 
 
 
@@ -104,7 +94,7 @@ if(isset($_POST['request'])){
                         $dados['ramoAtiv'] = $dados['ramoAtiv']!=""?ucfirst($dados['ramoAtiv']):"Não é empresa";
                         $dados['numero'] = $dados['numero']!=""?ucfirst($dados['numero']):"Não tem número de telefone cadastrado";
                         foreach ($dados as $col => $info) {
-                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") ||($col == "data_nasc"))
+                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") ||($col == "data_nasc") || ($col == "data_vencimento") || ($col == "autenticado"))
                                 continue;
 
                             if ($col == "ativo" && $info == "1") {
@@ -193,6 +183,8 @@ if(isset($_POST['request'])){
                                                         <p class='cpf_".$dados['nivel_acesso']."'>".$dados['cpf']."</p>
                                                         <p class='data_nasc_".$dados['nivel_acesso']."'>".$dados['data_nasc']."</p>
                                                         <p class='cadastro_".$dados['nivel_acesso']."'>".$dados['data_cadastro']."</p>
+                                                        <p> Data de Vencimento: ".$dados['data_vencimento']."</p>
+    
                                                     </div>
                                                 </div>
                                             </div>

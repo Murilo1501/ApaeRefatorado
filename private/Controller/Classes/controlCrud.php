@@ -28,9 +28,9 @@ class Update extends Treating {
 }
 
 class Read extends Treating {
-    protected function enviarParaModel(string $user, string $page,$filter,Crud $model): bool|array {
+    protected function enviarParaModel(string $user, string $page,Crud $model): bool|array {
         //Enviar para model
-        $sucesso = $model->read($user, $page,$filter);
+        $sucesso = $model->read($user, $page);
         return $sucesso;
     }
 }

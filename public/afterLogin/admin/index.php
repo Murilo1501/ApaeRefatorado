@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData("count","","");
+$read = new ReadData("count","");
 $dados = $read->arrayData;
 
 ?>

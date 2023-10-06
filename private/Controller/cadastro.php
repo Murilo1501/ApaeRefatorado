@@ -21,7 +21,7 @@ final class Cadastro extends Insert {
 
         //Array com os dados filtrados
         $this->dados = $this->filterInput($inputs,$typeOfUser); //Filtra os inputs
-        var_dump($this->dados);
+        
         //Se houve sucesso no Model
         $sucesso = $this->enviarParaModel($this->dados,$this->model);
 
@@ -32,7 +32,7 @@ final class Cadastro extends Insert {
 
             //Diferenciar para onde ir
             if ($mainDirectory == "beforeLogin") {
-                header('Location: /Novo_APAE/public/beforeLogin/login.php');
+                header('Location: /Novo_APAE/public/beforeLogin/login.php?f=3');
                 exit();
             }
             header('Location: /Novo_APAE/public/'.$this->path.'?f=0');

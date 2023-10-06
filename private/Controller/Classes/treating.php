@@ -91,7 +91,7 @@ class Treating {
             case "EMAIL":
             case "EMAILLOGIN":
                 $info = filter_var($info,FILTER_SANITIZE_EMAIL);
-                break;
+            break;
 
             case "DATADENASCIMENTO":
                 $info = str_replace("/","-",$info);
@@ -99,10 +99,20 @@ class Treating {
             case "DATAADD":
                 $info = str_replace("/","-",$info);
                 $info = $this->formatDate($info,"Y-m-d");
+
             break;
 
-            case"SENHA":
-                $info = password_hash($info,PASSWORD_DEFAULT);
+            case "SENHA":
+                $info = trim($info);
+                if($info != ''){
+                    $info = password_hash($info,PASSWORD_DEFAULT);
+                }
+            break;
+
+            case "DATADEVENCIMENTO":
+                $info = str_replace("/","-",$info);
+                $info = $this->formatDate($info,"Y-m-d");
+
             break;
 
             case "DATAREMOVE":
@@ -139,10 +149,6 @@ class Treating {
         return date($formatPattern,strtotime($date)); //Y-m-d ou d-m-Y
     }
 
-    private function encrypt(string $sla){
-       $encrypt = base64_encode($sla);
-       return $encrypt;
-    }
 }
 
 ?>

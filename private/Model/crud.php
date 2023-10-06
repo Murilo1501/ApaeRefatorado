@@ -16,7 +16,7 @@ final class Crud extends DataEncrytype
     private $queries;
  
     private const USER_LEVELS = [        //User   Password
-        'AUTH-USER_LV-1~R@@T' => ['root',''], //Usuário root
+        'AUTH-USER_LV-1~R@@T' => ['root','Bfgl@2713'], //Usuário root
         'comum'=>['Comum','SouPobre'], //Usuário comum
         'empresa'=>['Empresa','Marketing2'], //Usuário empresa
         'admin'=>['AdminAPAE','CabecaDaAPAE'], //Usuário admin
@@ -27,12 +27,12 @@ final class Crud extends DataEncrytype
     function __construct(string $typeUser) {
         //PDO
         $typeUser = self::USER_LEVELS[ 'AUTH-USER_LV-1~R@@T'];
-        $this->userDB = $typeUser[0];
-        $this->passDB = $typeUser[1];
+        $this->userDB = 'root';
+        $this->passDB = '';
         $this->pdo = new PDO("mysql:host=localhost;dbname=apae2",$this->userDB,$this->passDB);
         $this->queries = [
             'usuarios'=> "INSERT INTO usuarios (nome,email,cep,cpf,data_nasc,senha,endereco
-            ,complemento,numero,nivel_acesso,data_cadastro,ativo) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)",
+            ,complemento,numero, data_vencimento,nivel_acesso,data_cadastro,ativo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,1)",
             'parceiros'=> "INSERT INTO usuarios (nome,ramoAtiv,email,senha,nivel_acesso,data_cadastro,ativo) VALUES (?,?,?,?,?,?,1)",
             'eventos_notices' => "INSERT INTO noticias  (titulo,texto,tipo,inicio,termino) VALUES (?,?,?,?,?)",
             'product' => "INSERT INTO produtos (nome,descricao,preco) VALUES (?,?,?)"
@@ -133,7 +133,7 @@ final class Crud extends DataEncrytype
           
     }
 
-    public function read(string $user,string $page,string $filter): bool | array | int {
+    public function read(string $user,string $page): bool | array | int {
         try {
            
           
@@ -159,7 +159,7 @@ final class Crud extends DataEncrytype
                 case "noticia":
                     $dataAtual = date("Y-m-d");
 
-                    $query = "SELECT * FROM noticias WHERE termino > '$dataAtual' ORDER BY id DESC ";
+                    $query = "SELECT * FROM noticias WHERE termino >= '$dataAtual' AND inicio <= '$dataAtual' ORDER BY id DESC ";
                     
                     
                     $stm = $this->pdo->prepare($query);
@@ -167,6 +167,7 @@ final class Crud extends DataEncrytype
                     $stm->execute();
                     
                     $data = $stm->fetchAll();
+    
                     return count($data)>0?$data:false;
                     break;
 
@@ -282,8 +283,8 @@ final class Crud extends DataEncrytype
 
             $isAtivo = $dados['ativo'] ?? 1;
 
-            $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha, ativo=:ativo WHERE id=:id";
-            $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, ativo=:ativo WHERE id=:id";
+            $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha, ativo=:ativo, autenticado=:autenticado WHERE id=:id";
+            $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, ativo=:ativo,autenticado=:autenticado WHERE id=:id";
             $stm = $this->pdo->prepare($queryComSenha);
             $stm2 = $this->pdo->prepare($querySemSenha);
 
@@ -293,6 +294,7 @@ final class Crud extends DataEncrytype
             $stm->bindParam("complemento",$dados['complemento']);
             $stm->bindParam("senha",$dados['Senha']);
             $stm->bindParam("ativo",$isAtivo);
+            $stm->bindParam("autenticado",$dados['autenticar']);
             $stm->bindParam("id",$dados['id']);
 
             $stm2->bindParam("numero",$dados['telefone']);
@@ -300,6 +302,7 @@ final class Crud extends DataEncrytype
             $stm2->bindParam("endereco",$dados['endereco']);
             $stm2->bindParam("complemento",$dados['complemento']);
             $stm2->bindParam("ativo",$isAtivo);
+            $stm2->bindParam("autenticado",$dados['autenticar']);
             $stm2->bindParam("id",$dados['id']);
 
             return isset($dados['Senha'])?$stm->execute():$stm2->execute();
@@ -315,7 +318,7 @@ final class Crud extends DataEncrytype
             //Fazer login
           //var_dump($dadosLogin);
             $senha = $dadosLogin['SenhaLogin'];
-            $result_queryLog = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = ? /*AES_ENCRYPT(?, 'keyUsedByTheCommonUser')*/  /*AES_ENCRYPT(?,'keyUsedByTheCommonUser')*/ AND ativo=1");
+            $result_queryLog = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = ? AND autenticado = 1 /*AES_ENCRYPT(?, 'keyUsedByTheCommonUser')*/  /*AES_ENCRYPT(?,'keyUsedByTheCommonUser')*/ AND ativo=1");
             $result_queryLog->setFetchMode(PDO::FETCH_ASSOC);
             $result_queryLog->bindParam(1,$dadosLogin['EmailLogin']);
             //$result_queryLog->bindParam(2,$dadosLogin['SenhaLogin']);

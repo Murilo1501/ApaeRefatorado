@@ -10,7 +10,7 @@
 
 require_once '../../../private/Controller/readData.php';
 require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("noticia",'','');
+$read = new ReadData("noticia",'');
 
 ?>
 
