@@ -28,9 +28,9 @@ class Update extends Treating {
 }
 
 class Read extends Treating {
-    protected function enviarParaModel(string $user, string $page,Crud $model): bool|array {
+    protected function enviarParaModel(string $user,Crud $model): bool|array {
         //Enviar para model
-        $sucesso = $model->read($user, $page);
+        $sucesso = $model->read($user);
         return $sucesso;
     }
 }
@@ -67,5 +67,7 @@ class ChangeSenha extends Treating{
 
     }
 }
+
+
 
 ?>

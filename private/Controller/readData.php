@@ -8,11 +8,11 @@ final class ReadData extends Read{
     private $model;
     public $arrayData;
 
-    function __construct(string $user, string $page, ?string $userType = "AUTH-USER_LV-1~R@@T")
+    function __construct(string $user)
     {
-        $this->model = new Crud($userType);
+        $this->model = new Crud();
 
-        $sucesso = $this->enviarParaModel($user,$page, $this->model);
+        $sucesso = $this->enviarParaModel($user,$this->model);
         
         if($sucesso){
             $this->arrayData = $sucesso;

@@ -1,17 +1,19 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
-        header('Location: /Novo_APAE/public/routes/logout.php');
-        exit();
-    }
+session_start();
+if (!isset($_SESSION['email']) || $_SESSION['type'] != "admin") {
+    header('Location: /Novo_APAE/public/routes/logout.php');
+    exit();
+}
 ?>
 
 <?php
 
 require_once '../../../private/Controller/readData.php';
 
-$page = isset($_GET['page']) ? $_GET['page']:1;
-$read = new ReadData('all',$page); 
+
+
+
+$read = new ReadData('all');
 
 
 
@@ -43,7 +45,7 @@ $read = new ReadData('all',$page);
 
     <title>Apae Guarulhos</title>
 
-    
+
 </head>
 
 
@@ -71,6 +73,20 @@ $read = new ReadData('all',$page);
                     </div>
                 </div>
             </div>
+
+            <?php
+            if (isset($_GET["f"]) && $_GET["f"] == 1) {
+                echo "<div class=\"alert alert-danger alert-dismissible fade show\">
+                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>
+                            <strong>Erro ao alterar!</strong> Verifique as informações. Caso acredite que estejam corretas, entre em contato com a equipe de suporte técnico.
+                          </div>";
+            } elseif (isset($_GET["f"]) && $_GET["f"] == 0) {
+                echo '<div class="alert alert-success alert-dismissible fade show">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Sucesso ao alterar!</strong> Os dados do usuário foram atualizados com sucesso.
+                          </div>';
+            }
+            ?>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered text-center table-hover align-middle small scroll_2">
 
@@ -90,11 +106,11 @@ $read = new ReadData('all',$page);
 
                     foreach ($read->arrayData as $dados) {
                         echo "<tr class='small'>";
-                        $dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'],"d/m/Y");
-                        $dados['ramoAtiv'] = $dados['ramoAtiv']!=""?ucfirst($dados['ramoAtiv']):"Não é empresa";
-                        $dados['numero'] = $dados['numero']!=""?ucfirst($dados['numero']):"Não tem número de telefone cadastrado";
+                        $dados['data_cadastro'] = $read->formatDate($dados['data_cadastro'], "d/m/Y");
+                        $dados['ramoAtiv'] = $dados['ramoAtiv'] != "" ? ucfirst($dados['ramoAtiv']) : "Não é empresa";
+                        $dados['numero'] = $dados['numero'] != "" ? ucfirst($dados['numero']) : "Não tem número de telefone cadastrado";
                         foreach ($dados as $col => $info) {
-                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") ||($col == "data_nasc") || ($col == "data_vencimento") || ($col == "autenticado"))
+                            if (($col == "senha") || ($col == "cpf") || ($col == "cep") || ($col == "endereco") || ($col == "complemento") || ($col == "data_nasc") || ($col == "data_vencimento"))
                                 continue;
 
                             if ($col == "ativo" && $info == "1") {
@@ -111,7 +127,7 @@ $read = new ReadData('all',$page);
                             }
 
                             if ($col == "nivel_acesso") {
-                                echo "<td>".ucfirst($info)."</td>";
+                                echo "<td>" . ucfirst($info) . "</td>";
                                 continue;
                             }
 
@@ -119,7 +135,7 @@ $read = new ReadData('all',$page);
                         }
 
                         echo " <td><button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal'
-                                    data-bs-target='#card".$dados['id']."'>
+                                    data-bs-target='#card" . $dados['id'] . "'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
                                         class='bi bi-person-vcard' viewBox='0 0 16 16'>
                                         <path
@@ -129,15 +145,15 @@ $read = new ReadData('all',$page);
                                     </svg></button>
 
                             </td>
-                            <td>
-                                <a href='../admin/alterar_usuario.php?email=".$dados['email']."' role='button' class='btn btn-primary btn-sm mt-2 mb-2'><i class='bi bi-pencil-square'></i></a>
-                            </td>";
+                            <td><a href='../admin/alterar_usuario.php?email=" . $dados['email'] . "' role='button' class='btn btn-primary btn-sm '><i class='bi bi-pencil-square'></i></a>
+                        <button type='button' class='btn btn-secondary btn-sm' data-bs-toggle='modal' data-bs-target='#ativarUser" . $dados['id'] . "'><i class='bi bi-person-check'></i></button>
+                </td>";
 
 
-                           //Empresas
-                           if ($dados['nivel_acesso']=="empresas") {
+                        //Empresas
+                        if ($dados['nivel_acesso'] == "empresas") {
                             echo '<!-- Carteira - Empresa -->
-                                <div class="modal fade" id="card'.$dados['id'].'" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade" id="card' . $dados['id'] . '" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -149,9 +165,9 @@ $read = new ReadData('all',$page);
                                                 <div class="thumbnail text-center">
                                                 <img src="../../images/cardEmpresa.png" alt="" class="w-100">
                                                     <div>
-                                                        <p class="nome_empresa fw-bold">'.$dados['nome'].'</p>
-                                                        <p class="ramo">'.$dados['ramoAtiv'].'</p>
-                                                        <p class="cadastro_empresa">'.$dados['data_cadastro'].'</p>
+                                                        <p class="nome_empresa fw-bold">' . $dados['nome'] . '</p>
+                                                        <p class="ramo">' . $dados['ramoAtiv'] . '</p>
+                                                        <p class="cadastro_empresa">' . $dados['data_cadastro'] . '</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,10 +175,10 @@ $read = new ReadData('all',$page);
                                     </div>
                                 </div>';
                             //Comum ou admin
-                            } else {
+                        } else {
                             echo "
 
-                                <div class='modal fade' id='card".$dados['id']."'tabindex='-1' aria-hidden='true'>
+                                <div class='modal fade' id='card" . $dados['id'] . "'tabindex='-1' aria-hidden='true'>
                                     <div class='modal-dialog modal-dialog-centered modal-lg'>
                                         <div class='modal-content'>
                                             <div class='modal-header'>
@@ -172,18 +188,18 @@ $read = new ReadData('all',$page);
                                             </div>
                                             <div class='modal-body'>
                                                 <div class='thumbnail text-center'>";
-                                                    if($dados['nivel_acesso'] == 'comum')
-                                                        echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>";
-                                                    elseif ($dados['nivel_acesso'] == 'admin')
-                                                        echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
-                                                    else 
-                                                        echo   "<img src='../../images/cardEmpresa.png' alt='' class='w-100'>";
-                                                echo "<div>
-                                                        <p class='nome_".$dados['nivel_acesso']."' fw-bold'>".$dados['nome']."</p>
-                                                        <p class='cpf_".$dados['nivel_acesso']."'>".$dados['cpf']."</p>
-                                                        <p class='data_nasc_".$dados['nivel_acesso']."'>".$dados['data_nasc']."</p>
-                                                        <p class='cadastro_".$dados['nivel_acesso']."'>".$dados['data_cadastro']."</p>
-                                                        <p> Data de Vencimento: ".$dados['data_vencimento']."</p>
+                            if ($dados['nivel_acesso'] == 'comum')
+                                echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>";
+                            elseif ($dados['nivel_acesso'] == 'admin')
+                                echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
+                            else
+                                echo   "<img src='../../images/cardEmpresa.png' alt='' class='w-100'>";
+                            echo "<div>
+                                                        <p class='nome_" . $dados['nivel_acesso'] . "' fw-bold'>" . $dados['nome'] . "</p>
+                                                        <p class='cpf_" . $dados['nivel_acesso'] . "'>" . $dados['cpf'] . "</p>
+                                                        <p class='data_nasc_" . $dados['nivel_acesso'] . "'>" . $dados['data_nasc'] . "</p>
+                                                        <p class='cadastro_" . $dados['nivel_acesso'] . "'>" . $dados['data_cadastro'] . "</p>
+                                                        <p> Data de Vencimento: " . $dados['data_vencimento'] . "</p>
     
                                                     </div>
                                                 </div>
@@ -192,12 +208,48 @@ $read = new ReadData('all',$page);
                                     </div>
                                 </div>
                                 ";
-                        } 
-                           
-                
-                    
+                        }
 
-                        echo "</tr>";
+
+
+
+                        echo "</tr>
+
+                        <div class='modal fade' id='ativarUser" . $dados['id'] . "' tabindex='-1' aria-hidden='true'>
+                            <div class='modal-dialog modal-dialog-centered modal-sm'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <h5>
+                                            Alterar status do usuário
+                                        </h5>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <div class='mb-3 mt-3 text-center'>
+                                            <form action='../../routes/routes.php?isUpdate=1&user=admin' method='post'>
+                                                <div class='form-check form-check-inline'>
+                                                    <input class='form-check-input' type='radio' name='ativar' id='ativo' value='1'>
+                                                    <label class='form-check-label' for='ativo'>Ativar</label>
+                                                </div>
+                                                <div class='form-check form-check-inline'>
+                                                    <input class='form-check-input' type='radio' name='ativar' id='inativo' value='0'>
+                                                    <label class='form-check-label' for='inativo'>Inativar</label>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <input type='hidden' name='id' value=" . $dados['id'] . ">
+                                                <p>ID: " . $dados['id'] . "</p>
+                                                <input type='hidden' name='path' value='admin/lista_usuarios.php'>
+                    
+                                                <div class='clearfix'>
+                                                    <button type='submit' class='btn btn-sm btn-outline-success float-md-end' id='salvar'>Salvar<i class='bi bi-check2-square ms-2'></i></button>
+                                                </div>
+                                            </form>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> ";
                     }
 
 
@@ -205,69 +257,15 @@ $read = new ReadData('all',$page);
                     ?>
 
 
-
-
-
-
-
-
-                    <!-- Testes com as outras opções de carteiras -->
-                    <!-- <tr class='small'>
-                        <td>2</td>
-                        <td>Melissa Natale Ferreira Franco</td>
-                        <td>123.456.789-10</td>
-                        <td>(11) 91234-5678</td>
-                        <td>07123-456</td>
-                        <td>Rua de exemplo, bairro teste, cidade, sp</td>
-                        <td>112962022@eniac.edu.br</td>
-                        <td><button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#card2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-person-vcard" viewBox="0 0 16 16">
-                                    <path
-                                        d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z" />
-                                    <path
-                                        d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z" />
-                                </svg></button>
-                        </td>
-                        <td>sim</td>
-                        <td><button type="button" class="btn btn-primary btn-sm mt-2 mb-2 me-1 ms-1"><i
-                                    class="bi bi-pencil-square"></i></button><button type="button"
-                                class="btn btn-danger btn-sm mt-2 mb-2 me-1 ms-1"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
-
-                    <tr class="small">
-                        <td>2</td>
-                        <td>Melissa Natale Ferreira Franco</td>
-                        <td>123.456.789-10</td>
-                        <td>(11) 91234-5678</td>
-                        <td>07123-456</td>
-                        <td>Rua de exemplo, bairro teste, cidade, sp</td>
-                        <td>112962022@eniac.edu.br</td>
-                        <td><button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#card3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-person-vcard" viewBox="0 0 16 16">
-                                    <path
-                                        d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z" />
-                                    <path
-                                        d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z" />
-                                </svg></button>
-                        </td>
-                        <td>sim</td>
-                        <td><button type="button" class="btn btn-primary btn-sm mt-2 mb-2 me-1 ms-1"><i
-                                    class="bi bi-pencil-square"></i></button><button type="button"
-                                class="btn btn-danger btn-sm mt-2 mb-2 me-1 ms-1"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr> -->
                 </table>
             </div>
         </div>
     </div>
 
+       
+
     <!-- Carteira - Amigo10 -->
-  
+
     <!-- Carteira - Admin -->
     <div class="modal fade" id="card2" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -315,24 +313,45 @@ $read = new ReadData('all',$page);
         </div>
     </div>
 
-    <nav>
-        <ul class="pagination pagination-sm justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#">
-                    <span aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
-                </a>
-            </li>
 
-            <?php for($i=1;$i<=3;$i++){?>
-                <li class="page-item"><a class="page-link" href="lista_usuarios.php?page=<?php echo $i; ?>"><?php echo $i?></a></li>
-          <?php } ?>
-             <!-- 10 itens (1,2,3,...,10) / a seta vai mudar esses numeros pra 11-20 (11,12,13,...,20) -->
-                <a class="page-link" href="#">
-                    <span aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+
+    <!-- Ativar usuário -->
+    <div class="modal fade" id="ativarUser" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>
+                        Alterar status do usuário
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 mt-3 text-center">
+                        <form action="../../routes/routes.php?isUpdate=1&user=admin" method="post">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ativo" id="ativo" value="1">
+                                <label class="form-check-label" for="ativo">Ativar</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ativo" id="inativo" value="0">
+                                <label class="form-check-label" for="inativo">Inativar</label>
+                            </div>
+                            <br>
+                            <br>
+                            <!-- Campo invisivel / usuário -->
+                            <input type="hidden" name="id" value="<?= $dados['id'] ?>">
+                            <?php echo $dados['id']; ?>
+                            <input type="hidden" name="path" value="admin/lista_usuarios.php">
+
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-sm btn-outline-success float-md-end" id="salvar">Salvar<i class="bi bi-check2-square ms-2"></i></button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <?php require_once '../../shared/footer.html'; ?>
@@ -352,19 +371,19 @@ $read = new ReadData('all',$page);
     </script>
 
     <script>
-        $(document).ready(function(){
-            $("#fetchval").on('change',function(){
+        $(document).ready(function() {
+            $("#fetchval").on('change', function() {
                 var value = $(this).val();
                 //alert(value);
 
                 $.ajax({
-                    url:"teste.php",
-                    type:"POST",
-                    data:'request='+value,
-                    beforeSend:function(){
+                    url: "teste.php",
+                    type: "POST",
+                    data: 'request=' + value,
+                    beforeSend: function() {
                         $(".table ").html("<span>Filtrando...</span>");
                     },
-                    success:function(data){
+                    success: function(data) {
                         $(".table").html(data);
                     }
                 });

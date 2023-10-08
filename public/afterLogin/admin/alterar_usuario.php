@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_GET['email'],'');
+$read = new ReadData($_GET['email']);
 
 $dados = $read->arrayData;
 
@@ -159,28 +159,7 @@ $dados = $read->arrayData;
                         </div>
                     </div>
 
-                    <!-- Status do usuario -->
-                    <div class="mb-3 mt-3">
-                        <p class="form-label">Status do usuário</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="ativo" name="ativo" 
-                            <?=($dados['ativo']==1?"checked":"")?>  value="1">
-                            <label class="form-check-label" for="ativo">Ativo</label> <!-- <?=($dados['ativo']==1?"checked":"")?> -->
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="ativo" id="inativo"
-                                value="0" <?=($dados['ativo']==1?"":"checked")?>> <!--  -->
-                            <label class="form-check-label" for="inativo">Inativo</label>
-                        </div>
-
-                        <br><br>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="autenticar" id="autenticar"
-                                value="1" <?=($dados['autenticado']==0?"":"checked")?>> <!--  -->
-                            <label class="form-check-label" for="inativo">Autenticado</label>
-                        </div>
-                    </div>
+               
 
                     <!-- imagem
                         <div>
