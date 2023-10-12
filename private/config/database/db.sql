@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+3:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -50,7 +50,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `cep`, `cpf`, `data_nasc`, `senha`, `endereco`, `complemento`, `numero`, `ramoAtiv`, `ativo`, `nivel_acesso`, `data_cadastro`, `data_vencimento`) VALUES
-(40, 'Admin', 'admin@gmail.com', '07411-395', '160.537.288-96', '2007-01-15', '$2y$10$XdyHumABM3KzWHUztbkAmeOuh95OAo4nw5sQx0MvHC9xMlR3l8W/a', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', 'qualquercoisa3', '(11) 93308-9944', '', 1, 'admin', '2023-10-07', '2023-11-30');
+(1, 'Admin', 'admin@gmail.com', '07411-395', '160.537.288-96', '2007-01-15', '$2y$10$XdyHumABM3KzWHUztbkAmeOuh95OAo4nw5sQx0MvHC9xMlR3l8W/a', 'Rua Nossa Senhora da Pompéia, Cidade Nova Arujá, Arujá,', 'qualquercoisa3', '(11) 93308-9944', '', 1, 'admin', '2023-10-07', '2023-11-30');
 
 --
 -- Índices para tabelas despejadas
@@ -61,17 +61,6 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `cep`, `cpf`, `data_nasc`, `senha
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
