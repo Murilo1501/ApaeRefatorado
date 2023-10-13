@@ -135,7 +135,7 @@ $dados = $read->arrayData;
 
                 <div class="container-fluid p-3 mb-2 bg-white shadow-sm scroll_1">
                     <div>
-                        <h2 class="text-center">Eventos, Notícias e Produtos Cadastrados</h2>
+                        <h2 class="text-center">Eventos e Notícias cadastrados</h2>
                         <canvas id="bar"></canvas>
                     </div>
                     <script>
@@ -145,7 +145,7 @@ $dados = $read->arrayData;
 
                             type: 'bar',
                             data: {
-                                labels: ['Eventos', 'Notícias', 'Produtos'],
+                                labels: ['Eventos', 'Notícias'],
                                 datasets: [{
                                     label: '',
                                     data: [<?=$dados['eventos']?>, <?=$dados['noticias']?>, /*<?=$dados['produtos']?>*/],
