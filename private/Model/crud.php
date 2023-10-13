@@ -63,13 +63,13 @@ final class Crud extends DataEncrytype
                     }
 
                     $proxy[] = date("Y-m-d");
+
+                    var_dump($proxy);
                 
                     if($stm->execute($proxy)){
                         return true;
                     }
                     return false;
-        
-                ;
 
                 case "empresas":
                     $stm = $this->pdo->prepare($queryChose_parceiros);
@@ -82,8 +82,6 @@ final class Crud extends DataEncrytype
                         return true;
                     }
                     return false;
-
-                ;
                 
                 case "evento_noticia":
                     var_dump($dados);
@@ -97,8 +95,6 @@ final class Crud extends DataEncrytype
                   }
                   return false;
 
-                ;
-
                 case "product":
                     
                     unset($dados['nivel']);
@@ -111,7 +107,6 @@ final class Crud extends DataEncrytype
                     return true;
                   }
                   return false;
-                ;
 
                 default:
                   return false;

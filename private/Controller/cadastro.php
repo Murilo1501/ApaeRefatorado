@@ -11,9 +11,9 @@ final class Cadastro extends Insert {
     private $model;
     private $path;
 
-    function __construct(array $inputs, string $typeOfUser="AUTH-USER_LV-1~R@@T") {
+    function __construct(array $inputs, string $typeOfUser="admin") {
         //Define o objeto do CRUD
-        $this->model = new Crud($typeOfUser); //Abre o CRUD com o nível de acesso do usuário $typeOfUser
+        $this->model = new Crud(); //Abre o CRUD com o nível de acesso do usuário $typeOfUser
 
         //Define o caminho do arquivo que requisitou
         $this->path = $inputs['path'];

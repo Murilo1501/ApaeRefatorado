@@ -165,6 +165,7 @@
                         </div> -->
 
                     <!-- Campo invisivel / usuário -->
+                    <input type="hidden" name="data_vencimento" value="2100-12-12">
                     <input type="hidden" name="path" value="afterLogin/admin/cadastro_admin.php">
 
                     <!-- Botão -->
