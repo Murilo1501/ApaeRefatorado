@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData("count","");
+$read = new ReadData("count");
 $dados = $read->arrayData;
 
 ?>
@@ -148,7 +148,7 @@ $dados = $read->arrayData;
                                 labels: ['Eventos', 'Notícias', 'Produtos'],
                                 datasets: [{
                                     label: '',
-                                    data: [<?=$dados['eventos']?>, <?=$dados['noticias']?>, <?=$dados['produtos']?>],
+                                    data: [<?=$dados['eventos']?>, <?=$dados['noticias']?>, /*<?=$dados['produtos']?>*/],
                                     barThickness: 65,
                                     backgroundColor: [
                                         'rgb(61, 170, 224)',

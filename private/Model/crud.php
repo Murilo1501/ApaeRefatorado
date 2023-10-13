@@ -113,6 +113,9 @@ final class Crud extends DataEncrytype
                   return false;
                 ;
 
+                default:
+                  return false;
+
              
             }
 
@@ -185,7 +188,7 @@ final class Crud extends DataEncrytype
                     $queryCountInativos = "SELECT COUNT(id) FROM usuarios WHERE ativo=0";
 
                     //Count produtos, eventos e notícias
-                    $queryCountProdutos = "SELECT COUNT(id) FROM produtos";
+                    // $queryCountProdutos = "SELECT COUNT(id) FROM produtos";
                     $queryCountNoticias = "SELECT COUNT(id) FROM noticias WHERE tipo='noticias'";
                     $queryCountEventos = "SELECT COUNT(id) FROM noticias WHERE tipo='eventos'";
 
@@ -197,7 +200,7 @@ final class Crud extends DataEncrytype
                     $countAtivos = $this->pdo->prepare($queryCountAtivos);
                     $countInativos = $this->pdo->prepare($queryCountInativos);
 
-                    $countProdutos = $this->pdo->prepare($queryCountProdutos);
+                    // $countProdutos = $this->pdo->prepare($queryCountProdutos);
                     $countNoticias = $this->pdo->prepare($queryCountNoticias);
                     $countEventos = $this->pdo->prepare($queryCountEventos);
 
@@ -209,7 +212,7 @@ final class Crud extends DataEncrytype
                     $countAtivos->execute();
                     $countInativos->execute();
 
-                    $countProdutos->execute();
+                    // $countProdutos->execute();
                     $countNoticias->execute();
                     $countEventos->execute();
 
@@ -221,7 +224,7 @@ final class Crud extends DataEncrytype
                     $retornoAtivos = $countAtivos->fetchColumn();
                     $retornoInativos = $countInativos->fetchColumn();
 
-                    $retornoProdutos = $countProdutos->fetchColumn();
+                    // $retornoProdutos = $countProdutos->fetchColumn();
                     $retornoNoticias = $countNoticias->fetchColumn();
                     $retornoEventos = $countEventos->fetchColumn();
 
@@ -234,7 +237,7 @@ final class Crud extends DataEncrytype
                         "ativos" => $retornoAtivos,
                         "inativos" => $retornoInativos,
 
-                        "produtos" => $retornoProdutos,
+                        // "produtos" => $retornoProdutos,
                         "noticias" => $retornoNoticias,
                         "eventos" => $retornoEventos,
                     ];
