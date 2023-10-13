@@ -24,6 +24,21 @@ SET time_zone = "+3:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `noticias`
+--
+
+CREATE TABLE `noticias` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(55) NOT NULL,
+  `texto` text NOT NULL,
+  `tipo` varchar(55) NOT NULL,
+  `inicio` text NOT NULL,
+  `termino` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `usuarios`
 --
 
@@ -55,6 +70,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `cep`, `cpf`, `data_nasc`, `senha
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `noticias`
+--
+ALTER TABLE `noticias`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `usuarios`
