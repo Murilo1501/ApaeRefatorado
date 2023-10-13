@@ -82,7 +82,7 @@ $dados = $read->arrayData;
                                 options: {
                                     scales: {
                                         y: {
-                                            beginAtZero: true
+                                            display: false
                                         }
                                     }
                                 }
@@ -123,7 +123,7 @@ $dados = $read->arrayData;
                                     maintainAspectRatio: true,
                                     scales: {
                                         y: {
-                                            beginAtZero: true
+                                            display: false
                                         }
                                     }
                                 }
@@ -161,7 +161,10 @@ $dados = $read->arrayData;
                             options: {
                                 scales: {
                                     y: {
-                                        beginAtZero: true
+                                        beginAtZero: true,
+                                        ticks: {
+                                            precision: 0
+                                        }
                                     }
                                 }
                             }
