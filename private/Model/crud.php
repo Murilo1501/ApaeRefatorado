@@ -69,7 +69,7 @@ final class Crud extends DataEncrytype
                     }
                     return false;
         
-                break;
+                ;
 
                 case "empresas":
                     $stm = $this->pdo->prepare($queryChose_parceiros);
@@ -83,7 +83,7 @@ final class Crud extends DataEncrytype
                     }
                     return false;
 
-                break;
+                ;
                 
                 case "evento_noticia":
                     var_dump($dados);
@@ -97,7 +97,7 @@ final class Crud extends DataEncrytype
                   }
                   return false;
 
-                break;
+                ;
 
                 case "product":
                     
@@ -111,7 +111,7 @@ final class Crud extends DataEncrytype
                     return true;
                   }
                   return false;
-                break;
+                ;
 
              
             }
@@ -144,7 +144,7 @@ final class Crud extends DataEncrytype
                     return count($data)>0?$data:false;
 
 
-                    break;      
+                    ;      
 
                 case "noticia":
                     $dataAtual = date("Y-m-d");
@@ -159,7 +159,7 @@ final class Crud extends DataEncrytype
                     $data = $stm->fetchAll();
     
                     return count($data)>0?$data:false;
-                    break;
+                    ;
 
                 case "product":
 
@@ -172,7 +172,7 @@ final class Crud extends DataEncrytype
                     $data = $stm->fetchAll();
     
                     return count($data)>0?$data:false;
-                    break;
+                    ;
 
                 case "count":
                     //Count usuários
@@ -239,7 +239,7 @@ final class Crud extends DataEncrytype
                         "eventos" => $retornoEventos,
                     ];
                     return $retornos;
-                    break;
+                    ;
                
                 default:
                     $query = "SELECT * FROM usuarios WHERE email = :email";
