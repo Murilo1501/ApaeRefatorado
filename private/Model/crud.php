@@ -269,7 +269,7 @@ final class Crud extends DataEncrytype
         
             unset($dados['nivel']); //Nivel de acesso não utilizado
 
-            $isAtivo = $dados['ativo'] ?? 0;
+            $isAtivo = $dados['ativar'] ?? 0;
 
             $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha WHERE id=:id";
             $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento WHERE id=:id";

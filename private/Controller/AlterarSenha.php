@@ -10,7 +10,7 @@ class AlterarSenha extends ChangeSenha{
 
     function __construct($dataAlter)
     {
-        $this->model =  new Crud('comum');
+        $this->model =  new Crud();
 
         $this->dado = $this->filterInput($dataAlter,"comum");
         $modelReturn = $this->enviarParaModel($this->dado,$this->model);
