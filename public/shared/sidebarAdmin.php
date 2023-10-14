@@ -84,12 +84,12 @@
                         </a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="../admin/cadastro_produtos.php">
                             <i class='bx bx-shopping-bag'></i>
                             <span class="title">Produtos</span>
                         </a>
-                    </li>
+                    </li> -->
                 </div>
             </div>
 
@@ -109,12 +109,12 @@
                             <span class="title">Usuários</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="../admin/lista_produtos.php">
                             <i class='bx bx-shopping-bag'></i>
                             <span class="title">Produtos</span>
                         </a>
-                    </li>
+                    </li> -->
                 </div>
             </div>
         </ul>
