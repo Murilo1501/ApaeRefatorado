@@ -271,9 +271,9 @@ final class Crud extends DataEncrytype
 
             $isAtivo = $dados['ativo'] ?? 0;
 
-            $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha, ativo=:ativo WHERE id=:id";
-            $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, ativo=:ativo WHERE id=:id";
-            $queryAuth  ="UPDATE usuarios SET ativo=:ativo WHERE id=:id";
+            $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha WHERE id=:id";
+            $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento WHERE id=:id";
+            $queryAuth = "UPDATE usuarios SET ativo=:ativo WHERE id=:id";
             $stm = $this->pdo->prepare($queryComSenha);
             $stm2 = $this->pdo->prepare($querySemSenha);
             $stm3 = $this->pdo->prepare($queryAuth);
@@ -283,14 +283,12 @@ final class Crud extends DataEncrytype
             $stm->bindParam("endereco",$dados['endereco']);
             $stm->bindParam("complemento",$dados['complemento']);
             $stm->bindParam("senha",$dados['Senha']);
-            $stm->bindParam("ativo",$isAtivo);
             $stm->bindParam("id",$dados['id']);
 
             $stm2->bindParam("numero",$dados['telefone']);
             $stm2->bindParam("cep",$dados['cep']);
             $stm2->bindParam("endereco",$dados['endereco']);
             $stm2->bindParam("complemento",$dados['complemento']);
-            $stm2->bindParam("ativo",$isAtivo);
             $stm2->bindParam("id",$dados['id']);
 
             $stm3->bindParam("ativo",$isAtivo);

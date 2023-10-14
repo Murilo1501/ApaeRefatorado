@@ -92,9 +92,7 @@ $dados = $read->arrayData;
                     <!-- CEP -->
                     <div class="mb-3 mt-3">
                         <label for="cep" class="form-label">CEP</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="cep"
-                                placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' value="<?=$dados['cep']?>"
-                                required>
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="cep" name="cep" placeholder="_____-___" data-slots="_" data-accept="[\d]" autocomplete='off' value="<?=$dados['cep']?>" required>
                         </div>
                     </div>
 
@@ -120,7 +118,7 @@ $dados = $read->arrayData;
                     <!-- E-mail -->
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email" name="Email"
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email" name="email"
                                 placeholder="E-mail" maxlength="128" minlength="5" style='background-color: #e9ecef;'
                                 pattern="^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$" autocomplete='off'
                                 value="<?=$dados['email']?>" readonly required>

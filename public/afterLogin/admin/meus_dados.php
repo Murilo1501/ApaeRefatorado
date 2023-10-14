@@ -166,7 +166,7 @@ $dados = $read->arrayData;
                     <input type="hidden" name="path" value="admin/meus_dados.php">
 
                     <div class="clearfix">
-                        <button disabled type="submit" id="cadastrar" class="btn btn-sm btn-outline-primary float-md-end"
+                        <button type="submit" id="cadastrar" class="btn btn-sm btn-outline-primary float-md-end"
                             id="editar">Editar<i class="bi bi-pencil-square ms-2"></i></button>
                     </div>
                 </form>

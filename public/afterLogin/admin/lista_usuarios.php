@@ -334,7 +334,6 @@ $read = new ReadData('all');
                             <br>
                             <!-- Campo invisivel / usuário -->
                             <input type="hidden" name="id" value="<?= $dados['id'] ?>">
-                            <?php echo $dados['id']; ?>
                             <input type="hidden" name="path" value="admin/lista_usuarios.php">
 
                             <div class="clearfix">
