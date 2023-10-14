@@ -129,8 +129,7 @@ $dados = $read->arrayData;
                     <div class="mb-3 mt-3">
                         <label for="password" class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha" maxlength="24"
-                                minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1">
+                            <input type="password" class="form-control" id="password" placeholder="Senha" name="Senha" maxlength="24" minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,24}" aria-label="button-addon1" onkeyup="validatePass()">
 
                             <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon1"
                                 onclick="showPass('password',this.id)"><i class="bi bi-eye-slash"></i></button>
@@ -186,26 +185,7 @@ $dados = $read->arrayData;
     </script>
 
     <!-- Verif Senha -->
-    <script>
-        let validatePass = () => {
-            let pass = document.getElementById("password");
-            let confPass = document.getElementById("conf-password");
-            if (pass.value != confPass.value && pass.value != "") {
-                document.getElementById("cadastrar").disabled = true;
-                document.getElementById("conf-pass-lbl").innerHTML = "As senhas não são iguais";
-                document.getElementById("conf-pass-lbl").style.color = "rgb(255,0,0)";
-            } else {
-                document.getElementById("conf-pass-lbl").innerHTML = "";
-                document.getElementById("cadastrar").disabled = false;
-                confPass.minLength = 8;
-            }
-        }
-        let showPass = (inpfield, btn) => {
-            document.getElementById(inpfield).type = (document.getElementById(inpfield).type == "text") ? "password" : "text";
-            document.getElementById(btn).getElementsByClassName("bi")[0].classList.toggle("bi-eye");
-            document.getElementById(btn).getElementsByClassName("bi")[0].classList.toggle("bi-eye-slash");
-        }
-    </script>
+    <script src="../../shared/confirmPassword.js"></script>
 
     <!-- Script CEP autocomplete -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
