@@ -171,6 +171,8 @@ $read = new ReadData('all');
                                 </div>';
                             //Comum ou admin
                         } else {
+                            $dados['data_vencimento'] = $read->formatDate($dados['data_vencimento'], "d/m/Y");
+
                             echo "
 
                                 <div class='modal fade' id='card" . $dados['id'] . "'tabindex='-1' aria-hidden='true'>
@@ -183,21 +185,20 @@ $read = new ReadData('all');
                                             </div>
                                             <div class='modal-body'>
                                                 <div class='thumbnail text-center'>";
-                            if ($dados['nivel_acesso'] == 'comum')
-                                echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>";
-                            elseif ($dados['nivel_acesso'] == 'admin')
-                                echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
-                            else
-                                echo   "<img src='../../images/cardEmpresa.png' alt='' class='w-100'>";
-                            echo "<div>
+                                                    if ($dados['nivel_acesso'] == 'comum')
+                                                        echo   "<img src='../../images/cardUser.png' alt='' class='w-100'>";
+                                                    else
+                                                        echo   "<img src='../../images/cardAdmin.png' alt='' class='w-100'>";
+
+                                                    echo "<div>
                                                         <p class='nome_" . $dados['nivel_acesso'] . "' fw-bold'>" . $dados['nome'] . "</p>
                                                         <p class='cpf_" . $dados['nivel_acesso'] . "'>" . $dados['cpf'] . "</p>
                                                         <p class='data_nasc_" . $dados['nivel_acesso'] . "'>" . $dados['data_nasc'] . "</p>
                                                         <p class='cadastro_" . $dados['nivel_acesso'] . "'>" . $dados['data_cadastro'] . "</p>
-                                                        <p> Data de Vencimento: " . $dados['data_vencimento'] . "</p>
-    
+                                                        
                                                     </div>
                                                 </div>
+                                                <p> Data de Vencimento: " . $dados['data_vencimento'] . "</p>
                                             </div>
                                         </div>
                                     </div>
@@ -261,7 +262,7 @@ $read = new ReadData('all');
 
     <!-- Carteira - Amigo10 -->
 
-    <!-- Carteira - Admin -->
+    <!-- Carteira - Admin
     <div class="modal fade" id="card2" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -283,10 +284,10 @@ $read = new ReadData('all');
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Carteira - Empresa -->
-    <div class="modal fade" id="card3" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal fade" id="card3" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -306,12 +307,12 @@ $read = new ReadData('all');
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
     <!-- Ativar usuário -->
-    <div class="modal fade" id="ativarUser" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal fade" id="ativarUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -332,7 +333,7 @@ $read = new ReadData('all');
                             </div>
                             <br>
                             <br>
-                            <!-- Campo invisivel / usuário -->
+                            Campo invisivel / usuário
                             <input type="hidden" name="id" value="<?= $dados['id'] ?>">
                             <input type="hidden" name="path" value="admin/lista_usuarios.php">
 
@@ -345,7 +346,7 @@ $read = new ReadData('all');
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Footer -->
     <?php require_once '../../shared/footer.html'; ?>
