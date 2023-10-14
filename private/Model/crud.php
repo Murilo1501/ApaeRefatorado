@@ -386,7 +386,7 @@ final class Crud extends DataEncrytype
                       
             $mail->isHTML(true);                                 
             $mail->Subject = 'Recuperação de senha';
-            $mail->Body = "Para a sua recuperação de senha basta clicar no link clicando"."<a href='http://localhost/Novo_APAE/public/beforeLogin/RedefinirSenha.php?email=$email[email]'>aqui</a>";
+            $mail->Body = "Para a sua recuperação de senha basta clicar no link clicando "."<a href='http://localhost/Novo_APAE/public/beforeLogin/RedefinirSenha.php?email=$email[email]'>aqui</a>";
             $mail->AltBody = "Olá. Aparentemente seu visualizador de E-Mails não suporta a visualização em HTML. Por favor, mude para um visualizador mais moderno.";
 
            $sent = $mail->send();

@@ -47,12 +47,12 @@
                     <span class="title">Menu</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="../comum/produtos.php">
                     <i class='bx bx-shopping-bag'></i>
                     <span class="title">Produtos</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="../comum/noticias.php">
                     <i class='bx bx-news'></i>
