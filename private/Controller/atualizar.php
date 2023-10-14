@@ -10,7 +10,7 @@ final class Atualizar extends Update {
 
     function __construct(array $inputs) {
         //Crud
-        $this->model = new Crud("admin");
+        $this->model = new Crud();
 
         $this->path = $inputs['path'];
         unset($inputs['path']);
@@ -27,11 +27,11 @@ final class Atualizar extends Update {
         $sucesso = $this->enviarParaModel($this->dados,$this->model);
 
         if ($sucesso) {
-            header('Location: /Novo_APAE/public/afterLogin/'.$this->path.'?email='.$this->dados['Email'].'&f=0');
+            header('Location: /Novo_APAE/public/afterLogin/'.$this->path.'?email='.$this->dados['email'].'&f=0');
             exit();
         } else {
             //Redireciona para a mesma página com a mensagem de falha
-            header('Location: /Novo_APAE/public/afterLogin/'.$this->path.'?email='.$this->dados['Email'].'&f=1');
+            header('Location: /Novo_APAE/public/afterLogin/'.$this->path.'?email='.$this->dados['email'].'&f=1');
             exit();
         }
     }

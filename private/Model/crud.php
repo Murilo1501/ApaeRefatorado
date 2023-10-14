@@ -159,33 +159,33 @@ final class Crud extends DataEncrytype
                     return count($data)>0?$data:false;
                     ;
 
-                case "product":
+                // case "product":
 
-                    $query = "SELECT * FROM produtos ORDER BY id DESC  ";
+                //     $query = "SELECT * FROM produtos ORDER BY id DESC  ";
                     
-                    $stm = $this->pdo->prepare($query);
-                    $stm->setFetchMode(PDO::FETCH_ASSOC);
-                    $stm->execute();
+                //     $stm = $this->pdo->prepare($query);
+                //     $stm->setFetchMode(PDO::FETCH_ASSOC);
+                //     $stm->execute();
                     
-                    $data = $stm->fetchAll();
+                //     $data = $stm->fetchAll();
     
-                    return count($data)>0?$data:false;
-                    ;
+                //     return count($data)>0?$data:false;
+                //     ;
 
                 case "count":
                     //Count usuários
-                    $queryCountComum = "SELECT COUNT(id) FROM usuarios WHERE nivel_acesso = 'comum'";
-                    $queryCountEmpresas = "SELECT COUNT(id) FROM usuarios WHERE nivel_acesso = 'empresas'";
-                    $queryCountAdmin = "SELECT COUNT(id) FROM usuarios WHERE nivel_acesso = 'admin'";
+                    $queryCountComum = "SELECT COUNT(*) FROM usuarios WHERE nivel_acesso = 'comum'";
+                    $queryCountEmpresas = "SELECT COUNT(*) FROM usuarios WHERE nivel_acesso = 'empresas'";
+                    $queryCountAdmin = "SELECT COUNT(*) FROM usuarios WHERE nivel_acesso = 'admin'";
 
                     //Count ativos e inativos
-                    $queryCountAtivos = "SELECT COUNT(id) FROM usuarios WHERE ativo=1";
-                    $queryCountInativos = "SELECT COUNT(id) FROM usuarios WHERE ativo=0";
+                    $queryCountAtivos = "SELECT COUNT(*) FROM usuarios WHERE ativo=1";
+                    $queryCountInativos = "SELECT COUNT(*) FROM usuarios WHERE ativo=0";
 
                     //Count produtos, eventos e notícias
-                    // $queryCountProdutos = "SELECT COUNT(id) FROM produtos";
-                    $queryCountNoticias = "SELECT COUNT(id) FROM noticias WHERE tipo='noticias'";
-                    $queryCountEventos = "SELECT COUNT(id) FROM noticias WHERE tipo='eventos'";
+                    // $queryCountProdutos = "SELECT COUNT(*) FROM produtos";
+                    $queryCountNoticias = "SELECT COUNT(*) FROM noticias WHERE tipo='noticias'";
+                    $queryCountEventos = "SELECT COUNT(*) FROM noticias WHERE tipo='eventos'";
 
                     //Preparação das queries
                     $countComum = $this->pdo->prepare($queryCountComum);
@@ -269,8 +269,7 @@ final class Crud extends DataEncrytype
         
             unset($dados['nivel']); //Nivel de acesso não utilizado
 
-            $isAtivo = $dados['ativo'] ?? 1;
-            $newArray = ['ativo','id'];
+            $isAtivo = $dados['ativo'] ?? 0;
 
             $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha, ativo=:ativo WHERE id=:id";
             $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, ativo=:ativo WHERE id=:id";

@@ -6,6 +6,16 @@
     }
 ?>
 
+<?php
+
+require_once '../../../private/Controller/readData.php';
+
+$read = new ReadData($_GET['email']);
+
+$dados = $read->arrayData;
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -52,13 +62,13 @@
                           </div>';
                   }
                 ?>
-                <form method="post" action="alterarAction">
+                <form method="post" action="../../routes/routes.php?isUpdate=1&user=admin">
 
                     <!-- Nome -->
                     <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="nome"
-                            placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' disabled required>
+                            placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' value='<?=$dados['nome']?>' readonly style='background-color: #e9ecef;' required>
                         </div>
                     </div>
 
@@ -66,7 +76,7 @@
                     <div class="mb-3 mt-3">
                         <label for="ramo_atividade" class="form-label">Ramo de atividade</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="ramo_atividade"
-                                placeholder="Ramo de atividade" maxlenght="64" minlenght="2" autocomplete='off'
+                                placeholder="Ramo de atividade" maxlenght="64" minlenght="2" autocomplete='off' value='<?=$dados['ramoAtiv']?>'
                                 required>
                         </div>
                     </div>
@@ -74,10 +84,10 @@
                     <!-- E-mail -->
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" id="email"
+                        <div class="col-md-12 mb-3"> <input type="text" class="form-control" name="email" id="email"
                                 placeholder="E-mail" maxlength="128" minlength="5"
                                 pattern="^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$" autocomplete='off'
-                                disabled required>
+                                readonly value='<?=$dados['email']?>' style='background-color: #e9ecef;' required>
                         </div>
                     </div>
 
@@ -112,21 +122,6 @@
                         </div>
                     </div>
 
-                    <!-- Status do usuario -->
-                    <div class="mb-3 mt-3">
-                        <label for="" class="form-label">Status da empresa</label>
-                        <div class="form-lable"></div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ativa" value="1">
-                            <label class="form-check-label" for="ativa">Ativa</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inativa"
-                                value="0">
-                            <label class="form-check-label" for="inativa">Inativa</label>
-                        </div>
-                    </div>
-
                     <!-- imagem
                         <div>
                           <label for="file" class="form-label">Imagem</label>
@@ -135,7 +130,8 @@
                         </div> -->
 
                     <!-- Campo invisivel / usuário -->
-                    <input type="hidden" name="path" value="admin/alterar_empresa.php">
+                    <input type="hidden" name="id" value="<?=$dados['id']?>">
+                    <input type="hidden" name="path" value="admin/alterar_empresas.php">
 
                     <!-- Botão -->
                     <div class="clearfix">

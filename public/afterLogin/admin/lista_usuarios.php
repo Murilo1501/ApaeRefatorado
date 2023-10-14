@@ -10,12 +10,7 @@ if (!isset($_SESSION['email']) || $_SESSION['type'] != "admin") {
 
 require_once '../../../private/Controller/readData.php';
 
-
-
-
 $read = new ReadData('all');
-
-
 
 ?>
 
@@ -145,7 +140,7 @@ $read = new ReadData('all');
                                     </svg></button>
 
                             </td>
-                            <td><a href='../admin/alterar_usuario.php?email=" . $dados['email'] . "' role='button' class='btn btn-primary btn-sm '><i class='bi bi-pencil-square'></i></a>
+                            <td><a href='../admin/alterar_".(($dados['nivel_acesso']=='empresas')?'empresas':'usuario').".php?email=" . $dados['email'] . "' role='button' class='btn btn-primary btn-sm '><i class='bi bi-pencil-square'></i></a>
                         <button type='button' class='btn btn-secondary btn-sm' data-bs-toggle='modal' data-bs-target='#ativarUser" . $dados['id'] . "'><i class='bi bi-person-check'></i></button>
                 </td>";
 
