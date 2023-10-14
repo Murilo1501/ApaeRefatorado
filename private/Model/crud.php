@@ -374,10 +374,10 @@ final class Crud extends DataEncrytype
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->CharSet = 'UTF-8';
             $mail->isSMTP();
-            $mail->Host = 'smtp.mailtrap.io';
+            $mail->Host = 'sandbox.smtp.mailtrap.io';
             $mail->SMTPAuth = true;
-            $mail->Username = '83f862e63259c2';
-            $mail->Password = '40a3b9382303da';
+            $mail->Username = '7d53b7ce3e6573';
+            $mail->Password = '864a21bcad43db';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 2525;
 
@@ -387,7 +387,7 @@ final class Crud extends DataEncrytype
             $mail->isHTML(true);                                 
             $mail->Subject = 'Recuperação de senha';
             $mail->Body = "Para a sua recuperação de senha basta clicar no link clicando"."<a href='http://localhost/Novo_APAE/public/beforeLogin/RedefinirSenha.php?email=$email[email]'>aqui</a>";
-            $mail->AltBody = "Olá Cesar, Sua solicitação sobre o curso de PHP Developer.\nTexto da segunda linha.";
+            $mail->AltBody = "Olá. Aparentemente seu visualizador de E-Mails não suporta a visualização em HTML. Por favor, mude para um visualizador mais moderno.";
 
            $sent = $mail->send();
 

@@ -9,13 +9,12 @@ class SendEmail extends EmailSent{
 
      function __construct($email)
     {
-        $this->model =  new Crud('comum');
+        $this->model =  new Crud();
 
 
         $modelReturn = $this->enviarParaModel($email,$this->model);
 
         if($modelReturn){
-
             header('Location: /Novo_APAE/public/beforeLogin/esqueciSenha.php?success=1');
             exit();
         } else{ 
