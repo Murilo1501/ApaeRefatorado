@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData($_SESSION['email'],"1");
+$read = new ReadData($_SESSION['email']);
 $dados = $read->arrayData;
 
 ?>
@@ -66,7 +66,7 @@ $dados = $read->arrayData;
                     <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
                         <div class="col-md-12 mb-3"><input type="text" class="form-control" id="nome"
-                                placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' value="<?=$dados['nome']?>" disabled required>
+                                placeholder="Nome" maxlenght="64" minlenght="2" autocomplete='off' value="<?=$dados['nome']?>" readonly style='background-color: #e9ecef;' required>
                         </div>
                     </div>
 
@@ -75,7 +75,7 @@ $dados = $read->arrayData;
                         <label for="cpf" class="form-label">CPF</label>
                         <div class="col-md-12 mb-3"> <input type="text" class="form-control"
                                 placeholder="___.___.___-__" id="cpf" data-slots="_" data-accept="[\d]"
-                                autocomplete='off' value="<?=$dados['cpf']?>" disabled required>
+                                autocomplete='off' value="<?=$dados['cpf']?>" readonly style='background-color: #e9ecef;' required>
                         </div>
                     </div>
 
@@ -146,11 +146,9 @@ $dados = $read->arrayData;
                     <div class="mb-3 mt-3">
                         <label for="conf-password" class="form-label">Confirmar senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha"
-                                maxlength="24" minlength="8" onkeyup="validatePass()" aria-label="button-addon2">
+                            <input type="password" class="form-control" id="conf-password" placeholder="Confirmar senha" name="ConfirmarSenha" maxlength="24" minlength="8" onkeyup="validatePass()" aria-label="button-addon2">
 
-                            <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2"
-                                onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>
+                            <button class="btn btn-outline-primary rounded-end" type="button" id="button-addon2" onclick="showPass('conf-password',this.id)"><i class="bi bi-eye-slash"></i></button>
 
                             <span class="valid-feedback" id="conf-pass-lbl">As senhas não são iguais</span>
                             <span class="invalid-feedback">As senhas não são iguais</span>
@@ -169,7 +167,7 @@ $dados = $read->arrayData;
                     <input type="hidden" name="path" value="admin/meus_dados.php">
 
                     <div class="clearfix">
-                        <button type="submit" class="btn btn-sm btn-outline-primary float-md-end"
+                        <button disabled type="submit" id="cadastrar" class="btn btn-sm btn-outline-primary float-md-end"
                             id="editar">Editar<i class="bi bi-pencil-square ms-2"></i></button>
                     </div>
                 </form>
@@ -281,7 +279,7 @@ $dados = $read->arrayData;
         });
     </script>
 
-    <script src="../../shared/placeholder.js"></script>
+    <script src="../../shared/masks.js"></script>
 </body>
 
 </html>

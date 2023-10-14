@@ -247,7 +247,7 @@ $dados = $read->arrayData;
         });
     </script>
 
-    <script src="../../shared/placeholder.js"></script>
+    <script src="../../shared/masks.js"></script>
 </body>
 
 </html>
