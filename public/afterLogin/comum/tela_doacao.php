@@ -51,9 +51,9 @@
                 <div class="imagem_doação">
                     <img src="https://apaegarca.org.br/wp-content/uploads/2021/02/cropped-logo-1.png" alt="Shop here.">
                 </div>
-                <p class="fs-5 mb-3">Doação pequena</p>
-                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>5,<sub>00</sub></p>
-                <p class="text-decoration-none text-black-40">Doe R$5,00 e faça a diferença </p>
+                <p class="fs-5 mb-3">Doação Mensal</p>
+                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>10,<sub>00</sub></p>
+                <p class="text-decoration-none text-black-40">Doe R$10,00 e faça a diferença </p>
                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exemplo1">Doar agora</button>
                 <!-- Popup -->
                 <div class="modal fade" id="exemplo1" tabindex="-1" aria-hidden="true">
@@ -76,9 +76,9 @@
                 <div class="imagem_doação">
                     <img src="https://apaegarca.org.br/wp-content/uploads/2021/02/cropped-logo-1.png" alt="Shop here.">
                 </div>
-                <p class="fs-5 mb-3">Doação Média</p>
-                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>10,<sub>00</sub></p>
-                <p class="text-decoration-none text-black-40">Doe R$10,00 e faça a diferença </p>
+                <p class="fs-5 mb-3">Doação Semestral</p>
+                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>60,<sub>00</sub></p>
+                <p class="text-decoration-none text-black-40">Doe R$60,00 e faça a diferença </p>
                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exemplo1">Doar agora</button>
                 <!-- Popup -->
                 <div class="modal fade" id="exemplo1" tabindex="-1" aria-hidden="true">
@@ -105,9 +105,9 @@
                 <div class="imagem_doação">
                     <img src="https://apaegarca.org.br/wp-content/uploads/2021/02/cropped-logo-1.png" alt="Shop here.">
                 </div>
-                <p class="fs-5 mb-3">Doação Grande</p>
-                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>15,<sub>00</sub></p>
-                <p class="text-decoration-none text-black-40">Doe R$15,00 e faça a diferença </p>
+                <p class="fs-5 mb-3">Doação Anual</p>
+                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>120,<sub>00</sub></p>
+                <p class="text-decoration-none text-black-40">Doe R$120,00 e faça a diferença </p>
                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exemplo1">Doar agora</button>
                 <!-- Popup -->
                 <div class="modal fade" id="exemplo1" tabindex="-1" aria-hidden="true">
@@ -131,9 +131,9 @@
                 <div class="imagem_doação">
                     <img src="https://apaegarca.org.br/wp-content/uploads/2021/02/cropped-logo-1.png" alt="Shop here.">
                 </div>
-                <p class="fs-5 mb-3">Amigo 10</p>
-                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>20,<sub>00</sub></p>
-                <p class="text-decoration-none text-black-40">Doe R$20,00 e faça a diferença</p>
+                <p class="fs-5 mb-3">Doação Amigo10</p>
+                <p class="preço1 text-decoration-none text-black-50"><sup>R$</sup>XX,<sub>00</sub></p>
+                <p class="text-decoration-none text-black-40">Doe qualquer quantia e faça a diferença</p>
                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exemplo1">Doar
                     agora</button>
                 <!-- Popup -->

@@ -64,24 +64,6 @@ $read = new ReadData("noticia");
 
     <?php require_once '../../shared/sidebarComum.php';?>
 
-
-    <!-- Container element 
-    <div class="container-parallax parallax">
-        <div class="container_text">
-            <div class="text_parallax scroll_1 mt-5 mb-5">
-                <div class="ms-2 me-2">
-                    <h1 class="fw-bold mb-0">Associação de Pais e Amigos dos Excepcionais Guarulhos</h1>
-                    <br>
-                    <p class="text-decoration-none text-black-10">1° de Julho de 1979 por um grupo de voluntárias,
-                        professoras e pais, sem fins
-                        lucrativos, com o intuito de promover a atenção integral às pessoas com deficiência
-                        intelectual e múltipla.</p>
-                    <button type="button" class="btn btn-outline-info px-4 me-sm-3 fw-bold mb-3">Contribuir</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <!-- Banner -->
     <div class="container_text" style="background-color: #fffffe;">
         <div class="texto_inicial scroll_1 col-md-8">
@@ -230,7 +212,7 @@ $read = new ReadData("noticia");
                                     <div class='card-body'>
                                         <h5 class='card-title fw-bold mb-0'>$dados[titulo]<i class='bi bi-calendar-event ms-2'></i>
                                         </h5>
-                                        <span class='mt-0 mb-0 text-muted small'>".$dados['inicio']."</span>
+                                        <span class='mt-0 mb-0 text-muted small'>".date("d/m/Y",strtotime($dados['inicio']))."</span>
                                         <p class='card-text mt-1'>".$dados['texto']."</p>
             
                                         <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
@@ -248,7 +230,7 @@ $read = new ReadData("noticia");
                                                     <div class='modal-body'>
                                                     $dados[texto] </div>
                                                     <div class='modal-footer'>
-                                                        <p class='text-black-50'>".$dados['termino']."</p>
+                                                        <p class='text-black-50'>".date("d/m/Y",strtotime($dados['termino']))."</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -264,7 +246,7 @@ $read = new ReadData("noticia");
                                     <div class='card-body'>
                                         <h5 class='card-title fw-bold mb-0'>".$dados['titulo']."<i class='bi bi-newspaper ms-2'></i>
                                         </h5>
-                                        <span class='mt-0 mb-0 text-muted small'>".$dados['inicio']."</span>
+                                        <span class='mt-0 mb-0 text-muted small'>".date("d/m/Y",strtotime($dados['inicio']))."</span>
                                         <p class='card-text mt-1'>".$dados['texto']."</p>
             
                                         <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
@@ -282,13 +264,11 @@ $read = new ReadData("noticia");
                                                     <div class='modal-body'>".
                                                         $dados['texto']." </div>
                                                     <div class='modal-footer'>
-                                                        <p class='text-black-50'>".$dados['termino']."</p>
+                                                        <p class='text-black-50'>".date("d/m/Y",strtotime($dados['termino']))."</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-            
-            
                                     </div>
                                 </div>
                             </div>";
