@@ -28,6 +28,8 @@ $read = new ReadData("noticia");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <link rel="stylesheet" href="../../css/admin.css">
@@ -59,7 +61,7 @@ $read = new ReadData("noticia");
                 </div>
             </div>
             <div class="row g-4 mt-1 mb-1 scroll_noticias_eventos_2">
-            <?php
+                <?php
                     foreach($read->arrayData as $dados){
                         if($dados['tipo'] == "eventos"){
                             echo " <div class='col-sm-6'>
@@ -67,14 +69,14 @@ $read = new ReadData("noticia");
                                 <div class='card-body'>
                                     <h5 class='card-title fw-bold mb-0'>".$dados['titulo']."<i class='bi bi-calendar-event ms-2'></i>
                                     </h5>
-                                    <span class='mt-0 mb-0 text-muted small'>".$dados['inicio']."</span>
+                                    <span class='mt-0 mb-0 text-muted small'>".date("d/m/Y",strtotime($dados['inicio']))."</span>
                                     <p class='card-text mt-1'>".$dados['texto']."</p>
         
                                     <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
-                                        data-bs-target='#noticia".$dados['id']."'>
+                                        data-bs-target='#eventos".$dados['id']."'>
                                         Ler mais<i class='bi bi-arrow-right ms-1'></i> </button>
         
-                                    <div class='modal fade' id='noticia".$dados['id']."' tabindex='-1' aria-hidden='true'>
+                                    <div class='modal fade' id='eventos".$dados['id']."' tabindex='-1' aria-hidden='true'>
                                         <div class='modal-dialog modal-dialog-scrollable modal-xl'>
                                             <div class='modal-content'>
                                                 <div class='modal-header'>
@@ -85,7 +87,7 @@ $read = new ReadData("noticia");
                                                 <div class='modal-body'>".
                                                    $dados['texto'] ."</div>
                                                 <div class='modal-footer'>
-                                                    <p class='text-black-50'>".$dados['termino']."</p>
+                                                    <p class='text-black-50'>".date("d/m/Y",strtotime($dados['termino']))."</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +103,7 @@ $read = new ReadData("noticia");
                                 <div class='card-body'>
                                     <h5 class='card-title fw-bold mb-0'>".$dados['titulo']."<i class='bi bi-newspaper ms-2'></i>
                                     </h5>
-                                    <span class='mt-0 mb-0 text-muted small'>".$dados['inicio']."</span>
+                                    <span class='mt-0 mb-0 text-muted small'>".date("d/m/Y",strtotime($dados['inicio']))."</span>
                                     <p class='card-text mt-1'>".$dados['texto']."</p>
         
                                     <button type='button' class='btn btn-sm btn-outline-primary' data-bs-toggle='modal'
@@ -119,7 +121,7 @@ $read = new ReadData("noticia");
                                                 <div class='modal-body'>".
                                                     $dados['texto']." </div>
                                                 <div class='modal-footer'>
-                                                    <p class='text-black-50'>".$dados['termino']."</p>
+                                                    <p class='text-black-50'>".date("d/m/Y",strtotime($dados['termino']))."</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,6 +134,11 @@ $read = new ReadData("noticia");
                         }
                     }
                 ?>
+            </div>
+            <div class="row mt-5 mb-5 mx-auto w-50 text-center">
+                <h1>Você está completamente atualizado!</h1>
+                <h2>Volte mais tarde para ver novas notícias ou eventos</h2>
+                <h5>Dica: a data que aparece nos cartões é a data de publicação e a data ao clicar nos cartões indica seu fim</h5>
             </div>
 
         </div>
