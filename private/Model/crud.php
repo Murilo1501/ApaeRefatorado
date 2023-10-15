@@ -1,13 +1,12 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
-require_once 'encrytype.php';
 require_once __DIR__.'/../../lib/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-final class Crud extends DataEncrytype
+final class Crud
 {
 
     private $userDB;

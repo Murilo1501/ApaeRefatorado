@@ -9,7 +9,7 @@
 <?php
 
 require_once '../../../private/Controller/readData.php';
-$read = new ReadData("noticia",'');
+$read = new ReadData("noticia");
 
 ?>
 

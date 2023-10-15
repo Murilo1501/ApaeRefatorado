@@ -9,7 +9,7 @@ final class Login extends LoginVerify {
 
     function __construct(array $inputs) {
         //Define o objeto do CRUD
-        $this->model = new Crud("comum");
+        $this->model = new Crud();
         
         //Array com os dados filtrados
         $this->dados = $this->filterInput($inputs,"comum"); //Filtra os inputs

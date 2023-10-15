@@ -6,7 +6,7 @@
     }
 
     require_once '../../../private/Controller/readData.php';
-    $read = new ReadData("product",$_GET['page']?? 1,"");
+    $read = new ReadData("product");
 ?>
 
 <!DOCTYPE html>
