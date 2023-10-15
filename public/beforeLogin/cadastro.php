@@ -45,7 +45,7 @@
                 <div class="form-box">
 
                     <div class="img-box2">
-                        <img src="../images/Apae_logo.png">
+                        <img src="../images/logoApaeGuarulhos.png">
                     </div>
 
 
