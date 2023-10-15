@@ -272,7 +272,7 @@ final class Crud
 
             $queryComSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento, senha=:senha WHERE id=:id";
             $querySemSenha = "UPDATE usuarios SET numero=:numero, cep=:cep, endereco=:endereco, complemento=:complemento WHERE id=:id";
-            $queryAuth = "UPDATE usuarios SET ativo=:ativo WHERE id=:id";
+            $queryAuth = "UPDATE usuarios SET ativo=:ativo, data_vencimento=:data_vencimento WHERE id=:id";
             $stm = $this->pdo->prepare($queryComSenha);
             $stm2 = $this->pdo->prepare($querySemSenha);
             $stm3 = $this->pdo->prepare($queryAuth);
@@ -291,6 +291,7 @@ final class Crud
             $stm2->bindParam("id",$dados['id']);
 
             $stm3->bindParam("ativo",$isAtivo);
+            $stm3->bindParam("data_vencimento",$dados['data_vencimento']);
             $stm3->bindParam("id",$dados['id']);
 
             

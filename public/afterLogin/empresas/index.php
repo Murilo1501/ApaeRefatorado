@@ -318,7 +318,7 @@ $read = new ReadData("noticia");
     </script>
 </body>
 
-<!-- Carrocel -->
+<!-- Carrossel -->
 
 <script>
     const wrapper = document.querySelector(".wrapper");

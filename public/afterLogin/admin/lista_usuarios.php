@@ -230,7 +230,11 @@ $read = new ReadData('all');
                                                     <input class='form-check-input' type='radio' name='ativar' id='inativo' value='0'>
                                                     <label class='form-check-label' for='inativo'>Inativar</label>
                                                 </div>
-                                                <br>
+                                                <br><br>
+                                                <div class='form-check'>
+                                                    <label for='data_vencimento' class='form-label'>Data de vencimento</label>
+                                                    <input class='form-control' type='text' placeholder='dd/mm/aaaa' data-slots='dma' autocomplete='off' id='data_vencimento' name='data_vencimento' required>
+                                                </div>
                                                 <br>
                                                 <input type='hidden' name='id' value=" . $dados['id'] . ">
                                                 <p>ID: " . $dados['id'] . "</p>
@@ -385,6 +389,8 @@ $read = new ReadData('all');
             });
         });
     </script>
+
+    <script src="../../shared/masks.js"></script>
 </body>
 
 </html>
