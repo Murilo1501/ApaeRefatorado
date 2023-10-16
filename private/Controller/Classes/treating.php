@@ -9,21 +9,31 @@ class Treating {
         if (isset($inputs['g-recaptcha-response'])) {
             unset($inputs['g-recaptcha-response']);
         }
-        
-        foreach($inputs as $fieldName=>$valuePassed) { //Itera pelos inputs e retorna o nome do campo de input e seu valor
-            $inputs[$fieldName] = $this->filter($valuePassed,$fieldName); //Filtra o input e subsititui na tabela
-        }
 
+        //var_dump($inputs);
+        //die();
+
+                foreach($inputs as $fieldName=>$valuePassed) { //Itera pelos inputs e retorna o nome do campo de input e seu valor
+                $inputs[$fieldName] = $this->filter($valuePassed,$fieldName); //Filtra o input e subsititui na tabela
+            }
+ 
+
+            if ($this->verifyInputs($inputs)) {
+                if(isset($inputs['Senha'],$inputs['ConfirmarSenha']) && ($inputs['Senha']==$inputs['ConfirmarSenha']) ){
+                    $inputs['nivel']=$typeOfUser;
+                    unset($inputs['ConfirmarSenha']);
+                } else{
+                    $inputs['nivel']=$typeOfUser;
+                }
+                
+
+               // var_dump($inputs);
+                return $inputs;
+            }
+            return [];
+
+        
        
-        
-        if ($this->verifyInputs($inputs)) {
-            $inputs['nivel']=$typeOfUser;
-            unset($inputs['ConfirmarSenha']);
-
-            
-            return $inputs;
-        }
-        return [];
     }
 
     //Verifica se todos os digitos do cpf são o mesmo
@@ -146,7 +156,7 @@ class Treating {
     }
 
     public function formatDate(string $date,string $formatPattern) {
-        return date($formatPattern,strtotime($date)); //Y-m-d ou d-m-Y
+        return  date($formatPattern,strtotime($date)); //Y-m-d ou d-m-Y
     }
 
 }

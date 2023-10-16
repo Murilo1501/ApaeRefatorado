@@ -233,7 +233,7 @@ $read = new ReadData('all');
                                                 <br><br>
                                                 <div class='form-check'>
                                                     <label for='data_vencimento' class='form-label'>Data de vencimento</label>
-                                                    <input class='form-control' type='text' placeholder='dd/mm/aaaa' data-slots='dma' autocomplete='off' id='data_vencimento' name='data_vencimento' required>
+                                                    <input class='form-control' type='text' placeholder='dd/mm/aaaa' data-slots='dmyha' autocomplete='off' id='data_vencimento' name='data_vencimento' required>
                                                 </div>
                                                 <br>
                                                 <input type='hidden' name='id' value=" . $dados['id'] . ">
