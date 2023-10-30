@@ -1,10 +1,15 @@
 <?php
+//namespace App\Model;
+
 date_default_timezone_set('America/Sao_Paulo');
 require_once __DIR__.'/../../lib/vendor/autoload.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use PDO;
+Use PDOException;
 
 final class Crud
 {

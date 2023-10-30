@@ -1,9 +1,11 @@
 <?php
-    session_start();
+    /*session_start();
     if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
         header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
+
+    */
 ?>
 
 <?php

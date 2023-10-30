@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -28,7 +28,7 @@
                 <h2 class="title title-primary">Faça seu cadastro!</h2>
                 <p class="description description-primary">Ainda não é um contribuinte </p>
                 <p class="description description-primary">faça seu cadastro </p>
-                <a href="cadastro.php"><button id="signin" class="btn btn-primary">Clique Aqui</button></a>
+                <a href="/Novo_APAE/public/formulario"><button id="signin" class="btn btn-primary">Clique Aqui</button></a>
             </div>
         </div>
 
@@ -39,8 +39,6 @@
 
             <div class="Titulo_2">
                 <h2>Login</h2>
-                <p> Ainda não é um membro? </p>
-                <p><a href="../beforeLogin/cadastro.php">Cadastre-se </a> </p>
             </div>
             <?php
             if (isset($_GET["f"]) && $_GET["f"] == 1) {
@@ -68,7 +66,7 @@
                 </div>";
             }
             ?>
-            <form action="../routes/routes.php?isLogin=1&user=comum" method="post">
+            <form action="/Novo_APAE/public/login" method="post">
                 <div class="inputBox on">
                     <input type="email" class="sim" id="email" name="EmailLogin" required>
                     <span>Email</span>
@@ -84,6 +82,7 @@
                 <div class="input-group">
                     <button class="fourth2">Logar</button>
                 </div>
+
             </form>
 
             <div class="forgetPass">

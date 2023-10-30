@@ -1,18 +1,17 @@
 <?php
-    session_start();
+   /* session_start();
     if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
         header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
+
+    */
+
+   
+  var_dump($eventList);
 ?>
 
-<?php
 
-require_once '../../../private/Controller/readData.php';
-require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("noticia");
-
-?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,8 +31,8 @@ $read = new ReadData("noticia");
         crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="../../css/comum.css">
-    <link rel="stylesheet" href="../../css/EmpresasParceiras.css">
+    <link rel="stylesheet" href="css/comum.css">
+    <link rel="stylesheet" href="css/EmpresasParceiras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <title>Apae Guarulhos</title>
@@ -62,7 +61,7 @@ $read = new ReadData("noticia");
 
 <body>
 
-    <?php require_once '../../shared/sidebarComum.php';?>
+    <?php //require_once '../../shared/sidebarComum.php';?>
 
     <!-- Banner -->
     <div class="container_text" style="background-color: #fffffe;">
@@ -205,8 +204,9 @@ $read = new ReadData("noticia");
                 </div>
                 <div class="row g-4 mt-1 mb-1 scroll_3">
                     <?php
-                        foreach ($read->arrayData as $dados) {
-                            if($dados['tipo'] == "eventos"){
+                        foreach ($eventList as $dados) {
+                           // echo $dados['nome'];
+                            if($dados['tipo'] == "evento"){
                                 echo " <div class='col-sm-6'>
                                 <div class='card'>
                                     <div class='card-body'>
@@ -284,7 +284,7 @@ $read = new ReadData("noticia");
 
 
     <!-- Footer -->
-    <?php require_once '../../shared/footer.html';?>
+    <?php //require_once '../../shared/footer.html';?>
 
 
     <!-- Scrollavel -->

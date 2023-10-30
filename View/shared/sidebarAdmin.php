@@ -1,9 +1,11 @@
 <!-- <?php
-    session_start();
+   /* session_start();
     if(!isset($_SESSION['email'])) {
         header('Location: /Novo_APAE/public/beforeLogin/login.php');
         exit();
     }
+
+    */
 ?> -->
 
 <nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: #2c9ada;">

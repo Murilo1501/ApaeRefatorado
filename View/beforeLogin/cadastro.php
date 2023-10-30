@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -34,14 +34,14 @@
                 <h2 class="title title-primary">Bem-vindo de volta!</h2>
                 <p class="description description-primary">Para manter-se conectado conosco</p>
                 <p class="description description-primary">faça o login com suas informações pessoais</p>
-                <a href="login.php"><button id="signin" class="btn btn-primary">Conectar-se</button></a>
+                <a href="/Novo_APAE/public/"><button id="signin" class="btn btn-primary">Conectar-se</button></a>
             </div>
 
 
         </div>
 
         <div class="controler">
-            <form action="../routes/routes.php?isCadastro=1&user=comum" method="post">
+            <form action="/Novo_APAE/public/user/register" method="post">
                 <div class="form-box">
 
                     <div class="img-box2">
@@ -51,7 +51,6 @@
 
                     <div style="padding-bottom: 15px;" class="Titulo_2">
                         <h2>Criar Conta</h2>
-                        <p> Já é um membro? <a href="login.php"> Faça o login </a> </p>
                     </div>
 
                     <?php
@@ -200,7 +199,7 @@
                         
 
 
-                        <input type="hidden" name="path" value="beforeLogin/cadastro.php">
+                        <input type="hidden" name="nivel" value="comum">
 
                         <div class="input-group">
                             <button class="fourth" type="submit" onclick="return //valida()">Cadastrar</button>
