@@ -3,7 +3,7 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: ../beforeLogin/login.php");
+header("Location:/Novo_APAE/public");
 exit();
 
 ?>

@@ -13,12 +13,19 @@ class EventNoticeController{
     public function index()
     {
         $eventList = $this->event->read();
+        require_once '../View/afterLogin/comum/noticias.php';
+    }
+
+    public function show()
+    {
+        
+        $eventList = $this->event->read();
         require_once '../View/afterLogin/comum/index.php';
     }
 
     public function create()
     {
-
+        
     }
 
     public function store()

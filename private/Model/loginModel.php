@@ -8,8 +8,8 @@ class Login{
 
     public function login($data)
     {
-       $userLevel =  logar($data);
+       $user =  logar($data);
 
-       return $userLevel ? $userLevel:false;
+       return $user ? $user:false;
     }
 }

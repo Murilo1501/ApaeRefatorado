@@ -1,18 +1,18 @@
 <!-- <?php
-   /* session_start();
+    session_start();
     if(!isset($_SESSION['email'])) {
-        header('Location: /Novo_APAE/public/beforeLogin/login.php');
+        header('Location: /Novo_APAE/public/');
         exit();
     }
 
-    */
+    
 ?> -->
 
 <nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: #2c9ada;">
     <div class="container-fluid">
 
         <a class="navbar-brand" href="#">
-            <img src="../../images/logoNA.png" style="width: 120px; height:60px; margin-top: 5px; margin-left: 5px">
+            <img src="images/logoNA.png" style="width: 120px; height:60px; margin-top: 5px; margin-left: 5px">
         </a>
 
         <button class="btn btn-lg" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
@@ -51,7 +51,7 @@
     <div class="offcanvas-body">
         <ul class="nav-links list-unstyled">
             <li>
-                <a href="../admin/index.php">
+                <a href="/Novo_APAE/public/admin">
                     <i class="bi bi-pie-chart"></i>
                     <span class="title">Dashboard</span>
                 </a>
@@ -68,19 +68,19 @@
             <div class="collapse multi-collapse" id="cadastros">
                 <div class="card card-body">
                     <li class="">
-                        <a href="../admin/cadastro_admin.php">
+                        <a href="/Novo_APAE/public/admin/Adminregister">
                             <i class="bi bi-gear"></i>
                             <span class="title">Administradores</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../admin/cadastro_empresa.php">
+                        <a href="/Novo_APAE/public/admin/Partnesregister">
                             <i class="bi bi-building"></i>
                             <span class="title">Empresas Parceiras</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../admin/cadastro_event_not.php">
+                        <a href="/Novo_APAE/public/admin/EventsNoticesregister">
                             <i class='bx bx-news'></i>
                             <span class="title">Eventos & Notícias</span>
                         </a>
@@ -106,7 +106,7 @@
             <div class="collapse multi-collapse" id="listas">
                 <div class="card card-body">
                     <li>
-                        <a href="../admin/lista_usuarios.php">
+                        <a href="/Novo_APAE/public/admin/usersList">
                             <i class="bi bi-people"></i>
                             <span class="title">Usuários</span>
                         </a>
@@ -125,15 +125,15 @@
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle dropup"
                 id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../../images/user.png" alt="" width="32" height="32" class="me-2">
-                <strong><?=$_SESSION['email']?></strong>
+                <img src="images/user.png" alt="" width="32" height="32" class="me-2">
+                <strong><?=$_SESSION['email']['email']?></strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
                 <li><a class="dropdown-item" href="../admin/carteira.php">Carteira</a></li>
                 <li><a class="dropdown-item" href="../admin/meus_dados.php">Meus Dados</a></li>
                 <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item text-danger" href="../../routes/logout.php">Sair</a></li>
+                <li><a class="dropdown-item text-danger" href="routes/logout.php">Sair</a></li>
             </ul>
         </div>
 

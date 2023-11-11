@@ -130,9 +130,6 @@ function read(string $type){
         case "comum":
             $stm = $queries['comum']['select'];
             $resultStm = $pdo->conn->prepare($stm);
-            $resultStm->bindValue(1,"produto");
-            $resultStm->bindValue(2,"desc produto");
-            $resultStm->bindValue(3,"200");
             $resultStm->execute();
         break;
 
@@ -231,7 +228,7 @@ function delete(string $type){
     }
 }
 
-function logar($data):bool|string{
+function logar($data):bool|array{
     global $pdo,$queries;
 
     $stm = $queries['login'];
@@ -245,7 +242,7 @@ function logar($data):bool|string{
         //var_dump($user);
 
         if($data['SenhaLogin'] == $user['senha']){
-            return $user['nivel'];
+            return $user;
         }
         
     } 
@@ -253,6 +250,73 @@ function logar($data):bool|string{
     return false;
     
 
+}
+
+
+function countData():array
+{
+    global $pdo,$queries;
+
+    $stm1 = $queries['comum']['count'];
+    $stm2 = $queries['admin']['count'];
+    $stm3 = $queries['empresas']['count'];
+
+    $stm4 = $queries['ativo'];
+    $stm5 = $queries['inativo'];
+
+    $stm6 = $queries['eventos']['count'];
+    $stm7 = $queries['noticias']['count'];
+
+    $countComum = $pdo->conn->prepare($stm1);
+    $countEmpresas = $pdo->conn->prepare($stm2);
+    $countAdmin = $pdo->conn->prepare($stm3);
+
+    $countAtivos = $pdo->conn->prepare($stm4);
+    $countInativos = $pdo->conn->prepare($stm5);
+
+    // $countProdutos = $this->pdo->prepare($queryCountProdutos);
+    $countNoticias = $pdo->conn->prepare($stm6);
+    $countEventos = $pdo->conn->prepare($stm7);
+
+       //Execução das queries
+       $countComum->execute();
+       $countEmpresas->execute();
+       $countAdmin->execute();
+
+       $countAtivos->execute();
+       $countInativos->execute();
+
+       // $countProdutos->execute();
+       $countNoticias->execute();
+       $countEventos->execute();
+
+       //Retorno das queries
+       $retornoComum = $countComum->fetchColumn();
+       $retornoEmpresa = $countEmpresas->fetchColumn();
+       $retornoAdmin = $countAdmin->fetchColumn();
+
+       $retornoAtivos = $countAtivos->fetchColumn();
+       $retornoInativos = $countInativos->fetchColumn();
+
+       // $retornoProdutos = $countProdutos->fetchColumn();
+       $retornoNoticias = $countNoticias->fetchColumn();
+       $retornoEventos = $countEventos->fetchColumn();
+
+       //Array associativa com os retornos
+       $retornos = [
+           "comum" => $retornoComum,
+           "empresas" => $retornoEmpresa,
+           "admin" => $retornoAdmin,
+
+           "ativos" => $retornoAtivos,
+           "inativos" => $retornoInativos,
+
+           // "produtos" => $retornoProdutos,
+           "noticias" => $retornoNoticias,
+           "eventos" => $retornoEventos,
+       ];
+       
+       return $retornos;
 }
 
 

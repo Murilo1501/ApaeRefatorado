@@ -1,18 +1,14 @@
 <?php
-session_start();
-if (!isset($_SESSION['email']) || $_SESSION['type'] != "admin") {
+//session_start();
+/*if (!isset($_SESSION['email']) || $_SESSION['type'] != "admin") {
     header('Location: /Novo_APAE/public/routes/logout.php');
     exit();
 }
+
+*/
 ?>
 
-<?php
 
-require_once '../../../private/Controller/readData.php';
-
-$read = new ReadData('all');
-
-?>
 
 
 <!DOCTYPE html>
@@ -35,8 +31,8 @@ $read = new ReadData('all');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="../../css/admin.css">
-    <link rel="stylesheet" href="../../css/carteiras.css">
+    <link rel="stylesheet" href="public/css/admin.css">
+    <link rel="stylesheet" href="public/css/carteiras.css">
 
     <title>Apae Guarulhos</title>
 
@@ -46,7 +42,7 @@ $read = new ReadData('all');
 
 
 <body>
-    <?php require_once '../../shared/sidebarAdmin.php'; ?>
+    <?php require_once '../View/components/sidebarAdmin.php'; ?>
 
 
     <div style="background-color: #f9f9f9;">
@@ -353,7 +349,7 @@ $read = new ReadData('all');
     </div> -->
 
     <!-- Footer -->
-    <?php require_once '../../shared/footer.html'; ?>
+    <?php require_once '../view/components/footer.html'; ?>
 
     <!-- Scrollavel -->
     <script>

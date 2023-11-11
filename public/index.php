@@ -1,9 +1,10 @@
 <?php
 //controllers
 require_once __DIR__.'/../private/Controller/controller.php';
-require_once __DIR__.'/../private/Controller/userController.php';
+require_once __DIR__.'/../private/Controller/ComonController.php';
 require_once __DIR__.'/../private/Controller/loginController.php';
 require_once __DIR__.'/../private/Controller/eventNoticeController.php';
+require_once __DIR__.'/../private/Controller/adminController.php';
 
 //database
 require_once __DIR__.'/../private/config/database/conn.php';
@@ -11,10 +12,11 @@ require_once __DIR__.'/../private/config/database/queriesSql.php';
 
 //models
 require_once __DIR__.'/../private/Model/CrudModel.php';
-require_once __DIR__.'/../private/Model/userModel.php';
+require_once __DIR__.'/../private/Model/ComonModel.php';
 require_once __DIR__.'/../private/Model/queriesModel.php';
 require_once __DIR__.'/../private/Model/loginModel.php';
 require_once __DIR__.'/../private/Model/eventsModel.php';
+require_once __DIR__.'/../private/Model/AdminModel.php';
 
 $routes = require __DIR__.'/routes/routes2.php';
 

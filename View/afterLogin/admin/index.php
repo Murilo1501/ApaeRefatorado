@@ -1,19 +1,5 @@
 <?php
-    /*session_start();
-    if(!isset($_SESSION['email']) || $_SESSION['type']!="admin") {
-        header('Location: /Novo_APAE/public/routes/logout.php');
-        exit();
-    }
-
-    */
-?>
-
-<?php
-
-require_once '../../../private/Controller/readData.php';
-$read = new ReadData("count");
-$dados = $read->arrayData;
-
+  
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +22,7 @@ $dados = $read->arrayData;
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="css/admin.css">
 
     <title>Apae Guarulhos</title>
     <style>
@@ -47,7 +33,7 @@ $dados = $read->arrayData;
 </head>
 
 <body>
-    <?php require_once '../../shared/sidebarAdmin.php';?>
+    <?php require_once 'View/components/sidebarAdmin.php';?>
 
 
     <div style="background-color: #f9f9f9;">
@@ -73,7 +59,7 @@ $dados = $read->arrayData;
                                     ],
                                     datasets: [{
                                         label: '',
-                                        data: [<?=$dados['ativos']?>, <?=$dados['inativos']?>,],
+                                        data: [<?=$data['ativos']?>, <?=$data['inativos']?>,],
                                         backgroundColor: [
                                             'rgb(77, 224, 61)',
                                             'rgb(224, 61, 61)',
@@ -112,7 +98,7 @@ $dados = $read->arrayData;
                                     ],
                                     datasets: [{
                                         label: '',
-                                        data: [<?=$dados['admin']?>, <?=$dados['empresas']?>, <?=$dados['comum']?>],
+                                        data: [<?=$data['admin']?>, <?=$data['empresas']?>, <?=$data['comum']?>],
                                         backgroundColor: [
                                             'rgb(224, 61, 61)',
                                             'rgb(224, 197, 61)',
@@ -150,7 +136,7 @@ $dados = $read->arrayData;
                                 labels: ['Eventos', 'Notícias'],
                                 datasets: [{
                                     label: '',
-                                    data: [<?=$dados['eventos']?>, <?=$dados['noticias']?>, /*<?=$dados['produtos']?>*/],
+                                    data: [<?=$data['eventos']?>, <?=$data['noticias']?>, /*<?=$data['produtos']?>*/],
                                     barThickness: 65,
                                     backgroundColor: [
                                         'rgb(61, 170, 224)',
@@ -177,7 +163,7 @@ $dados = $read->arrayData;
         </div>
 
         <!-- Footer -->
-        <?php require_once '../../shared/footer.html';?>
+        <?php require_once 'View/components/footer.html';?>
 
         <!-- Scrollavel -->
         <script>

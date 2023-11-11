@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
         <a class="navbar-brand" href="#">
-            <img src="../../images/logoNA.png" style="width: 120px; height:60px; margin-top: 5px; margin-left: 5px">
+            <img src="images/logoNA.png" style="width: 120px; height:60px; margin-top: 5px; margin-left: 5px">
         </a>
 
         <button class="btn btn-lg" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
@@ -42,7 +42,7 @@
     <div class="offcanvas-body">
         <ul class="nav-links list-unstyled">
             <li>
-                <a href="../comum/">
+                <a href="/Novo_APAE/public/comum">
                     <i class="bx bx-home-alt-2"></i>
                     <span class="title">Menu</span>
                 </a>
@@ -54,19 +54,19 @@
                 </a>
             </li> -->
             <li>
-                <a href="../comum/noticias.php">
+                <a href="/Novo_APAE/public/comum/notices">
                     <i class='bx bx-news'></i>
                     <span class="title">Eventos & Notícias</span>
                 </a>
             </li>
             <li>
-                <a href="../comum/tela_doacao.php">
+                <a href="/Novo_APAE/public/comum/contribuition">
                     <i class='bx bx-donate-heart'></i>
                     <span class="title">Doação</span>
                 </a>
             </li>
             <li>
-                <a href="../comum/empresas_parceiras.php">
+                <a href="/Novo_APAE/public/comum/partnerCompanies">
                     <i class="bi bi-building"></i>
                     <span class="title">Empresas Parceiras</span>
                 </a>
@@ -75,14 +75,14 @@
         <div class="position-absolute bottom-0 mb-3 dropup-center dropup">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle dropup"
                 id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../../images/user.png" alt="" width="32" height="32" class="me-2"><?=$_SESSION['email']?>
+                <img src="images/user.png" alt="" width="32" height="32" class="me-2"><?=$_SESSION['email']['email']?>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" href="../comum/carteira.php">Carteira</a></li>
-                <li><a class="dropdown-item" href="../comum/meus_dados.php">Meus Dados</a></li>
+                <li><a class="dropdown-item" href="/Novo_APAE/public/comum/card">Carteira</a></li>
+                <li><a class="dropdown-item" href="/Novo_APAE/public/comum/profile">Meus Dados</a></li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item text-danger" href="../../routes/logout.php">Sair</a></li>
+                <li><a class="dropdown-item text-danger" href="routes/logout.php">Sair</a></li>
             </ul>
         </div>
     </div>

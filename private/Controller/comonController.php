@@ -1,21 +1,21 @@
 <?php
 namespace App\Controller;
-use App\Model\User;
+use App\Model\UserComon;
 
 
 
-class UserController implements Controller{
+class ComonController implements Controller{
 
     private $user;
 
     function __construct()
     {
-        $this->user = new user();
+        $this->user = new UserComon();
     }
   
     public function index()
     {
-        
+       
     }
 
     public function create()
@@ -28,17 +28,15 @@ class UserController implements Controller{
         $data = $_POST;
         $insert = $this->user->modelInsert($data);
         if($insert){
-            header("Location:/Novo_APAE/public/formulario");
+            header("Location:/Novo_APAE/public/");
         }
 
     }
 
     public function show()
     {
-        $levelUser = $_GET['nivel'];
-        echo $levelUser;
-
-        header("Location:".$levelUser."");
+    
+        header("Location:comum");
     }
 
     public function edit()

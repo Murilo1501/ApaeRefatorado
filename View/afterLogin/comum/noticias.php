@@ -1,16 +1,11 @@
 <?php
     session_start();
-    if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
+    if(!isset($_SESSION['email'])) {
         header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
 ?>
-<?php
 
-require_once '../../../private/Controller/readData.php';
-require_once '../../../private/Controller/Classes/controlCrud.php';
-$read = new ReadData("noticia");
-?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,14 +27,15 @@ $read = new ReadData("noticia");
 
 
     <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="css/comum.css">
+    <link rel="stylesheet" href="css/EmpresasParceiras.css">
 
     <title>Apae Guarulhos</title>
 
 </head>
 
 <body>
-<?php require_once '../../shared/sidebarComum.php';?>
+<?php require_once '../View/components/sidebarComum.php'?>
 
 
  <!-- Últimas Notícias -->
@@ -62,7 +58,7 @@ $read = new ReadData("noticia");
             </div>
             <div class="row g-4 mt-1 mb-1 scroll_noticias_eventos_2">
                 <?php
-                    foreach($read->arrayData as $dados){
+                    foreach($eventList as $dados){
                         if($dados['tipo'] == "eventos"){
                             echo " <div class='col-sm-6'>
                             <div class='card'>
@@ -145,7 +141,7 @@ $read = new ReadData("noticia");
     </div>
 
     <!-- Footer -->
-    <?php require_once '../../shared/footer.html';?>
+    <?php require_once '../View/components/footer.html';?>
 
     <!-- Scrollavel -->
     <script>

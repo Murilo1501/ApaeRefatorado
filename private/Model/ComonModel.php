@@ -4,7 +4,7 @@ use App\Model\Crud;
 require_once 'CrudModel.php';
 require_once 'queriesModel.php';
 
-class User implements Crud{
+class UserComon implements Crud{
  
    
 
@@ -35,7 +35,7 @@ class User implements Crud{
 
 }
 
-//$user  = new User();
+
 
 
 

@@ -1,14 +1,11 @@
 <?php
-   /* session_start();
-    if(!isset($_SESSION['email']) || $_SESSION['type']!="comum") {
+    session_start();
+    if(!isset($_SESSION['email'])) {
         header('Location: /Novo_APAE/public/routes/logout.php');
         exit();
     }
 
-    */
-
-   
-  var_dump($eventList);
+    
 ?>
 
 
@@ -61,7 +58,7 @@
 
 <body>
 
-    <?php //require_once '../../shared/sidebarComum.php';?>
+    <?php require_once '../View/components/sidebarComum.php' ?>
 
     <!-- Banner -->
     <div class="container_text" style="background-color: #fffffe;">
@@ -79,7 +76,7 @@
             </div>
         </div>
         <div>
-            <img src="../../images/imagemIndex-modified.png" style="width: 90% ;border-radius: 15px" class="float-end img-fluid scroll_1">
+            <img src="images/imagemIndex-modified.png" style="width: 90% ;border-radius: 15px" class="float-end img-fluid scroll_1">
         </div>
     </div>
 
@@ -96,7 +93,7 @@
             </div>
         </div>
         <div>
-            <img src="../../images/donate.png" class="img-fluid scroll_1">
+            <img src="images/donate.png" class="img-fluid scroll_1">
         </div>
     </div>
 
@@ -106,7 +103,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-4 scroll_1">
                 <div class="col pe-2 ps-2">
                     <div class="card h-100 card-shadow" style="border: none;">
-                        <img src="../../images/telescope.png" class="card-img-top mx-auto d-block w-25 mt-3">
+                        <img src="images/telescope.png" class="card-img-top mx-auto d-block w-25 mt-3">
                         <div class="card-body">
                             <h3 class="card-title text-center">Missão</h3>
                             <p class="card-text text-center">Ser referência em atendimento na cidade, buscando a
@@ -116,7 +113,7 @@
                 </div>
                 <div class="col pe-2 ps-2">
                     <div class="card h-100 card-shadow" style="border: none;">
-                        <img src="../../images/target.png" class="card-img-top mx-auto d-block w-25 mt-3" alt="...">
+                        <img src="images/target.png" class="card-img-top mx-auto d-block w-25 mt-3" alt="...">
                         <div class="card-body">
                             <h3 class="card-title text-center">Visão</h3>
                             <p class="card-text text-center">Promover e articular ações de defesa de direitos e
@@ -129,7 +126,7 @@
                 </div>
                 <div class="col pe-2 ps-2">
                     <div class="card h-100 card-shadow" style="border: none;">
-                        <img src="../../images/receive.png" class="card-img-top mx-auto d-block w-25 mt-3" alt="...">
+                        <img src="images/receive.png" class="card-img-top mx-auto d-block w-25 mt-3" alt="...">
                         <div class="card-body">
                             <h3 class="card-title text-center">Valores</h3>
                             <p class="card-text text-center">Busca Constante da Excelência nos Serviços;
@@ -158,32 +155,32 @@
                 <i id="left" class="fa-solid fa-angle-left"></i>
                 <ul class="carousel">
                     <li class="card">
-                        <div class="img"><img src="../../images/AlumiSA.jpg" alt="img" draggable="false"></div>
+                        <div class="img"><img src="images/AlumiSA.jpg" alt="img" draggable="false"></div>
                         <h2>Alumi S&A Kit Box e Ferragens</h2>
                         <span>Empresa Mais Amiga, desde 2021.</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="../../images/GTNAutoPecas.jpg" alt="img" draggable="false"></div>
+                        <div class="img"><img src="images/GTNAutoPecas.jpg" alt="img" draggable="false"></div>
                         <h2>GTN Auto Peças</h2>
                         <span>Parceiro nos eventos da APAE Guarulhos.</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="../../images/Damapel.jpg" alt="img" draggable="false"></div>
+                        <div class="img"><img src="images/Damapel.jpg" alt="img" draggable="false"></div>
                         <h2>Damapel</h2>
                         <span>Fornecedor de PHs.</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="../../images/Tambor-Line.jpg" alt="img" draggable="false"></div>
+                        <div class="img"><img src="images/Tambor-Line.jpg" alt="img" draggable="false"></div>
                         <h2>Tambor-Line</h2>
                         <span>Empresa Mais Amiga, desde 2021.</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="../../images/WMB.jpg" alt="img" draggable="false"></div>
+                        <div class="img"><img src="images/WMB.jpg" alt="img" draggable="false"></div>
                         <h2>Grupo WMB</h2>
                         <span> Sócio Contribuinte APAE Guarulhos, desde 2018.</span>
                     </li>
                     <li class="card">
-                        <div class="img"><img src="../../images/NRMonitoramentos.jpg" img" draggable="false"></div>
+                        <div class="img"><img src="images/NRMonitoramentos.jpg" img" draggable="false"></div>
                         <h2>NR Monitoramentos</h2>
                         <span>Sócio Contribuinte APAE Guarulhos, desde 2018.</span>
                     </li>

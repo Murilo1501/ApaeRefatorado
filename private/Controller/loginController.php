@@ -21,10 +21,12 @@ class LoginController{
         $data = $_POST;
 
 
-        $login = $this->crud->login($data);
-        echo $login;
-        if($login){
-            header("Location:?nivel=".$login."");
+        $user = $this->crud->login($data);
+        //echo $login;
+        if($user){
+            session_start();
+            $_SESSION['email'] = $user;
+            header("Location:?nivel=".$user['nivel']."");
         }
     }
 }
