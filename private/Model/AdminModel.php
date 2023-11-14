@@ -2,6 +2,7 @@
 
 namespace App\Model;
 use App\Model\Crud;
+use App\Model\CrudQueries;
 require_once 'CrudModel.php';
 require_once 'queriesModel.php';
 
@@ -23,7 +24,7 @@ class UserAdmin implements Crud{
 
     public function modelRead():array
     {
-        $count = countData();
+        $count = CrudQueries::countData();
         return $count;
     }
 

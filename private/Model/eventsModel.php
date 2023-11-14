@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use App\Model\CrudQueries;
 require_once 'queriesModel.php';
 
 class Event {
@@ -13,7 +14,7 @@ class Event {
 
     public function read()
     {
-       $eventlist = read('noticias');
+       $eventlist = CrudQueries::read('noticias');
        //var_dump($eventNot);
        return $eventlist;
     }
