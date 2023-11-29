@@ -23,6 +23,7 @@ Route::get('/Novo_APAE/public/usersList',AdminController::class,'index',AdminMod
 Route::get('/Novo_APAE/public/comum',EventNoticeController::class,'show',EventModel::class);
 Route::get('/Novo_APAE/public/comum/notices',EventNoticeController::class,'index',EventModel::class);
 Route::get('/Novo_APAE/public/comum/profile',ComonController::class,'index',ComonModel::class);
+Route::get('/Novo_APAE/public/comum/card',ComonController::class,'show',ComonModel::class);
 
 
 
