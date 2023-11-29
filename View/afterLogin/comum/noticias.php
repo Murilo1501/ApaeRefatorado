@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['email'])) {
-        header('Location: /Novo_APAE/public/routes/logout.php');
+        header('Location: ../routes/logout.php');
         exit();
     }
 ?>
@@ -35,7 +35,7 @@
 </head>
 
 <body>
-<?php require_once '../View/components/sidebarComum.php'?>
+<?php require_once 'View/components/sidebarComum.php'?>
 
 
  <!-- Últimas Notícias -->

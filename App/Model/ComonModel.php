@@ -5,7 +5,7 @@ use App\Model\CrudQueries;
 require_once 'CrudModel.php';
 require_once 'queriesModel.php';
 
-class UserComon implements Crud{
+class ComonModel implements Crud{
  
    
 

@@ -58,7 +58,7 @@
 
 <body>
 
-    <?php require_once '../View/components/sidebarComum.php' ?>
+    <?php require_once 'View/components/sidebarComum.php' ?>
 
     <!-- Banner -->
     <div class="container_text" style="background-color: #fffffe;">

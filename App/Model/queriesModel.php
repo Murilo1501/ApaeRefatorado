@@ -1,7 +1,9 @@
 <?php
-
 namespace App\Model;
-use App\Conn\ConnectDb;
+require_once __DIR__.'/../config/database/conn.php';
+require_once __DIR__.'/../config/database/queriesSql.php';
+
+use App\Connect\ConnectDb;
 use PDO;
 
 $pdo = new ConnectDb();

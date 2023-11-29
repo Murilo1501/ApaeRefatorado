@@ -6,7 +6,7 @@ use App\Model\CrudQueries;
 require_once 'CrudModel.php';
 require_once 'queriesModel.php';
 
-class UserAdmin implements Crud{
+class AdminModel implements Crud{
  
     public function modelInsert($data){
 

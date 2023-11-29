@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-use App\Model\UserAdmin;
+use App\Model\AdminModel;
 
 class AdminController implements Controller{
 
@@ -9,7 +9,7 @@ class AdminController implements Controller{
 
     function __construct()
     {
-        $this->userAdmin = new UserAdmin();
+        $this->userAdmin = new AdminModel;
     }
     public function index()
     {

@@ -4,7 +4,7 @@ namespace App\Model;
 use App\Model\CrudQueries;
 require_once 'queriesModel.php';
 
-class Event {
+class EventModel {
 
   
     public function insert()

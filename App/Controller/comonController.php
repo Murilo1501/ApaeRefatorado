@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
-use App\Model\UserComon;
+use App\Controller\Controller;
+use App\Model\ComonModel;
+
+require_once 'controller.php';
 
 
 
@@ -10,7 +13,7 @@ class ComonController implements Controller{
 
     function __construct()
     {
-        $this->user = new UserComon();
+        $this->user = new ComonModel();
     }
   
     public function index()

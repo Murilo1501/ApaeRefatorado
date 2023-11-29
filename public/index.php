@@ -1,48 +1,53 @@
 <?php
-//controllers
-require_once __DIR__.'/../private/Controller/controller.php';
-require_once __DIR__.'/../private/Controller/ComonController.php';
-require_once __DIR__.'/../private/Controller/loginController.php';
-require_once __DIR__.'/../private/Controller/eventNoticeController.php';
-require_once __DIR__.'/../private/Controller/adminController.php';
+namespace App\Route;
 
-//database
-require_once __DIR__.'/../private/config/database/conn.php';
-require_once __DIR__.'/../private/config/database/queriesSql.php';
 
-//models
-require_once __DIR__.'/../private/Model/CrudModel.php';
-require_once __DIR__.'/../private/Model/ComonModel.php';
-require_once __DIR__.'/../private/Model/queriesModel.php';
-require_once __DIR__.'/../private/Model/loginModel.php';
-require_once __DIR__.'/../private/Model/eventsModel.php';
-require_once __DIR__.'/../private/Model/AdminModel.php';
+class Route{
 
-$routes = require __DIR__.'/routes/routes2.php';
+    private static $route ;
 
-// Função para rotear a solicitação
-function routeRequest($routes) {
-    $pathInfo = $_SERVER['REQUEST_URI'];
-    $method = $_SERVER['REQUEST_METHOD'];
-    $key = "$method|$pathInfo";
+    public static function get(string $uri, $controller, string $method,$model){
 
-    if (array_key_exists($key, $routes)) {
-        list($controllerClass, $action) = $routes[$key];
+        $routeGet = [
+            'uri'=> $uri,
+            'controller'=>$controller,
+            'method'=>$method,
+            'model'=>$model
+        ];
 
-        if (class_exists($controllerClass)) {
-            $controller = new $controllerClass();
-            
-            if (method_exists($controller, $action)) {
-                $controller->$action();
-            } else {
-                http_response_code(404);
-            }
-        } else {
-            http_response_code(404);
-        }
-    } else {
-        http_response_code(404);
+        self::$route['GET'][$uri] = $routeGet;
+        
     }
-}
 
-routeRequest($routes);
+    public static function post($uri,$controller,$method,$model){
+
+        $routePost = [
+            'uri'=> $uri,
+            'controller'=>$controller,
+            'method'=>$method,
+            'model'=>$model
+        ];
+
+        self::$route['POST'][$uri] = $routePost;
+    }
+
+    public static function redirect(string $RequestUri, string $RequestMethod){
+        if(array_key_exists($RequestMethod,Self::$route) && array_key_exists($RequestUri,Self::$route[$RequestMethod])){
+            $controllerClass = self::$route[$RequestMethod][$RequestUri]['controller'];
+            $controllerMethod = self::$route[$RequestMethod][$RequestUri]['method'];
+            $modelClass = self::$route[$RequestMethod][$RequestUri]['model'];
+
+            $classModel = new $modelClass();
+            $classController = new $controllerClass($classModel);
+            $classController->$controllerMethod();
+
+            
+
+
+        } else{
+            echo '404 Page not found' ;
+        }
+    }
+
+
+}

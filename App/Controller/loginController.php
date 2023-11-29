@@ -1,19 +1,24 @@
 <?php
 
 namespace App\Controller;
-use App\Model\Login;
+use App\Model\LoginModel;
+use App\View\View;
 
 class LoginController{
     private $crud;
+    private $view;
 
     function __construct()
     {
-        $this->crud = new Login();
+        $this->crud = new LoginModel;
+        $this->view = new View();
     }
 
     public function show()
     {
-       require_once '../View/beforeLogin/login.php';
+        require_once '../../View/beforeLogin/login.php';
+        //$page = $this->view->view('admin','index');
+        //require_once $page;
     }
 
     public function logar()

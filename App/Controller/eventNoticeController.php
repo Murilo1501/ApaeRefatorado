@@ -1,26 +1,27 @@
 <?php
 namespace  App\Controller;
-use App\Model\Event;
+use App\Model\EventModel;
+use App\View\View;
 
 class EventNoticeController{
     private $event;
 
     function __construct()
     {
-        $this->event = new Event;
+        $this->event = new EventModel;
     }
 
     public function index()
     {
         $eventList = $this->event->read();
-        require_once '../View/afterLogin/comum/noticias.php';
+        require_once View::view('comum','noticias');
     }
 
     public function show()
     {
         
         $eventList = $this->event->read();
-        require_once '../View/afterLogin/comum/index.php';
+        require_once  View::view('comum','index');
     }
 
     public function create()
